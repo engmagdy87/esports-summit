@@ -49,7 +49,7 @@ import {
   reformatStringToBeInURL
 } from "../../helpers/StringsHelper";
 export default {
-  props: ["card"],
+  props: ["card", "sourceRoute"],
   methods: {
     redirectTo() {
       if (this.card.is_external) window.open(this.card.external_link, "_blank");
@@ -63,7 +63,7 @@ export default {
             data: {
               id: this.card.id,
               title: this.card.initial_title,
-              tree: [{ name: "Events", path: "/events" }]
+              tree: [...this.sourceRoute]
             }
           }
         });

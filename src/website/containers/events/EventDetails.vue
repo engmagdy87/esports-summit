@@ -276,7 +276,6 @@ export default {
       return [...this.giveawaysForEventList, ...this.offersForEventList];
     },
     formatSponsorsTypes() {
-      let data = [];
       let nextData = [];
       const sponsorsData = this.eventDetails.sponsors;
       const types = Object.keys(sponsorsData);

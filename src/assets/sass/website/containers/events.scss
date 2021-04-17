@@ -54,4 +54,19 @@
       }
     }
   }
+  &__content-history {
+    width: 100%;
+    height: max-content;
+    // padding: 0% 15% 10% 15%;
+    h2 {
+      margin: 20px 0;
+      color: white;
+      font-size: 2rem;
+    }
+    .row {
+      .col {
+        padding: 5px;
+      }
+    }
+  }
 }
