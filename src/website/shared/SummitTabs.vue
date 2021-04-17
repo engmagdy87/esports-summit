@@ -15,15 +15,12 @@
           aria-controls="nav-home"
           aria-selected="true"
           @click="selectClickAction(tab, index)"
-          v-if="
-            tab !== 'Tournaments' ||
-              (tab === 'Tournaments' && data.tournaments.length > 0)
-          "
           >{{ tab }}</a
         >
       </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
+      <!-- DETAILS TAB -->
       <div
         :class="['tab-pane fade', activeTabIndex === 0 ? 'show active' : '']"
         v-if="activeTabIndex === 0"
@@ -71,6 +68,7 @@
           </div>
         </div>
       </div>
+      <!-- MEDIA TAB -->
       <div
         v-if="activeTabIndex === 1"
         :class="['tab-pane fade', activeTabIndex === 1 ? 'show active' : '']"
@@ -88,40 +86,142 @@
           <img :src="image.path" :alt="image.path" />
         </div>
       </div>
+      <!-- GAMES AND TOURNAMENTS TAB -->
       <div
-        :class="[
-          'tab-pane fade summit-tab-wrapper__tournaments',
-          activeTabIndex === 2 ? 'show active' : ''
-        ]"
-        id="nav-contact"
+        v-if="activeTabIndex === 2"
+        :class="['tab-pane fade', activeTabIndex === 2 ? 'show active' : '']"
+        id="nav-profile"
         role="tabpanel"
-        aria-labelledby="nav-contact-tab"
-        v-if="activeTabIndex === 2 && data.tournaments.length > 0"
+        aria-labelledby="nav-profile-tab"
       >
-        <TournamentItem
-          v-for="(item, i) in data.tournaments"
-          :key="i"
-          :data="item"
-        ></TournamentItem>
+        <div class="battle-tab">
+          <h2 v-if="data.games.length > 0">Games</h2>
+          <div class="row">
+            <div
+              class="col-12 col-lg-4 p-0"
+              v-for="(card, index) in data.games"
+              :key="index"
+            >
+              <GameCard :card="card" />
+            </div>
+          </div>
+          <h2 v-if="data.tournaments.length > 0">Tournaments</h2>
+          <div class="row">
+            <div
+              class="col-12 col-lg-4 p-0"
+              v-for="(card, index) in data.tournaments"
+              :key="index"
+            >
+              <TournamentCard :card="card" :tree="tree" />
+            </div>
+          </div>
+          <h2
+            style="color:white; text-align: center;margin-top: 10%;"
+            v-if="data.games.length === 0 && data.tournaments.length === 0"
+          >
+            There are no battles now
+          </h2>
+        </div>
+      </div>
+      <!-- EVENTS TAB -->
+      <div
+        v-if="activeTabIndex === 3"
+        :class="['tab-pane fade', activeTabIndex === 3 ? 'show active' : '']"
+        id="nav-profile"
+        role="tabpanel"
+        aria-labelledby="nav-profile-tab"
+      >
+        <div
+          class="events-wrapper__content-history battle-tab"
+          v-if="mainEvents.length !== 0"
+          id="main-events"
+        >
+          <h2 v-if="mainEvents.length !== 0">Main Events</h2>
+          <VueSlickCarousel
+            v-if="mainEvents.length !== 0"
+            :arrows="true"
+            :slidesToShow="isThisDeviceSmart ? 1 : 4"
+            :slidesToScroll="1"
+            autoplay
+            infinite
+          >
+            <MainEventCard
+              v-for="(card, index) in mainEvents"
+              :key="index"
+              :card="card"
+              v-if="card.enabled"
+              :sourceRoute="tree"
+            />
+          </VueSlickCarousel>
+
+          <h2 v-if="subEvents.length !== 0">Sub Events</h2>
+          <EventsMenuView
+            v-if="subEvents.length !== 0"
+            route="events"
+            :data="subEvents"
+          />
+        </div>
+        <h2
+          style="color:white; text-align: center;margin-top: 10%;"
+          v-if="data.events.length === 0"
+        >
+          There are no events now
+        </h2>
+      </div>
+      <div
+        v-if="activeTabIndex === 4"
+        :class="['tab-pane fade', activeTabIndex === 4 ? 'show active' : '']"
+        id="nav-profile"
+        role="tabpanel"
+        aria-labelledby="nav-profile-tab"
+      >
+        Giveaways
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import TournamentItem from "../components/story/TournamentItem";
+// import TournamentItem from "../components/story/TournamentItem";
+import GameCard from "../shared/GameCard";
+import TournamentCard from "../shared/TournamentCard";
+import VueSlickCarousel from "vue-slick-carousel";
+import "vue-slick-carousel/dist/vue-slick-carousel.css";
+// optional style for arrows & dots
+import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 import redirectToNewTab from "../helpers/RedirectToNewTab";
+import MainEventCard from "../components/events/MainEventCard";
+import EventsMenuView from "../components/events/EventsMenuView";
 import isDeviceSmart from "../helpers/DetectIsDeviceSmart";
-import { changeTextDirection } from "../helpers/StringsHelper";
+// import { changeTextDirection } from "../helpers/StringsHelper";
 import { liveVideoEmbedFormatter } from "../../dashboard/helpers/LiveVideoEmbedFormater";
+import { truncateText } from "../helpers/StringsHelper";
+import event from "../../store/modules/event";
 
 export default {
   props: ["data", "setClickedImageInMedia"],
   data() {
     return {
       activeTabIndex: 0,
-      tabs: ["Details", "Media", "Tournaments"]
+      tabs: ["Details", "Media", "Battles", "Events", "Giveaways"],
+      tree: [
+        {
+          name: "Our Story",
+          path: "/story"
+        }
+      ]
     };
+  },
+  computed: {
+    isThisDeviceSmart() {
+      return isDeviceSmart();
+    },
+    mainEvents() {
+      return this.data.events.filter(event => event.type === "main");
+    },
+    subEvents() {
+      return this.data.events.filter(event => event.type !== "main");
+    }
   },
   methods: {
     setActiveTabIndex(index) {
@@ -162,21 +262,42 @@ export default {
         else if (element.clientHeight >= 5000 && element.clientHeight < 8200)
           element.style.clipPath = `polygon(0 0,98% 0,100% 0.3%,100% 99.5%,98% 99.7%,66% 99.7%,50% 101%,9% 101%,0 99.7%)`;
       }
+    },
+    trimText(text) {
+      return truncateText(text);
     }
   },
   mounted() {
     this.changeHexaStyleForTab();
+    this.tree.push({
+      name: this.trimText(this.data.final_title),
+      path: this.$router.history.current.path
+    });
   },
   updated() {
     this.changeHexaStyleForTab();
     redirectToNewTab("description-container");
   },
   components: {
-    TournamentItem
+    // TournamentItem
+    GameCard,
+    TournamentCard,
+    MainEventCard,
+    EventsMenuView,
+    VueSlickCarousel
   }
 };
 </script>
 
 <style lang="scss" scoped>
 @import "../../assets/sass/website/shared/summit-tabs.scss";
+@import "../../assets/sass/website/containers/events.scss";
+.battle-tab {
+  h2 {
+    color: #e7e7e7 !important;
+    font-size: 1.5rem !important;
+    font-weight: lighter !important;
+    margin-top: 10px !important;
+  }
+}
 </style>

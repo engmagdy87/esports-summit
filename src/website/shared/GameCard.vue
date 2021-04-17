@@ -33,7 +33,7 @@ import {
 } from "../helpers/StringsHelper";
 
 export default {
-  props: ["card", "isGamesActive"],
+  props: ["card", "isGamesActive", "tree"],
   methods: {
     redirectTo() {
       this.$router.push({
@@ -45,7 +45,7 @@ export default {
           data: {
             id: this.card.id,
             title: this.card.title,
-            tree: [{ name: "Home", path: "/" }]
+            tree: this.tree
           }
         }
       });

@@ -6,7 +6,16 @@
         v-for="(card, index) in data"
         :key="index"
       >
-        <SubEventCard :card="card" v-if="route === 'events'" />
+        <SubEventCard
+          :card="card"
+          v-if="route === 'events'"
+          :sourceRoute="[
+            {
+              name: 'Events',
+              path: '/events'
+            }
+          ]"
+        />
         <TournamentCard
           :card="card"
           :tree="tree"

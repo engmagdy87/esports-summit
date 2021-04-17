@@ -13,7 +13,7 @@
             <div class="col-12 main-event-card-wrapper__first-section">
               <div class="main-event-card-wrapper__content">
                 <span class="badge badge-pill badge-secondary"
-                  ><img src="website/img/group.svg" alt="group icon" />{{
+                  ><img src="@/assets/images/group.svg" alt="group icon" />{{
                     card.tournaments.count
                   }}
                   tournaments</span
@@ -61,7 +61,7 @@
 import { reformatStringToBeInURL } from "../../helpers/StringsHelper";
 
 export default {
-  props: ["card"],
+  props: ["card", "sourceRoute"],
   methods: {
     isImageAvailbale(logo) {
       return logo !== null;
@@ -78,7 +78,7 @@ export default {
             data: {
               id: this.card.id,
               title: this.card.initial_title,
-              tree: [{ name: "Events", path: "/events" }]
+              tree: [...this.sourceRoute]
             }
           }
         });

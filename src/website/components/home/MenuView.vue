@@ -6,7 +6,7 @@
         v-for="(card, index) in data"
         :key="index"
       >
-        <GameCard :card="card" />
+        <GameCard :card="card" :tree="tree" />
       </div>
     </div>
     <div class="row" v-if="!isGamesActive">

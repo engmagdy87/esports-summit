@@ -43,6 +43,7 @@
           :key="index"
           :card="card"
           v-if="card.enabled"
+          :sourceRoute="tree"
         />
       </VueSlickCarousel>
 
@@ -106,7 +107,8 @@ export default {
   data() {
     return {
       showLoginModal: false,
-      showRegisterModal: false
+      showRegisterModal: false,
+      tree: [{ name: "Events", path: "/events" }]
     };
   },
   computed: {
