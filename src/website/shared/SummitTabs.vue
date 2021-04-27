@@ -196,7 +196,6 @@ import isDeviceSmart from "../helpers/DetectIsDeviceSmart";
 // import { changeTextDirection } from "../helpers/StringsHelper";
 import { liveVideoEmbedFormatter } from "../../dashboard/helpers/LiveVideoEmbedFormater";
 import { truncateText } from "../helpers/StringsHelper";
-import event from "../../store/modules/event";
 
 export default {
   props: ["data", "setClickedImageInMedia"],
