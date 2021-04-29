@@ -19,7 +19,7 @@
           <div class="sub-event-card-wrapper__content">
             <h1>{{ trimText(card.initial_title) }}</h1>
             <span
-              ><img src="website/img/group.svg" alt="group icon" />{{
+              ><img src="/website/img/group.svg" alt="group icon" />{{
                 card.tournaments.count
               }}
               tournaments</span

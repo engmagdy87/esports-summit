@@ -1,5 +1,11 @@
 <template>
-  <div class="main-event-card-wrapper" @click="redirectTo">
+  <div
+    :class="[
+      'main-event-card-wrapper',
+      isDisplayedInStory && 'main-event-card-wrapper--story'
+    ]"
+    @click="redirectTo"
+  >
     <div class="main-event-card-wrapper__outside">
       <div class="main-event-card-wrapper__inside">
         <img
@@ -38,11 +44,11 @@
               class="col-12 d-flex align-items-end  main-event-card-wrapper__second-section"
             >
               <div class="main-event-card-wrapper__logo">
-<!--                <img-->
-<!--                  v-if="card.images.img_logo !== null"-->
-<!--                  :src="card.images.img_logo.path"-->
-<!--                  alt="logo"-->
-<!--                />-->
+                <!--                <img-->
+                <!--                  v-if="card.images.img_logo !== null"-->
+                <!--                  :src="card.images.img_logo.path"-->
+                <!--                  alt="logo"-->
+                <!--                />-->
                 <p>{{ card.title }}</p>
               </div>
             </div>
@@ -57,7 +63,7 @@
 import { reformatStringToBeInURL } from "../../helpers/StringsHelper";
 
 export default {
-  props: ["card"],
+  props: ["card", "sourceRoute", "isDisplayedInStory"],
   methods: {
     isImageAvailbale(logo) {
       return logo !== null;
@@ -74,7 +80,7 @@ export default {
             data: {
               id: this.card.id,
               title: this.card.title,
-              tree: [{ name: "Giveaways", path: "/giveaways" }]
+              tree: [...this.sourceRoute]
             }
           }
         });

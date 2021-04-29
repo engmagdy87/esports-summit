@@ -10,6 +10,10 @@
   filter: drop-shadow(0 0 4px #175e90);
   cursor: pointer;
   transition: all 0.3s ease;
+  &--story {
+    height: 450px;
+    max-width: 250px;
+  }
   &:hover {
     filter: drop-shadow(0 0 8px #175e90);
   }

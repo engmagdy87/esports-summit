@@ -23,7 +23,7 @@
       <!-- DETAILS TAB -->
       <div
         :class="['tab-pane fade', activeTabIndex === 0 ? 'show active' : '']"
-        v-if="activeTabIndex === 0"
+        v-show="activeTabIndex === 0"
         id="nav-home"
         role="tabpanel"
         aria-labelledby="nav-home-tab"
@@ -70,7 +70,7 @@
       </div>
       <!-- MEDIA TAB -->
       <div
-        v-if="activeTabIndex === 1"
+        v-show="activeTabIndex === 1"
         :class="['tab-pane fade', activeTabIndex === 1 ? 'show active' : '']"
         id="nav-profile"
         role="tabpanel"
@@ -88,44 +88,79 @@
       </div>
       <!-- GAMES AND TOURNAMENTS TAB -->
       <div
-        v-if="activeTabIndex === 2"
+        v-show="activeTabIndex === 2"
         :class="['tab-pane fade', activeTabIndex === 2 ? 'show active' : '']"
         id="nav-profile"
         role="tabpanel"
         aria-labelledby="nav-profile-tab"
       >
-        <div class="battle-tab">
-          <h2 v-if="data.games.length > 0">Games</h2>
-          <div class="row">
-            <div
-              class="col-12 col-lg-4 p-0"
-              v-for="(card, index) in data.games"
-              :key="index"
+        <div class="row">
+          <div class="col">
+            <ul
+              class="home-wrapper__navLinks"
+              v-if="data.tournaments.length > 0 || data.games.length > 0"
             >
-              <GameCard :card="card" />
-            </div>
+              <li
+                v-if="data.games.length > 0"
+                :class="[isGamesActive ? 'home-wrapper__navLinks--active' : '']"
+                @click="setIsGamesActive(true)"
+              >
+                Games
+              </li>
+              <li
+                v-if="data.tournaments.length > 0"
+                :class="[
+                  !isGamesActive ? 'home-wrapper__navLinks--active' : ''
+                ]"
+                @click="setIsGamesActive(false)"
+              >
+                Tournaments
+              </li>
+            </ul>
           </div>
-          <h2 v-if="data.tournaments.length > 0">Tournaments</h2>
-          <div class="row">
-            <div
-              class="col-12 col-lg-4 p-0"
-              v-for="(card, index) in data.tournaments"
-              :key="index"
-            >
-              <TournamentCard :card="card" :tree="tree" />
-            </div>
-          </div>
-          <h2
-            style="color:white; text-align: center;margin-top: 10%;"
-            v-if="data.games.length === 0 && data.tournaments.length === 0"
+          <div
+            class="col d-flex justify-content-end align-items-center"
+            v-if="data.tournaments.length > 0 && data.games.length > 0"
           >
-            There are no battles now
-          </h2>
+            <CustomSwitch
+              :isMenuActive="isMenuActive"
+              :setIsMenuActive="setIsMenuActive"
+            />
+          </div>
         </div>
+        <!-- <div class="row" v-if="!isGamesActive">
+          <div class="col">
+            <CustomButton :setShowFiltersModal="setShowFiltersModal" />
+          </div>
+        </div> -->
+        <MenuView
+          :data="getCorrespondingData"
+          :isGamesActive="isGamesActive"
+          v-if="
+            isMenuActive && data.tournaments.length > 0 && data.games.length > 0
+          "
+          :tree="tree"
+        />
+        <ListView
+          :data="getCorrespondingData"
+          :isGamesActive="
+            isGamesActive &&
+              data.tournaments.length > 0 &&
+              data.games.length > 0
+          "
+          :tree="tree"
+          v-else
+        />
+        <h2
+          style="color:white; text-align: center;"
+          v-if="data.games.length === 0 && data.tournaments.length === 0"
+        >
+          There are no battles now
+        </h2>
       </div>
       <!-- EVENTS TAB -->
       <div
-        v-if="activeTabIndex === 3"
+        v-show="activeTabIndex === 3"
         :class="['tab-pane fade', activeTabIndex === 3 ? 'show active' : '']"
         id="nav-profile"
         role="tabpanel"
@@ -149,12 +184,17 @@
               v-for="(card, index) in mainEvents"
               :key="index"
               :card="card"
-              v-if="card.enabled"
               :sourceRoute="tree"
+              :isDisplayedInStory="true"
             />
           </VueSlickCarousel>
 
-          <h2 v-if="subEvents.length !== 0">Sub Events</h2>
+          <h2
+            v-if="subEvents.length !== 0"
+            style="margin-top: -20px !important;"
+          >
+            Sub Events
+          </h2>
           <EventsMenuView
             v-if="subEvents.length !== 0"
             route="events"
@@ -162,29 +202,71 @@
           />
         </div>
         <h2
-          style="color:white; text-align: center;margin-top: 10%;"
+          style="color:white; text-align: center;"
           v-if="data.events.length === 0"
         >
           There are no events now
         </h2>
       </div>
+
+      <!-- GIVEAWAYS TAB -->
       <div
-        v-if="activeTabIndex === 4"
+        v-show="activeTabIndex === 4"
         :class="['tab-pane fade', activeTabIndex === 4 ? 'show active' : '']"
         id="nav-profile"
         role="tabpanel"
         aria-labelledby="nav-profile-tab"
       >
-        Giveaways
+        <div
+          class="events-wrapper__content-history battle-tab"
+          v-if="giveaways.length !== 0"
+          id="main-giveaway"
+        >
+          <h2 v-if="giveaways.length !== 0">Giveaways</h2>
+          <VueSlickCarousel
+            v-if="giveaways.length !== 0"
+            :arrows="true"
+            :slidesToShow="isThisDeviceSmart ? 1 : 4"
+            :slidesToScroll="1"
+            autoplay
+            infinite
+          >
+            <GiveawayCard
+              v-for="(card, index) in giveaways"
+              :key="index"
+              :card="card"
+              :sourceRoute="tree"
+              :isDisplayedInStory="true"
+            />
+          </VueSlickCarousel>
+
+          <h2 v-if="offers.length !== 0">Offers</h2>
+          <GiveawaysMenuView
+            v-if="offers.length !== 0"
+            route="offers"
+            :data="offers"
+            :sourceRoute="tree"
+          />
+        </div>
+        <h2
+          style="color:white; text-align: center;"
+          v-if="data.events.length === 0"
+        >
+          There are no giveaways or offers now
+        </h2>
       </div>
     </div>
+    <!-- <Filters
+      :showFlag="showFiltersModal"
+      :setShowFiltersModal="setShowFiltersModal"
+      :gamesData="data.games"
+      :regionsData="regionsData"
+    /> -->
   </div>
 </template>
 
 <script>
-// import TournamentItem from "../components/story/TournamentItem";
-import GameCard from "../shared/GameCard";
-import TournamentCard from "../shared/TournamentCard";
+// import { mapState } from "vuex";
 import VueSlickCarousel from "vue-slick-carousel";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 // optional style for arrows & dots
@@ -192,6 +274,11 @@ import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 import redirectToNewTab from "../helpers/RedirectToNewTab";
 import MainEventCard from "../components/events/MainEventCard";
 import EventsMenuView from "../components/events/EventsMenuView";
+import CustomSwitch from "../shared/CustomSwitch";
+import MenuView from "../components/home/MenuView";
+import ListView from "../components/home/ListView";
+import GiveawayCard from "../components/giveaways/GiveawayCard";
+import GiveawaysMenuView from "../components/giveaways/GiveawaysMenuView";
 import isDeviceSmart from "../helpers/DetectIsDeviceSmart";
 // import { changeTextDirection } from "../helpers/StringsHelper";
 import { liveVideoEmbedFormatter } from "../../dashboard/helpers/LiveVideoEmbedFormater";
@@ -202,6 +289,9 @@ export default {
   data() {
     return {
       activeTabIndex: 0,
+      isGamesActive: true,
+      isMenuActive: true,
+      showFiltersModal: false,
       tabs: ["Details", "Media", "Battles", "Events", "Giveaways"],
       tree: [
         {
@@ -212,17 +302,47 @@ export default {
     };
   },
   computed: {
+    // ...mapState({
+    //   regionsData: state => state.regions.dashboardRegionsData
+    // }),
     isThisDeviceSmart() {
       return isDeviceSmart();
     },
     mainEvents() {
-      return this.data.events.filter(event => event.type === "main");
+      return this.data.events.filter(
+        event => event.type === "main" && event.enabled
+      );
     },
     subEvents() {
-      return this.data.events.filter(event => event.type !== "main");
+      return this.data.events.filter(
+        event => event.type !== "main" && event.enabled
+      );
+    },
+    giveaways() {
+      return this.data.giveaway.filter(
+        giveaway => giveaway.type === "giveaway" && giveaway.enabled
+      );
+    },
+    offers() {
+      return this.data.giveaway.filter(
+        giveaway => giveaway.type === "offer" && giveaway.enabled
+      );
+    },
+    getCorrespondingData() {
+      return this.isGamesActive ? this.data.games : this.data.tournaments;
     }
   },
   methods: {
+    setShowFiltersModal(value = false) {
+      this.showFiltersModal = value;
+    },
+    setIsMenuActive(flag) {
+      this.isMenuActive = flag;
+    },
+    setIsGamesActive(flag) {
+      this.isGamesActive = flag;
+      this.isMenuActive = true;
+    },
     setActiveTabIndex(index) {
       this.activeTabIndex = index;
     },
@@ -278,12 +398,14 @@ export default {
     redirectToNewTab("description-container");
   },
   components: {
-    // TournamentItem
-    GameCard,
-    TournamentCard,
     MainEventCard,
     EventsMenuView,
-    VueSlickCarousel
+    VueSlickCarousel,
+    CustomSwitch,
+    MenuView,
+    ListView,
+    GiveawayCard,
+    GiveawaysMenuView
   }
 };
 </script>
@@ -291,12 +413,19 @@ export default {
 <style lang="scss" scoped>
 @import "../../assets/sass/website/shared/summit-tabs.scss";
 @import "../../assets/sass/website/containers/events.scss";
+@import "../../assets/sass/website/containers/home.scss";
 .battle-tab {
+  .slick-slider.slick-initialized {
+    padding-bottom: 50px;
+  }
   h2 {
     color: #e7e7e7 !important;
     font-size: 1.5rem !important;
     font-weight: lighter !important;
     margin-top: 10px !important;
   }
+}
+.slick-slider {
+  margin-top: unset !important;
 }
 </style>

@@ -32,10 +32,10 @@ export default {
   props: ["isMenuActive", "setIsMenuActive"],
   data() {
     return {
-      activeListIcon: "website/img/active-list.svg",
-      inactiveListIcon: "website/img/inactive-list.svg",
-      activeMenuIcon: "website/img/active-menu.svg",
-      inactiveMenuIcon: "website/img/inactive-menu.svg"
+      activeListIcon: "/website/img/active-list.svg",
+      inactiveListIcon: "/website/img/inactive-list.svg",
+      activeMenuIcon: "/website/img/active-menu.svg",
+      inactiveMenuIcon: "/website/img/inactive-menu.svg"
     };
   }
 };
