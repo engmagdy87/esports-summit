@@ -13,7 +13,7 @@ export default {
   props: ["setShowFiltersModal"],
   data() {
     return {
-      filterIcon: "website/img/filter-icon.svg"
+      filterIcon: "/website/img/filter-icon.svg"
     };
   }
 };

@@ -40,6 +40,7 @@
           :key="index"
           :card="card"
           v-if="card.enabled"
+          :sourceRoute="tree"
         />
       </VueSlickCarousel>
 
@@ -48,6 +49,7 @@
         v-if="getEnabledOffers.length !== 0"
         route="offers"
         :data="getEnabledOffers"
+        :sourceRoute="tree"
       />
     </div>
     <h2
@@ -55,7 +57,8 @@
       v-if="
         isGiveawaysFetched &&
           isOffersFetched &&
-          getEnabledGiveaways.length === 0 && getEnabledOffers.length === 0
+          getEnabledGiveaways.length === 0 &&
+          getEnabledOffers.length === 0
       "
     >
       There are no giveaways or offers now
@@ -107,7 +110,8 @@ export default {
     return {
       showLoginModal: false,
       showRegisterModal: false,
-      randomPopupData: {}
+      randomPopupData: {},
+      tree: [{ name: "Giveaways", path: "/giveaways" }]
     };
   },
   computed: {

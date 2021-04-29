@@ -7,7 +7,11 @@
         :key="index"
         v-if="card.enabled"
       >
-        <OfferCard :card="card" v-if="route === 'offers'" />
+        <OfferCard
+          :card="card"
+          v-if="route === 'offers'"
+          :sourceRoute="sourceRoute"
+        />
         <TournamentCard
           :card="card"
           v-else-if="route === 'giveaway-details'"
@@ -23,7 +27,7 @@ import OfferCard from "../../components/giveaways/OfferCard";
 import TournamentCard from "../../shared/TournamentCard";
 
 export default {
-  props: ["data", "route", "tree"],
+  props: ["data", "route", "tree", "sourceRoute"],
   components: {
     OfferCard,
     TournamentCard

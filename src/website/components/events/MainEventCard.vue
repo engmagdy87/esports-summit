@@ -1,5 +1,11 @@
 <template>
-  <div class="main-event-card-wrapper" @click="redirectTo">
+  <div
+    :class="[
+      'main-event-card-wrapper',
+      isDisplayedInStory && 'main-event-card-wrapper--story'
+    ]"
+    @click="redirectTo"
+  >
     <div class="main-event-card-wrapper__outside">
       <div class="main-event-card-wrapper__inside">
         <img
@@ -61,7 +67,7 @@
 import { reformatStringToBeInURL } from "../../helpers/StringsHelper";
 
 export default {
-  props: ["card", "sourceRoute"],
+  props: ["card", "sourceRoute", "isDisplayedInStory"],
   methods: {
     isImageAvailbale(logo) {
       return logo !== null;
