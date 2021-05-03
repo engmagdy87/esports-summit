@@ -19,7 +19,7 @@ export default {
   methods: {
     redirectTo() {
       this.$router.push({
-        name: "Edit Event Parent",
+        name: "Edit Platform",
         params: { data: this.rowData }
       });
     }
