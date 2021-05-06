@@ -29,7 +29,7 @@
               v-for="(game, index) in card.games.slice(0, 4)"
               :key="index"
               class="badge badge-pill badge-secondary sub-event-card-wrapper__content__game"
-              >{{ game.short_title }}
+              >{{ game.short_title || game.title }}
             </span>
             <span
               class="badge badge-pill badge-secondary sub-event-card-wrapper__content__game"

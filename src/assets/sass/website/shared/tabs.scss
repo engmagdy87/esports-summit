@@ -181,3 +181,203 @@
     }
   }
 }
+
+.upper-segment {
+  height: 20px;
+  width: 100%;
+  background-color: rgba($color: $placeholder-background, $alpha: 0.7);
+  @include is-extra-large-desktop {
+    clip-path: polygon(
+      0 0,
+      98.8% 0,
+      100% 100%,
+      100% 0,
+      100% 102%,
+      0 102%,
+      0 100%,
+      0 0
+    );
+  }
+  @include is-large-desktop {
+    clip-path: polygon(
+      0 0,
+      98.6% 0,
+      100% 100%,
+      100% 0,
+      100% 102%,
+      0 102%,
+      0 100%,
+      0 0
+    );
+  }
+  @include is-desktop {
+    clip-path: polygon(
+      0 0,
+      98.6% 0,
+      100% 100%,
+      100% 0,
+      100% 102%,
+      0 102%,
+      0 100%,
+      0 0
+    );
+  }
+  @include is-tablet {
+    clip-path: polygon(
+      0 0,
+      98.2% 0,
+      100% 100%,
+      100% 0,
+      100% 102%,
+      0 102%,
+      0 100%,
+      0 0
+    );
+  }
+  @include is-mobile {
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 100%,
+      100% 0,
+      100% 102%,
+      0 102%,
+      0 100%,
+      0 0
+    );
+  }
+}
+.lower-segment {
+  height: 40px;
+  width: 100%;
+  &--right {
+    background-color: rgba($color: $placeholder-background, $alpha: 0.7);
+    height: 50%;
+    width: 100%;
+    @include is-extra-large-desktop {
+      clip-path: polygon(
+        0 -1%,
+        100% -1%,
+        100% 100%,
+        100% 0,
+        98.8% 100%,
+        0 100%,
+        0 100%,
+        0 0
+      );
+    }
+    @include is-large-desktop {
+      clip-path: polygon(
+        0 -1%,
+        100% -1%,
+        100% 100%,
+        100% 0,
+        98.6% 102%,
+        0 102%,
+        0 100%,
+        0 0
+      );
+    }
+    @include is-desktop {
+      clip-path: polygon(
+        0 -1%,
+        100% -1%,
+        100% 100%,
+        100% 0,
+        98.2% 102%,
+        0 102%,
+        0 100%,
+        0 0
+      );
+    }
+    @include is-tablet {
+      clip-path: polygon(
+        0 -1%,
+        100% -1%,
+        100% 100%,
+        100% 0,
+        97.8% 102%,
+        0 102%,
+        0 100%,
+        0 0
+      );
+    }
+    @include is-mobile {
+      clip-path: polygon(
+        0 -1%,
+        100% -1%,
+        100% 100%,
+        100% 0,
+        95.5% 102%,
+        0 102%,
+        0 100%,
+        0 0
+      );
+    }
+  }
+  &--left {
+    background-color: rgba($color: $placeholder-background, $alpha: 0.7);
+    height: 50%;
+    width: 50%;
+    @include is-extra-large-desktop {
+      clip-path: polygon(
+        0 -1%,
+        100% -1%,
+        100% 100%,
+        100% 0,
+        97.5% 102%,
+        0 102%,
+        2.5% 100%,
+        0 0
+      );
+    }
+    @include is-large-desktop {
+      clip-path: polygon(
+        0 -1%,
+        100% -1%,
+        100% 100%,
+        100% 0,
+        97.5% 102%,
+        0 102%,
+        2.5% 100%,
+        0 0
+      );
+    }
+    @include is-desktop {
+      clip-path: polygon(
+        0 -1%,
+        100% -1%,
+        100% 100%,
+        100% 0,
+        97% 102%,
+        0 102%,
+        3% 100%,
+        0 0
+      );
+    }
+    @include is-tablet {
+      clip-path: polygon(
+        0 -1%,
+        100% -1%,
+        100% 100%,
+        100% 0,
+        96% 102%,
+        0 102%,
+        4% 100%,
+        0 0
+      );
+    }
+    @include is-mobile {
+      clip-path: polygon(
+        0 -1%,
+        100% -1%,
+        100% 100%,
+        100% 0,
+        91% 102%,
+        0 102%,
+        9% 100%,
+        0 0
+      );
+    }
+  }
+}
