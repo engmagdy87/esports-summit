@@ -20,6 +20,7 @@
       </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
+      <div class="upper-segment"></div>
       <div
         v-for="(event, i) in data"
         :key="i"
@@ -78,6 +79,10 @@
             />
           </div>
         </div>
+      </div>
+      <div class="lower-segment">
+        <div class="lower-segment--right"></div>
+        <div class="lower-segment--left"></div>
       </div>
     </div>
     <ImageModal
@@ -148,38 +153,14 @@ export default {
       if (!isDeviceSmart() && path.includes("facebook")) return 450;
       if (isDeviceSmart() && !path.includes("facebook")) return 200;
       if (!isDeviceSmart() && !path.includes("facebook")) return 350;
-    },
-    changeHexaStyleForTab() {
-      const tabPanes = document.getElementsByClassName("tab-pane");
-      for (let index = 0; index < tabPanes.length; index++) {
-        const element = tabPanes[index];
-        if (isDeviceSmart())
-          element.style.clipPath = `polygon(0 0,98% 0,100% 3%,100% 95%,95% 98%,70% 98%,50% 110%,5% 99.5%,0% 98%)`;
-        else if (element.clientHeight < 800)
-          element.style.clipPath = `polygon(0 0,98.5% 0,100% 5%,100% 92.5%,98.5% 97%,66% 97%,50% 150%,6% 110%,0 96%)`;
-        else if (element.clientHeight >= 800 && element.clientHeight < 1300)
-          element.style.clipPath = `polygon(0 0,98% 0,100% 1.5%,100% 97%,98% 98.8%,60% 98.8%,55% 105%,10% 105%,0 99%)`;
-        else if (element.clientHeight >= 1300 && element.clientHeight < 1600)
-          element.style.clipPath = `polygon(0 0,98% 0,100% 1.5%,100% 98%,98% 98.8%,60% 98.8%,57% 100%,20% 105%,0 99.2%)`;
-        else if (element.clientHeight >= 1600 && element.clientHeight < 2000)
-          element.style.clipPath = `polygon(0 0,98% 0,100% 1%,100% 98%,98% 99%,60% 99%,57% 100%,20% 105%,0 99.5%)`;
-        else if (element.clientHeight >= 1600 && element.clientHeight < 3000)
-          element.style.clipPath = `polygon(0 0,98% 0,100% 1%,100% 98%,98% 99%,60% 99%,57% 100%,20% 105%,0 99.5%)`;
-        else if (element.clientHeight >= 3000 && element.clientHeight < 5000)
-          element.style.clipPath = `polygon(0 0,98% 0,100% 0.6%,100% 99%,98% 99.5%,66% 99.5%,60% 101%,15% 105%,0 99.5%)`;
-        else if (element.clientHeight >= 5000 && element.clientHeight < 8200)
-          element.style.clipPath = `polygon(0 0,98% 0,100% 0.3%,100% 99.5%,98% 99.7%,66% 99.7%,50% 101%,9% 101%,0 99.7%)`;
-      }
     }
   },
   mounted() {
-    this.changeHexaStyleForTab();
     this.data.forEach(tab => {
       this.tabs.push(tab.final_title);
     });
   },
   updated() {
-    this.changeHexaStyleForTab();
     redirectToNewTab("description-container");
   },
   components: {

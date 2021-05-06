@@ -20,6 +20,7 @@
       </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
+      <div class="upper-segment"></div>
       <!-- DETAILS TAB -->
       <div
         :class="['tab-pane fade', activeTabIndex === 0 ? 'show active' : '']"
@@ -208,7 +209,6 @@
           There are no events now
         </h2>
       </div>
-
       <!-- GIVEAWAYS TAB -->
       <div
         v-show="activeTabIndex === 4"
@@ -254,6 +254,10 @@
         >
           There are no giveaways or offers now
         </h2>
+      </div>
+      <div class="lower-segment">
+        <div class="lower-segment--right"></div>
+        <div class="lower-segment--left"></div>
       </div>
     </div>
     <!-- <Filters
@@ -356,45 +360,17 @@ export default {
       if (isDeviceSmart()) return 150;
       return 380;
     },
-    changeHexaStyleForTab() {
-      const tabPanes = document.getElementsByClassName("tab-pane");
-      for (let index = 0; index < tabPanes.length; index++) {
-        const element = tabPanes[index];
-        if (isDeviceSmart() && element.clientHeight > 3000)
-          element.style.clipPath = `polygon(0 0,100% 0,100% 0.5%,100% 99.2%,95% 99.6%,60% 99.6%,5% 105%,5% 100%,0% 99.5%)`;
-        else if (isDeviceSmart() && element.clientHeight > 2000)
-          element.style.clipPath = `polygon(0 0,100% 0,100% 0.5%,100% 99.2%,95% 99.6%,60% 99.6%,5% 105%,5% 100%,0% 99.8%)`;
-        else if (isDeviceSmart())
-          element.style.clipPath = `polygon(0 0,100% 0,100% 0.5%,100% 96%,90% 98%,60% 98%,5% 110%,5% 100%,0% 98%)`;
-        else if (element.clientHeight < 800)
-          element.style.clipPath = `polygon(0 0,98.5% 0,100% 5%,100% 89%,98% 95%,66% 95%,50% 150%,6% 120%,0 93%)`;
-        else if (element.clientHeight >= 800 && element.clientHeight < 1300)
-          element.style.clipPath = `polygon(0 0,98% 0,100% 1.5%,100% 97%,98% 98.8%,60% 98.8%,55% 105%,10% 105%,0 99%)`;
-        else if (element.clientHeight >= 1300 && element.clientHeight < 1600)
-          element.style.clipPath = `polygon(0 0,98% 0,100% 1.5%,100% 98%,98% 98.8%,60% 98.8%,57% 100%,20% 105%,0 99.2%)`;
-        else if (element.clientHeight >= 1600 && element.clientHeight < 2000)
-          element.style.clipPath = `polygon(0 0,98% 0,100% 1%,100% 98%,98% 99%,60% 99%,57% 100%,20% 105%,0 99.5%)`;
-        else if (element.clientHeight >= 1600 && element.clientHeight < 3000)
-          element.style.clipPath = `polygon(0 0,98% 0,100% 1%,100% 98%,98% 99%,60% 99%,57% 100%,20% 105%,0 99.5%)`;
-        else if (element.clientHeight >= 3000 && element.clientHeight < 5000)
-          element.style.clipPath = `polygon(0 0,98% 0,100% 0.6%,100% 99%,98% 99.5%,66% 99.5%,60% 101%,15% 105%,0 99.5%)`;
-        else if (element.clientHeight >= 5000 && element.clientHeight < 8200)
-          element.style.clipPath = `polygon(0 0,98% 0,100% 0.3%,100% 99.5%,98% 99.7%,66% 99.7%,50% 101%,9% 101%,0 99.7%)`;
-      }
-    },
     trimText(text) {
       return truncateText(text);
     }
   },
   mounted() {
-    this.changeHexaStyleForTab();
     this.tree.push({
       name: this.trimText(this.data.final_title),
       path: this.$router.history.current.path
     });
   },
   updated() {
-    this.changeHexaStyleForTab();
     redirectToNewTab("description-container");
   },
   components: {
@@ -417,6 +393,8 @@ export default {
 .battle-tab {
   .slick-slider.slick-initialized {
     padding-bottom: 50px;
+    width: 94%;
+    margin: auto;
   }
   h2 {
     color: #e7e7e7 !important;

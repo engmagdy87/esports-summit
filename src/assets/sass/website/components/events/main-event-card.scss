@@ -11,8 +11,8 @@
   cursor: pointer;
   transition: all 0.3s ease;
   &--story {
-    height: 450px;
-    max-width: 250px;
+    height: 400px;
+    max-width: 240px;
   }
   &:hover {
     filter: drop-shadow(0 0 8px #175e90);
