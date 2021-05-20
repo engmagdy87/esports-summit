@@ -170,9 +170,8 @@ export default {
     }
 
     const gameId = this.$router.history.current.params.gameName.split("-")[0];
-    const { isShownInHistory } = this.$route.params.data;
 
-    if (isShownInHistory) {
+    if (this.$route.params.data && this.$route.params.data.isShownInHistory) {
       const { summitId } = this.$route.params.data;
       this.fetchGameHistoryDetails({ summitId, gameId });
     } else this.fetchGameDetails(gameId);
