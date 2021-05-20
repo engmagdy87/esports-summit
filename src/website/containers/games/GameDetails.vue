@@ -170,10 +170,12 @@ export default {
     }
 
     const gameId = this.$router.history.current.params.gameName.split("-")[0];
-    const { summitId, isShownInHistory } = this.$route.params.data;
+    const { isShownInHistory } = this.$route.params.data;
 
-    if (isShownInHistory) this.fetchGameHistoryDetails({ summitId, gameId });
-    else this.fetchGameDetails(gameId);
+    if (isShownInHistory) {
+      const { summitId } = this.$route.params.data;
+      this.fetchGameHistoryDetails({ summitId, gameId });
+    } else this.fetchGameDetails(gameId);
     this.fetchRandomPopup();
   },
   updated() {
