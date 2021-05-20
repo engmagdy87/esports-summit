@@ -1,5 +1,5 @@
 <template>
-  <div class="story-details-wrapper" v-if="isSummitDetailsDataFetched">
+  <div class="story-details-wrapper" v-if="isSummitCompleteDataFetched">
     <Header
       activeItem="story"
       :isSolidHeader="true"
@@ -9,7 +9,7 @@
     <div
       :class="[
         'story-details-wrapper__outside',
-        summitDetails.cover_type === 'img'
+        summitCompleteData.cover_type === 'img'
           ? 'story-details-wrapper__outside--hexa-shape'
           : 'story-details-wrapper__outside--none'
       ]"
@@ -19,27 +19,27 @@
         class="story-details-wrapper__inside"
         :class="[
           'story-details-wrapper__inside',
-          summitDetails.cover_type === 'img'
+          summitCompleteData.cover_type === 'img'
             ? 'story-details-wrapper__inside--hexa-shape'
             : 'story-details-wrapper__inside--none'
         ]"
         v-if="
-          (summitDetails.images.img_cover_main !== null &&
-            summitDetails.images.img_cover_main.length !== 0) ||
-            summitDetails.videos.vid_cover_main !== null
+          (summitCompleteData.images.img_cover_main !== null &&
+            summitCompleteData.images.img_cover_main.length !== 0) ||
+            summitCompleteData.videos.vid_cover_main !== null
         "
         :style="
-          summitDetails.cover_type === 'img'
-            ? `backgroundImage: url(${summitDetails.images.img_cover_main[0].path})`
+          summitCompleteData.cover_type === 'img'
+            ? `backgroundImage: url(${summitCompleteData.images.img_cover_main[0].path})`
             : ''
         "
       >
         <img
           v-if="
-            summitDetails.has_cover_over &&
-              summitDetails.images.img_cover_over !== null
+            summitCompleteData.has_cover_over &&
+              summitCompleteData.images.img_cover_over !== null
           "
-          :src="summitDetails.images.img_cover_over.path"
+          :src="summitCompleteData.images.img_cover_over.path"
         />
         <video
           autoplay
@@ -47,13 +47,13 @@
           loop
           id="myVideo"
           v-if="
-            summitDetails.cover_type !== 'img' &&
-              summitDetails.videos.vid_cover_main !== null
+            summitCompleteData.cover_type !== 'img' &&
+              summitCompleteData.videos.vid_cover_main !== null
           "
           style="width: 100%;"
         >
           <source
-            :src="summitDetails.videos.vid_cover_main.path"
+            :src="summitCompleteData.videos.vid_cover_main.path"
             type="video/mp4"
           />
         </video>
@@ -71,14 +71,14 @@
                 :key="i"
                 >{{ route.name }} >
               </a>
-              <span>{{ summitDetails.final_title }}</span>
+              <span>{{ summitCompleteData.final_title }}</span>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col mt-3 mt-md-5">
             <SummitTabs
-              :data="summitDetails"
+              :data="summitCompleteData"
               :setClickedImageInMedia="setClickedImageInMedia"
             />
           </div>
@@ -117,11 +117,7 @@ import RegisterModal from "../../components/home/RegisterModal";
 import ImageModal from "../../shared/ImageModal";
 import Spinner from "../../shared/Spinner";
 import SummitTabs from "../../shared/SummitTabs";
-import {
-  getUserCookie,
-  setSummitCookie,
-  getSummitCookie
-} from "../../helpers/CookieHelper";
+import { setSummitCookie, getSummitCookie } from "../../helpers/CookieHelper";
 import Popup from "../../shared/Popup";
 import * as POPUPS_PLACES from "../../constants/PopupsPlaces";
 
@@ -146,11 +142,22 @@ export default {
       summitDetails: state => state.summits.summitDetailsData,
       isSummitDetailsDataFetched: state =>
         state.summits.isSummitDetailsDataFetched,
+      summitHistoryGames: state => state.story.summitHistoryGames,
+      isSummitHistoryGamesFetched: state =>
+        state.story.isSummitHistoryGamesFetched,
       summitTree: state => state.navigationTree.summitTree,
       isRandomPopupDataFetched: state => state.popups.isRandomPopupDataFetched
     }),
     showDetailsHero() {
       return Object.keys(this.summitDetails).length !== 0;
+    },
+    summitCompleteData() {
+      return { ...this.summitDetails, games: this.summitHistoryGames };
+    },
+    isSummitCompleteDataFetched() {
+      return (
+        this.isSummitDetailsDataFetched && this.isSummitHistoryGamesFetched
+      );
     }
   },
   watch: {
@@ -164,6 +171,7 @@ export default {
   methods: {
     ...mapActions({
       fetchSummitDetails: types.summits.actions.FETCH_SUMMIT_DETAILS,
+      fetchSummitHistoryGames: types.story.actions.FETCH_SUMMIT_HISTORY_GAMES,
       fetchRandomPopup: types.popups.actions.FETCH_RANDOM_POPUPS
     }),
     setShowImageModalModal(value = false) {
@@ -232,6 +240,7 @@ export default {
       "-"
     )[0];
     this.fetchSummitDetails(summitId);
+    this.fetchSummitHistoryGames(summitId);
     this.fetchRandomPopup();
   },
   updated() {

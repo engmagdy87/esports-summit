@@ -6,7 +6,12 @@
         v-for="(card, index) in data"
         :key="index"
       >
-        <GameCard :card="card" :tree="tree" />
+        <GameCard
+          :card="card"
+          :tree="tree"
+          :isShownInHistory="isShownInHistory"
+          :summitId="summitId"
+        />
       </div>
     </div>
     <div class="row" v-if="!isGamesActive">
@@ -27,7 +32,7 @@ import GameCard from "../../shared/GameCard";
 import TournamentCard from "../../shared/TournamentCard";
 
 export default {
-  props: ["data", "isGamesActive", "tree"],
+  props: ["data", "isGamesActive", "tree", "isShownInHistory", "summitId"],
   components: {
     GameCard,
     TournamentCard

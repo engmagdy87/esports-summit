@@ -33,7 +33,7 @@
 import { reformatStringToBeInURL } from "../../helpers/StringsHelper";
 
 export default {
-  props: ["data", "isGamesActive", "tree"],
+  props: ["data", "isGamesActive", "tree", "isShownInHistory", "summitId"],
   methods: {
     redirectTo(card) {
       let path = "";
@@ -46,7 +46,10 @@ export default {
             )}`,
             data: {
               id: card.id,
-              title: card.title || card.initial_title
+              title: card.title || card.initial_title,
+              tree: this.tree,
+              isShownInHistory: this.isShownInHistory,
+              summitId: this.summitId
             }
           }
         });

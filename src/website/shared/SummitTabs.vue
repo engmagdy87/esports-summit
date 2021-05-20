@@ -141,6 +141,8 @@
             isMenuActive && data.tournaments.length > 0 && data.games.length > 0
           "
           :tree="tree"
+          :isShownInHistory="true"
+          :summitId="summitId"
         />
         <ListView
           :data="getCorrespondingData"
@@ -150,6 +152,8 @@
               data.games.length > 0
           "
           :tree="tree"
+          :isShownInHistory="true"
+          :summitId="summitId"
           v-else
         />
         <h2
@@ -302,7 +306,8 @@ export default {
           name: "Our Story",
           path: "/story"
         }
-      ]
+      ],
+      summitId: null
     };
   },
   computed: {
@@ -369,6 +374,9 @@ export default {
       name: this.trimText(this.data.final_title),
       path: this.$router.history.current.path
     });
+    this.summitId = this.$router.history.current.params.summitName.split(
+      "-"
+    )[0];
   },
   updated() {
     redirectToNewTab("description-container");
