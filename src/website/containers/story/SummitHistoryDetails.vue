@@ -236,9 +236,11 @@ export default {
         this.summitShortDetails
       );
     }
+
     const summitId = this.$router.history.current.params.summitName.split(
       "-"
     )[0];
+
     this.fetchSummitDetails(summitId);
     this.fetchSummitHistoryGames(summitId);
     this.fetchRandomPopup();
