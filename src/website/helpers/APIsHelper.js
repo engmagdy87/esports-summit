@@ -111,6 +111,12 @@ async function getSummitDetails(id) {
   return response;
 }
 
+async function getSummitHistoryGames(id) {
+  const response = await get(`${APIs.GET_WEBSITE_SUMMIT_DETAILS}/${id}/games`);
+
+  return response;
+}
+
 async function removeSummitImage(id, imageId) {
   const response = await deleteData(
     `${APIs.DELETE_MEDIA_IN_SUMMIT}/${id}/images/${imageId}`
@@ -440,6 +446,14 @@ async function getGames() {
 
 async function getGameDetails(gameId) {
   const response = await get(`${APIs.GET_WEBSITE_GAME_DETAILS}/${gameId}`);
+
+  return response.data;
+}
+
+async function getGameHistoryDetails(summitId, gameId) {
+  const response = await get(
+    `${APIs.GET_WEBSITE_SUMMIT_DETAILS}/${summitId}/games/${gameId}`
+  );
 
   return response.data;
 }
@@ -784,6 +798,7 @@ export {
   createSponsor,
   getGamesForDashboard,
   getGameDetails,
+  getGameHistoryDetails,
   getGames,
   getGamesCardsView,
   createGame,
@@ -863,6 +878,7 @@ export {
   getOffersOfEvents,
   getSummitsHistory,
   getSummitDetails,
+  getSummitHistoryGames,
   getEventHistory,
   getPopupsForDashboard,
   getRandomPopup,

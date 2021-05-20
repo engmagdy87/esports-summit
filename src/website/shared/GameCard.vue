@@ -33,7 +33,7 @@ import {
 } from "../helpers/StringsHelper";
 
 export default {
-  props: ["card", "isGamesActive", "tree"],
+  props: ["card", "isGamesActive", "tree", "isShownInHistory", "summitId"],
   methods: {
     redirectTo() {
       this.$router.push({
@@ -45,7 +45,9 @@ export default {
           data: {
             id: this.card.id,
             title: this.card.title,
-            tree: this.tree
+            tree: this.tree,
+            isShownInHistory: this.isShownInHistory,
+            summitId: this.summitId
           }
         }
       });

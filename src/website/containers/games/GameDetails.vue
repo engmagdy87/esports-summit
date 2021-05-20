@@ -86,7 +86,6 @@ import LoginModal from "../../components/home/LoginModal";
 import RegisterModal from "../../components/home/RegisterModal";
 import Spinner from "../../shared/Spinner";
 import redirectToNewTab from "../../helpers/RedirectToNewTab";
-import reformatStringToBeInURL from "../../helpers/StringsHelper";
 import { setGameCookie, getGameCookie } from "../../helpers/CookieHelper";
 import * as POPUPS_PLACES from "../../constants/PopupsPlaces";
 
@@ -132,6 +131,7 @@ export default {
   methods: {
     ...mapActions({
       fetchGameDetails: types.games.actions.FETCH_GAME_DETAILS,
+      fetchGameHistoryDetails: types.games.actions.FETCH_GAME_HISTORY_DETAILS,
       fetchRandomPopup: types.popups.actions.FETCH_RANDOM_POPUPS
     }),
     setShowLoginModal(value = false) {
@@ -170,7 +170,10 @@ export default {
     }
 
     const gameId = this.$router.history.current.params.gameName.split("-")[0];
-    this.fetchGameDetails(gameId);
+    const { summitId, isShownInHistory } = this.$route.params.data;
+
+    if (isShownInHistory) this.fetchGameHistoryDetails({ summitId, gameId });
+    else this.fetchGameDetails(gameId);
     this.fetchRandomPopup();
   },
   updated() {

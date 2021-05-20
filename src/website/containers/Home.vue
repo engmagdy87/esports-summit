@@ -6,27 +6,29 @@
       :setShowRegisterModal="setShowRegisterModal"
       :setShowLoginModal="setShowLoginModal"
     />
-    <VueSlickCarousel
-      v-if="filteredMainEventsData.length !== 0 && isMainEventsFetched"
-      :arrows="false"
-      :dots="true"
-      :pauseOnHover="false"
-      :slidesToShow="1"
-      :slidesToScroll="1"
-      :autoplaySpeed="5000"
-      autoplay
-      infinite
-    >
-      <img
-        v-for="(event, index) in filteredMainEventsData"
-        :key="index"
-        :src="event.images.img_cover_home.path"
-        :alt="event.initial_title"
-        class="home-wrapper__slide"
-        @click="redirectTo(event.id, event.initial_title)"
-        v-if="event.enabled"
-      />
-    </VueSlickCarousel>
+    <div class="home-wrapper__hero">
+      <VueSlickCarousel
+        v-if="filteredMainEventsData.length !== 0 && isMainEventsFetched"
+        :arrows="false"
+        :dots="true"
+        :pauseOnHover="false"
+        :slidesToShow="1"
+        :slidesToScroll="1"
+        :autoplaySpeed="5000"
+        autoplay
+        infinite
+      >
+        <img
+          v-for="(event, index) in filteredMainEventsData"
+          :key="index"
+          :src="event.images.img_cover_home.path"
+          :alt="event.initial_title"
+          class="home-wrapper__slide"
+          @click="redirectTo(event.id, event.initial_title)"
+          v-if="event.enabled"
+        />
+      </VueSlickCarousel>
+    </div>
     <div class="home-wrapper__content" id="home">
       <div
         v-if="
