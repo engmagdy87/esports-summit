@@ -176,7 +176,10 @@
         :data="eventDetails.tournaments"
         :tree="getTree"
       />
-      <EventTabs :data="eventHistory" v-if="isEventHistoryFetched" />
+      <EventTabs
+        :data="eventHistory"
+        v-if="isEventHistoryFetched && eventHistory.length > 0"
+      />
     </div>
     <LoginModal
       :showFlag="showLoginModal"
