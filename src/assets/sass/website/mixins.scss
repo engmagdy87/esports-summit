@@ -90,9 +90,15 @@
   -o-transition: #{$property} #{$duration} #{$type};
 }
 
+@mixin is-extra-small-mobile {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
+
 @mixin is-mobile {
   // Extra small devices (portrait phones, less than 767px)
-  @media (max-width: 767px) {
+  @media (min-width: 601px) and (max-width: 767px) {
     @content;
   }
 }

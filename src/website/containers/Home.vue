@@ -30,7 +30,16 @@
       </VueSlickCarousel>
     </div>
     <div class="home-wrapper__content" id="home">
-      <div
+      <div class="home-wrapper__ready-section">
+        <img src="/website/img/home/get_ready.png" alt="get ready" />
+        <div></div>
+      </div>
+      <img
+        class="home-wrapper__battles"
+        src="/website/img/home/battles.png"
+        alt="battles"
+      />
+      <!-- <div
         v-if="
           isGamesDataFetched &&
             isTournamentsDataFetched &&
@@ -84,9 +93,9 @@
           :tree="tree"
           v-else
         />
-      </div>
+      </div> -->
 
-      <div
+      <!-- <div
         class="row"
         v-if="
           isGamesDataFetched &&
@@ -99,7 +108,7 @@
         <div class="col pt-5 d-flex justify-content-center align-items-center">
           <img class="" src="/website/img/footer/sponsors-main.png" />
         </div>
-      </div>
+      </div> -->
     </div>
     <LoginModal
       :showFlag="showLoginModal"

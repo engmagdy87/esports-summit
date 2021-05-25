@@ -1,10 +1,19 @@
 <template>
-  <footer :class="['footer-wrapper', 'footer-wrapper--show-small']">
-    <div class="row">
-      <div class="col12 col-md-8 order-2 order-md-1">
-        <div class="container ml-0">
+  <footer class="footer-wrapper">
+    <div class="row footer-wrapper--show-small">
+      <div
+        class="col12 col-md-8 d-flex justify-content-center justify-content-md-start align-items-center order-2 order-md-1"
+      >
+        <img
+          class="footer-wrapper__logo"
+          src="/website/img/logo_2021.png"
+          alt="gamers lounge"
+          @click="redirectTo('http://gamersloungeme.com/')"
+        />
+        <div class="footer-wrapper__divider"></div>
+        <div class="container ml-0 footer-wrapper__right-side">
           <div
-            class="row mb-3 mt-3 mt-md-0 justify-content-center justify-content-md-start"
+            class="row mb-3 mt-3 mt-md-0 justify-content-center justify-content-md-start footer-wrapper__social-media"
           >
             <img
               class="footer-wrapper__social-media-icon"
@@ -35,9 +44,9 @@
               @click="redirectTo('https://www.facebook.com/theesportssummit/')"
             />
           </div>
-          <div class="row d-block">
+          <div class="row d-block ml-0 footer-wrapper__copyrights">
             <div class="text-center text-md-left">
-              Copyright ©️ ESports Summit 2020
+              Copyright ©️ ESports Summit {{ new Date().getFullYear() }}
             </div>
             <div class="text-center text-md-left">
               All Rights Reserved
@@ -46,17 +55,17 @@
         </div>
       </div>
 
-<!--      <div-->
-<!--        class="col12 col-md-8 d-flex justify-content-center order-1 order-md-2"-->
-<!--      >-->
-<!--        <img-->
-<!--          class="footer-wrapper"-->
-<!--          src="/website/img/footer/sponsors-main.png"-->
-<!--        />-->
-<!--      </div>-->
+      <!--      <div-->
+      <!--        class="col12 col-md-8 d-flex justify-content-center order-1 order-md-2"-->
+      <!--      >-->
+      <!--        <img-->
+      <!--          class="footer-wrapper"-->
+      <!--          src="/website/img/footer/sponsors-main.png"-->
+      <!--        />-->
+      <!--      </div>-->
 
       <div
-        class="col12 col-md-4 d-flex justify-content-center justify-content-md-end align-items-center order-1 order-md-2"
+        class="col12 col-md-4 d-flex justify-content-center justify-content-md-end align-items-center order-1 order-md-2 footer-wrapper__companies"
       >
         <img
           class="footer-wrapper__logo"
@@ -140,50 +149,50 @@
 </template>
 
 <script>
-  export default {
-    // props: ["sponsors", "events", "showFooter"],
-    methods: {
-      redirectTo(url) {
-        if (url.includes("http")) window.open(url, "_blank");
-        else window.open(`http://${url}`, "_blank");
-      }
-      // redirectEventTo(event) {
-      //   if (event.is_external) window.open(event.external_link, "_blank");
-      //   else
-      //     this.$router.push({
-      //       path: `/events/event/${event.id}`
-      //     });
-      // },
-      // getHeighClass() {
-      //   if (this.showFooter === "hide") return "footer-wrapper--hide";
-      //   else if (this.showFooter === "show-small")
-      //     return "footer-wrapper--show-small";
-      // else if (this.showFooter === "show-large")
-      //   return "footer-wrapper--show-large";
-      // },
-      // getSponsorDataByPriority(priority) {
-      //   const sponsors = this.sponsors.filter(category => {
-      //     const categoryObject = category[Object.keys(category)[0]][0];
-      //     if (
-      //       categoryObject.category.enabled &&
-      //       categoryObject.category.priority === priority
-      //     )
-      //       return category;
-      //   });
-      //   return sponsors;
-      // },
-      // getSponsorsCategoryWithPriority(priority) {
-      //   const sponsors = this.getSponsorDataByPriority(priority);
-      //   return Object.values(sponsors[0])[0];
-      // },
-      // categoryTitle(priority) {
-      //   const sponsors = this.getSponsorDataByPriority(priority);
-      //   return Object.keys(sponsors[0])[0];
-      // }
+export default {
+  // props: ["sponsors", "events", "showFooter"],
+  methods: {
+    redirectTo(url) {
+      if (url.includes("http")) window.open(url, "_blank");
+      else window.open(`http://${url}`, "_blank");
     }
-  };
+    // redirectEventTo(event) {
+    //   if (event.is_external) window.open(event.external_link, "_blank");
+    //   else
+    //     this.$router.push({
+    //       path: `/events/event/${event.id}`
+    //     });
+    // },
+    // getHeighClass() {
+    //   if (this.showFooter === "hide") return "footer-wrapper--hide";
+    //   else if (this.showFooter === "show-small")
+    //     return "footer-wrapper--show-small";
+    // else if (this.showFooter === "show-large")
+    //   return "footer-wrapper--show-large";
+    // },
+    // getSponsorDataByPriority(priority) {
+    //   const sponsors = this.sponsors.filter(category => {
+    //     const categoryObject = category[Object.keys(category)[0]][0];
+    //     if (
+    //       categoryObject.category.enabled &&
+    //       categoryObject.category.priority === priority
+    //     )
+    //       return category;
+    //   });
+    //   return sponsors;
+    // },
+    // getSponsorsCategoryWithPriority(priority) {
+    //   const sponsors = this.getSponsorDataByPriority(priority);
+    //   return Object.values(sponsors[0])[0];
+    // },
+    // categoryTitle(priority) {
+    //   const sponsors = this.getSponsorDataByPriority(priority);
+    //   return Object.keys(sponsors[0])[0];
+    // }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-  @import "../../assets/sass/website/shared/footer.scss";
+@import "../../assets/sass/website/shared/footer.scss";
 </style>

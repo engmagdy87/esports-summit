@@ -28,6 +28,58 @@
   &__hero {
     min-height: 100vh;
   }
+  &__battles {
+    width: 100%;
+  }
+  &__ready-section {
+    display: flex;
+    @include is-extra-small-mobile {
+      display: block;
+    }
+    img {
+      width: 40%;
+      @include is-extra-large-desktop {
+        width: 40%;
+      }
+      @include is-large-desktop {
+        width: 40%;
+      }
+      @include is-desktop {
+        width: 40%;
+      }
+      @include is-tablet {
+        width: 40%;
+      }
+      @include is-mobile {
+        width: 40%;
+      }
+      @include is-extra-small-mobile {
+        width: 100%;
+      }
+    }
+    div {
+      background-color: $accent;
+      width: 60%;
+      @include is-extra-large-desktop {
+        width: 60%;
+      }
+      @include is-large-desktop {
+        width: 60%;
+      }
+      @include is-desktop {
+        width: 60%;
+      }
+      @include is-tablet {
+        width: 60%;
+      }
+      @include is-mobile {
+        width: 60%;
+      }
+      @include is-extra-small-mobile {
+        width: 100%;
+      }
+    }
+  }
   &__content {
     width: 100%;
     height: max-content;
@@ -36,10 +88,10 @@
     padding: 6% 15% 5% 15%;
     margin-top: 0 !important;
     @include is-tablet {
-      padding: 40% 10% 20% 10%;
+      padding: 10% 10% 20% 10%;
     }
     @include is-mobile {
-      padding: 40% 10% 60% 10%;
+      padding: 10% 10% 60% 10%;
     }
     h2 {
       margin: 0;
