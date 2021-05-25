@@ -53,7 +53,7 @@
       />
     </div>
     <h2
-      style="color:white; text-align: center;margin-top: 10%;"
+      class="empty-content"
       v-if="
         isGiveawaysFetched &&
           isOffersFetched &&
@@ -61,7 +61,7 @@
           getEnabledOffers.length === 0
       "
     >
-      There are no giveaways or offers now
+      stay<br />tuned
     </h2>
     <LoginModal
       :showFlag="showLoginModal"
