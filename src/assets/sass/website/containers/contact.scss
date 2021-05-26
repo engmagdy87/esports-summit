@@ -151,7 +151,7 @@ $section-tab-clip: 20px;
 .upper-segment {
   height: $section-tab-height;
   width: $section-tab-width;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 1);
   position: absolute;
   @include is-extra-large-desktop {
     clip-path: polygon(
@@ -255,7 +255,7 @@ $section-tab-clip: 20px;
   position: relative;
   top: $section-tab-height;
   padding: 50px 30px;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 1);
   @include is-extra-small-mobile {
     padding: 20px 30px;
   }
@@ -276,7 +276,7 @@ $section-tab-clip: 20px;
 .lower-segment {
   height: $section-tab-clip;
   width: calc(100% - 4px);
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 1);
   position: absolute;
   bottom: -17.5px;
   left: 2px;
