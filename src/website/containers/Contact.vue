@@ -80,13 +80,18 @@
         </div>
       </div> -->
       <div class="clipped-section">
-        <div class="upper-segment-shadow"></div>
-        <div class="upper-segment"><h1>Contact Us</h1></div>
-        <div class="body-shadow">
-          <div class="lower-segment-shadow"></div>
-          <div class="lower-segment"></div>
+        <!-- <div class="upper-segment-shadow"></div> -->
+        <div class="clipped-section__left-corner"></div>
+        <div class="clipped-section__bottom-clipped-left"></div>
+        <div class="clipped-section__bottom-clipped-right"></div>
+        <div class="upper-segment">
+          <h1>Contact Us</h1>
         </div>
+        <!-- <div class="body-shadow">
+          <div class="lower-segment-shadow"></div>
+        </div> -->
         <div class="body">
+          <div class="body__top-clipped"></div>
           <div class="row">
             <div class="col-12 col-md-6">
               <p class="contact-us-text">
@@ -165,6 +170,7 @@
             </div>
           </div>
         </div>
+        <div class="lower-segment"></div>
       </div>
       <!-- <img src="website/img/contact_us-02.svg" alt="email icon" /> -->
     </div>
