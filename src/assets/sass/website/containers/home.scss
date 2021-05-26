@@ -24,17 +24,24 @@
     @include is-mobile {
       height: 108vh !important;
     }
+    @include is-extra-small-mobile {
+      height: 30vh !important;
+    }
   }
   &__hero {
     min-height: 100vh;
+    @include is-extra-small-mobile {
+      min-height: 30vh !important;
+    }
   }
   &__battles {
     width: 100%;
+    margin-top: 250px;
   }
   &__ready-section {
     display: flex;
     @include is-extra-small-mobile {
-      display: block;
+      // display: block;
     }
     img {
       width: 40%;
@@ -54,7 +61,7 @@
         width: 40%;
       }
       @include is-extra-small-mobile {
-        width: 100%;
+        width: 40%;
       }
     }
     div {
@@ -76,7 +83,7 @@
         width: 60%;
       }
       @include is-extra-small-mobile {
-        width: 100%;
+        width: 60%;
       }
     }
   }

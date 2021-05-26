@@ -2,13 +2,13 @@
   <footer class="footer-wrapper">
     <div class="row footer-wrapper--show-small">
       <div
-        class="col12 col-md-8 d-flex justify-content-center justify-content-md-start align-items-center order-2 order-md-1"
+        class="col12 col-md-8 d-flex justify-content-center justify-content-md-start order-2 order-md-1 footer-wrapper__left-side"
       >
         <img
           class="footer-wrapper__logo"
           src="/website/img/logo_2021.png"
           alt="gamers lounge"
-          @click="redirectTo('http://gamersloungeme.com/')"
+          style="cursor:unset"
         />
         <div class="footer-wrapper__divider"></div>
         <div class="container ml-0 footer-wrapper__right-side">
@@ -23,6 +23,12 @@
             />
             <img
               class="footer-wrapper__social-media-icon"
+              src="/website/img/footer/instagram.png"
+              alt="instagram"
+              @click="redirectTo('https://www.instagram.com/theesportssummit/')"
+            />
+            <img
+              class="footer-wrapper__social-media-icon"
               src="/website/img/footer/youtube.png"
               alt="youtube"
               @click="
@@ -30,12 +36,6 @@
                   'https://www.youtube.com/channel/UCeOGq-S3xKR8opZKNXYrd2w'
                 )
               "
-            />
-            <img
-              class="footer-wrapper__social-media-icon"
-              src="/website/img/footer/instagram.png"
-              alt="instagram"
-              @click="redirectTo('https://www.instagram.com/theesportssummit/')"
             />
             <img
               class="footer-wrapper__social-media-icon"
@@ -65,7 +65,7 @@
       <!--      </div>-->
 
       <div
-        class="col12 col-md-4 d-flex justify-content-center justify-content-md-end align-items-center order-1 order-md-2 footer-wrapper__companies"
+        class="col12 col-md-4 d-flex justify-content-center justify-content-md-end order-1 order-md-2 footer-wrapper__companies"
       >
         <img
           class="footer-wrapper__logo"
