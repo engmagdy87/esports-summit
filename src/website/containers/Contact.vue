@@ -82,8 +82,8 @@
       <div class="clipped-section">
         <!-- <div class="upper-segment-shadow"></div> -->
         <div class="clipped-section__left-corner"></div>
-        <div class="clipped-section__bottom-clipped-left"></div>
-        <div class="clipped-section__bottom-clipped-right"></div>
+        <div class="clipped-section__bottom-left-corner"></div>
+        <div class="clipped-section__bottom-right-corner"></div>
         <div class="upper-segment">
           <h1>Contact Us</h1>
         </div>
@@ -170,7 +170,11 @@
             </div>
           </div>
         </div>
-        <div class="lower-segment"></div>
+        <div class="lower-segment">
+          <div class="lower-segment__left"></div>
+          <div class="lower-segment__center"></div>
+          <div class="lower-segment__right"></div>
+        </div>
       </div>
       <!-- <img src="website/img/contact_us-02.svg" alt="email icon" /> -->
     </div>
@@ -269,23 +273,23 @@ export default {
       });
     },
     setClipPath() {
-      const lowerSegment = document.getElementsByClassName("lower-segment");
-      const lowerSegmentShadow = document.getElementsByClassName(
-        "lower-segment-shadow"
-      );
-      const element = lowerSegment[0];
-      const elementShadow = lowerSegmentShadow[0];
+      //   const lowerSegment = document.getElementsByClassName("lower-segment");
+      //   const lowerSegmentShadow = document.getElementsByClassName(
+      //     "lower-segment-shadow"
+      //   );
+      //   const element = lowerSegment[0];
+      //   const elementShadow = lowerSegmentShadow[0];
 
-      const clippedPath = `polygon(
-      0 0,
-      100% 0,
-      100% 0,
-      100% 0,
-      ${100 - (20 / element.clientWidth) * 100}% 100%,
-      ${(20 / element.clientWidth) * 100}% 100%,
-      0 0,
-      0 0
-    )`;
+      //   const clippedPath = `polygon(
+      //   0 0,
+      //   100% 0,
+      //   100% 0,
+      //   100% 0,
+      //   ${100 - (20 / element.clientWidth) * 100}% 100%,
+      //   ${(20 / element.clientWidth) * 100}% 100%,
+      //   0 0,
+      //   0 0
+      // )`;
 
       element.style.clipPath = clippedPath;
       elementShadow.style.clipPath = clippedPath;

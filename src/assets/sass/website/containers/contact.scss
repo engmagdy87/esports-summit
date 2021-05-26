@@ -156,26 +156,26 @@ $section-tab-clip: 20px;
     transform-origin: top left;
     z-index: 10;
   }
-  &__bottom-clipped-left {
+  &__bottom-left-corner {
     position: absolute;
-    height: 1.8px;
+    height: 2px;
     width: 28px;
     background-color: #175e90;
-    bottom: 19px;
-    left: 1px;
+    bottom: 20px;
+    left: 0px;
     transform: rotate(45deg);
-    transform-origin: top left;
+    transform-origin: bottom left;
     z-index: 10;
   }
-  &__bottom-clipped-right {
+  &__bottom-right-corner {
     position: absolute;
-    height: 1.8px;
-    width: 28.5px;
+    height: 2px;
+    width: 28px;
     background-color: #175e90;
-    bottom: -0.65px;
-    right: -7.2px;
+    bottom: 20px;
+    right: 0px;
     transform: rotate(-45deg);
-    transform-origin: top left;
+    transform-origin: bottom right;
     z-index: 10;
   }
 }
@@ -185,75 +185,20 @@ $section-tab-clip: 20px;
   height: $section-tab-height;
   width: $section-tab-width;
   background-color: rgba(0, 0, 0, 0.7);
-  @include is-extra-large-desktop {
-    clip-path: polygon(
-      $section-tab-clip/$section-tab-width * 100% 0,
-      100% 0,
-      100% 100%,
-      100% 0,
-      100% 100%,
-      0 100%,
-      0 100%,
-      0 $section-tab-clip/$section-tab-height * 100%
-    );
-  }
-  @include is-large-desktop {
-    clip-path: polygon(
-      $section-tab-clip/$section-tab-width * 100% 0,
-      100% 0,
-      100% 100%,
-      100% 0,
-      100% 100%,
-      0 100%,
-      0 100%,
-      0 $section-tab-clip/$section-tab-height * 100%
-    );
-  }
-  @include is-desktop {
-    clip-path: polygon(
-      $section-tab-clip/$section-tab-width * 100% 0,
-      100% 0,
-      100% 100%,
-      100% 0,
-      100% 100%,
-      0 100%,
-      0 100%,
-      0 $section-tab-clip/$section-tab-height * 100%
-    );
-  }
-  @include is-tablet {
-    clip-path: polygon(
-      $section-tab-clip/$section-tab-width * 100% 0,
-      100% 0,
-      100% 100%,
-      100% 0,
-      100% 100%,
-      0 100%,
-      0 100%,
-      0 $section-tab-clip/$section-tab-height * 100%
-    );
-  }
-  @include is-mobile {
-    clip-path: polygon(
-      $section-tab-clip/$section-tab-width * 100% 0,
-      100% 0,
-      100% 100%,
-      100% 0,
-      100% 100%,
-      0 100%,
-      0 100%,
-      0 $section-tab-clip/$section-tab-height * 100%
-    );
-  }
-  @include is-extra-small-mobile {
-    width: 100%;
-  }
-}
-.upper-segment {
   text-align: left;
   border-right: 2px solid #175e90;
   border-left: 2px solid #175e90;
   border-top: 2px solid #175e90;
+  clip-path: polygon(
+    $section-tab-clip/$section-tab-width * 100% 0,
+    100% 0,
+    100% 100%,
+    100% 0,
+    100% 100%,
+    0 100%,
+    0 100%,
+    0 $section-tab-clip/$section-tab-height * 100%
+  );
   h1 {
     font-size: 40px;
     font-family: "Arial Bold" !important;
@@ -267,17 +212,10 @@ $section-tab-clip: 20px;
       font-size: 20px;
     }
   }
+  @include is-extra-small-mobile {
+    width: 100%;
+  }
 }
-// .upper-segment-shadow {
-//   top: -2px;
-//   background: $form-shadow;
-//   left: -2px;
-//   width: calc(#{$section-tab-width} + 4px);
-//   @include is-extra-small-mobile {
-//     width: calc(249px + 4px);
-//   }
-// }
-// .body-shadow,
 .body {
   position: relative;
   width: 100%;
@@ -299,33 +237,52 @@ $section-tab-clip: 20px;
     background-color: #175e90;
   }
 }
-// .body-shadow {
-//   position: relative;
-//   background: $form-shadow;
-//   width: calc(100% + 4px);
-//   height: calc(#{$section-height} - #{$section-tab-height} - 20px + 4px);
-//   position: absolute;
-//   top: $section-tab-height - 2px;
-//   left: -2px;
-//   @include is-extra-small-mobile {
-//     height: calc(965px - #{$section-tab-height} - 20px + 4px);
-//   }
-// }
-// .lower-segment-shadow,
 .lower-segment {
+  display: flex;
   height: $section-tab-clip;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
   margin-top: -0.5px;
-  border-bottom: 2px solid #175e90;
+
+  &__left {
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: $section-tab-width;
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 100%,
+      100% 0,
+      100% 100%,
+      $section-tab-clip/$section-tab-width * 100% 100%,
+      0 0,
+      0 0
+    );
+    border-bottom: 2px solid #175e90;
+  }
+  &__right {
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: $section-tab-width;
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 100%,
+      100% 0,
+      100% 100%,
+      $section-tab-clip/$section-tab-width * 100% 100%,
+      0 0,
+      0 0
+    );
+    transform: rotateY(180deg);
+    border-bottom: 2px solid #175e90;
+  }
+  &__center {
+    height: 100%;
+    width: calc(100% - 2 * #{$section-tab-width});
+    background-color: rgba(0, 0, 0, 0.7);
+    border-bottom: 2px solid #175e90;
+  }
 }
-// .lower-segment-shadow {
-//   position: absolute;
-//   bottom: -20px;
-//   left: 0px;
-//   width: 100%;
-//   background-color: $form-shadow;
-// }
 
 .contact-us-text,
 .contact-us-text > p > span,
