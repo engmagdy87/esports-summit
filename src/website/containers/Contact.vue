@@ -291,8 +291,8 @@ export default {
       //   0 0
       // )`;
 
-      element.style.clipPath = clippedPath;
-      elementShadow.style.clipPath = clippedPath;
+      // element.style.clipPath = clippedPath;
+      // elementShadow.style.clipPath = clippedPath;
 
       const mobile = window.matchMedia("(max-width: 600px)");
       if (mobile.matches) {

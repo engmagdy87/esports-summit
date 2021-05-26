@@ -189,6 +189,7 @@ $section-tab-clip: 20px;
   border-right: 2px solid #175e90;
   border-left: 2px solid #175e90;
   border-top: 2px solid #175e90;
+
   clip-path: polygon(
     $section-tab-clip/$section-tab-width * 100% 0,
     100% 0,
@@ -199,6 +200,10 @@ $section-tab-clip: 20px;
     0 100%,
     0 $section-tab-clip/$section-tab-height * 100%
   );
+  @include is-extra-small-mobile {
+    width: 100%;
+    // clip-path: unset;
+  }
   h1 {
     font-size: 40px;
     font-family: "Arial Bold" !important;
@@ -211,9 +216,6 @@ $section-tab-clip: 20px;
     @include is-extra-small-mobile {
       font-size: 20px;
     }
-  }
-  @include is-extra-small-mobile {
-    width: 100%;
   }
 }
 .body {
@@ -257,6 +259,7 @@ $section-tab-clip: 20px;
       0 0,
       0 0
     );
+
     border-bottom: 2px solid #175e90;
   }
   &__right {
