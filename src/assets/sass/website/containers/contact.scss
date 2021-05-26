@@ -145,14 +145,46 @@ $section-tab-clip: 20px;
 .clipped-section {
   position: relative;
   margin-bottom: 100px;
+  &__left-corner {
+    position: absolute;
+    height: 2px;
+    width: 28px;
+    background-color: #175e90;
+    top: 20px;
+    left: 0px;
+    transform: rotate(-45deg);
+    transform-origin: top left;
+    z-index: 10;
+  }
+  &__bottom-clipped-left {
+    position: absolute;
+    height: 2px;
+    width: 28px;
+    background-color: #175e90;
+    bottom: 19px;
+    left: 1px;
+    transform: rotate(45deg);
+    transform-origin: top left;
+    z-index: 10;
+  }
+  &__bottom-clipped-right {
+    position: absolute;
+    height: 2px;
+    width: 28px;
+    background-color: #175e90;
+    bottom: -1px;
+    right: -7px;
+    transform: rotate(-45deg);
+    transform-origin: top left;
+    z-index: 10;
+  }
 }
 
-.upper-segment-shadow,
+// .upper-segment-shadow,
 .upper-segment {
   height: $section-tab-height;
   width: $section-tab-width;
-  background-color: rgba(0, 0, 0, 1);
-  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7);
   @include is-extra-large-desktop {
     clip-path: polygon(
       $section-tab-clip/$section-tab-width * 100% 0,
@@ -218,76 +250,82 @@ $section-tab-clip: 20px;
   }
 }
 .upper-segment {
-  top: 0.5px;
-  z-index: 1;
   text-align: left;
+  border-right: 2px solid #175e90;
+  border-left: 2px solid #175e90;
+  border-top: 2px solid #175e90;
   h1 {
     font-size: 40px;
     font-family: "Arial Bold" !important;
     font-weight: bold;
     text-transform: uppercase;
-    margin-top: 25px !important;
-    margin-left: 30px !important;
+    padding-top: 25px !important;
+    padding-left: 30px !important;
+    margin: 0 !important;
     color: #175e90 !important;
     @include is-extra-small-mobile {
       font-size: 20px;
     }
   }
 }
-.upper-segment-shadow {
-  top: -2px;
-  background: $form-shadow;
-  left: -2px;
-  width: calc(#{$section-tab-width} + 4px);
-  @include is-extra-small-mobile {
-    width: calc(249px + 4px);
-  }
-}
-.body-shadow,
+// .upper-segment-shadow {
+//   top: -2px;
+//   background: $form-shadow;
+//   left: -2px;
+//   width: calc(#{$section-tab-width} + 4px);
+//   @include is-extra-small-mobile {
+//     width: calc(249px + 4px);
+//   }
+// }
+// .body-shadow,
 .body {
+  position: relative;
   width: 100%;
   height: calc(#{$section-height} - #{$section-tab-height} - 20px);
+  padding: 50px 30px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-left: 2px solid #175e90;
+  border-right: 2px solid #175e90;
   @include is-extra-small-mobile {
     height: calc(965px - #{$section-tab-height} - 20px);
-  }
-}
-.body {
-  position: relative;
-  top: $section-tab-height;
-  padding: 50px 30px;
-  background-color: rgba(0, 0, 0, 1);
-  @include is-extra-small-mobile {
     padding: 20px 30px;
   }
-}
-.body-shadow {
-  position: relative;
-  background: $form-shadow;
-  width: calc(100% + 4px);
-  height: calc(#{$section-height} - #{$section-tab-height} - 20px + 4px);
-  position: absolute;
-  top: $section-tab-height - 2px;
-  left: -2px;
-  @include is-extra-small-mobile {
-    height: calc(965px - #{$section-tab-height} - 20px + 4px);
+  &__top-clipped {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 2px;
+    width: calc(100% - #{$section-tab-width} + 4px);
+    background-color: #175e90;
   }
 }
-.lower-segment-shadow,
+// .body-shadow {
+//   position: relative;
+//   background: $form-shadow;
+//   width: calc(100% + 4px);
+//   height: calc(#{$section-height} - #{$section-tab-height} - 20px + 4px);
+//   position: absolute;
+//   top: $section-tab-height - 2px;
+//   left: -2px;
+//   @include is-extra-small-mobile {
+//     height: calc(965px - #{$section-tab-height} - 20px + 4px);
+//   }
+// }
+// .lower-segment-shadow,
 .lower-segment {
   height: $section-tab-clip;
-  width: calc(100% - 4px);
-  background-color: rgba(0, 0, 0, 1);
-  position: absolute;
-  bottom: -17.5px;
-  left: 2px;
-}
-.lower-segment-shadow {
-  position: absolute;
-  bottom: -20px;
-  left: 0px;
   width: 100%;
-  background-color: $form-shadow;
+  background-color: rgba(0, 0, 0, 0.7);
+  margin-top: -0.5px;
+  border-bottom: 2px solid #175e90;
 }
+// .lower-segment-shadow {
+//   position: absolute;
+//   bottom: -20px;
+//   left: 0px;
+//   width: 100%;
+//   background-color: $form-shadow;
+// }
 
 .contact-us-text,
 .contact-us-text > p > span,
