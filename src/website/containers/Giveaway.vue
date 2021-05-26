@@ -52,17 +52,17 @@
         :sourceRoute="tree"
       />
     </div>
-    <h2
-      class="empty-content"
+    <img
       v-if="
         isGiveawaysFetched &&
           isOffersFetched &&
           getEnabledGiveaways.length === 0 &&
           getEnabledOffers.length === 0
       "
-    >
-      stay<br />tuned
-    </h2>
+      class="empty-content"
+      src="/website/img/stay_tuned.png"
+      alt="stay tuned"
+    />
     <LoginModal
       :showFlag="showLoginModal"
       :setShowLoginModal="setShowLoginModal"
