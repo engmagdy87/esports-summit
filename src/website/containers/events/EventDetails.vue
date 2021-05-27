@@ -1,7 +1,7 @@
 <template>
   <div class="event-details-wrapper">
     <Header
-      activeItem="events"
+      :activeItem="isDisplayedInStory ? 'story' : 'events'"
       :isSolidHeader="true"
       :setShowRegisterModal="setShowRegisterModal"
       :setShowLoginModal="setShowLoginModal"
@@ -232,8 +232,6 @@ import RegisterModal from "../../components/home/RegisterModal";
 import Spinner from "../../shared/Spinner";
 import redirectToNewTab from "../../helpers/RedirectToNewTab";
 import { setEventCookie, getEventCookie } from "../../helpers/CookieHelper";
-import * as POPUPS_PLACES from "../../constants/PopupsPlaces";
-import giveaway from "../../../store/modules/giveaway";
 
 export default {
   data() {
@@ -243,7 +241,8 @@ export default {
       showMoreText: false,
       setShowMoreTextFlag: false,
       eventShortDetails: {},
-      randomPopupData: {}
+      randomPopupData: {},
+      isDisplayedInStory: false
     };
   },
   computed: {
@@ -374,6 +373,7 @@ export default {
     EventTabs
   },
   mounted() {
+    this.isDisplayedInStory = this.$router.history.current.params.data.isDisplayedInStory;
     const eventCookieData = getEventCookie();
     if (this.$router.history.current.params.data !== undefined) {
       this.eventShortDetails = this.$router.history.current.params.data;

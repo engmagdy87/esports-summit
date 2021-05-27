@@ -164,6 +164,39 @@ span {
 .description-container.story-text {
   div {
     color: #175e90 !important;
+    word-break: break-word;
+  }
+  span {
+    color: #175e90 !important;
+    word-break: break-word;
+  }
+  span > * {
+    color: #175e90 !important;
+    word-break: break-word;
+  }
+  h1 > a,
+  h2 > a,
+  h3 > a,
+  h4 > a,
+  h5 > a,
+  h6 > a,
+  p > a,
+  span > a {
+    color: #2af3f3 !important;
+    word-break: break-word;
+    text-decoration: underline;
+  }
+  p {
+    @media (max-width: 767px) {
+      flex-flow: wrap-reverse !important;
+      display: flex !important;
+    }
+  }
+  &--expand {
+    height: 100%;
+  }
+  &--limit {
+    height: 200px;
   }
 }
 .description-container {
