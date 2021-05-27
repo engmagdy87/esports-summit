@@ -8,6 +8,7 @@
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
+  position: relative;
   &::-webkit-scrollbar {
     width: 5px !important;
     background-color: $accent !important;
@@ -114,4 +115,205 @@
       font-family: "Roboto Bold";
     }
   }
+}
+
+$section-height: 500px;
+$section-tab-height: 67px;
+$section-tab-width: 363px;
+$section-tab-clip: 20px;
+
+.clipped-section {
+  position: relative;
+  margin-bottom: 100px;
+  &__left-corner {
+    position: absolute;
+    height: 2px;
+    width: 28px;
+    background-color: #175e90;
+    top: 20px;
+    left: 0px;
+    transform: rotate(-45deg);
+    transform-origin: top left;
+    z-index: 10;
+  }
+  &__right-corner {
+    display: none;
+    @include is-extra-small-mobile {
+      display: block;
+      position: absolute;
+      height: 2px;
+      width: 28px;
+      background-color: #175e90;
+      top: 20px;
+      right: 0px;
+      transform: rotate(45deg);
+      transform-origin: top right;
+      z-index: 10;
+    }
+  }
+  &__bottom-left-corner {
+    position: absolute;
+    height: 2px;
+    width: 28px;
+    background-color: #175e90;
+    bottom: 20px;
+    left: 0px;
+    transform: rotate(45deg);
+    transform-origin: bottom left;
+    z-index: 10;
+  }
+  &__bottom-right-corner {
+    position: absolute;
+    height: 2px;
+    width: 28px;
+    background-color: #175e90;
+    bottom: 20px;
+    right: 0px;
+    transform: rotate(-45deg);
+    transform-origin: bottom right;
+    z-index: 10;
+  }
+}
+
+// .upper-segment-shadow,
+.upper-segment {
+  height: $section-tab-height;
+  width: $section-tab-width;
+  background-color: rgba(0, 0, 0, 0.7);
+  text-align: left;
+  border-right: 2px solid #175e90;
+  border-left: 2px solid #175e90;
+  border-top: 2px solid #175e90;
+
+  clip-path: polygon(
+    $section-tab-clip/$section-tab-width * 100% 0,
+    100% 0,
+    100% 100%,
+    100% 0,
+    100% 100%,
+    0 100%,
+    0 100%,
+    0 $section-tab-clip/$section-tab-height * 100%
+  );
+  @include is-extra-small-mobile {
+    width: 100%;
+    // clip-path: unset;
+  }
+  h1 {
+    font-size: 40px;
+    font-family: "Arial Bold" !important;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-top: 25px !important;
+    padding-left: 30px !important;
+    margin: 0 !important;
+    color: #175e90 !important;
+    @include is-extra-small-mobile {
+      font-size: 20px;
+    }
+  }
+}
+.body {
+  position: relative;
+  width: 100%;
+  height: calc(#{$section-height} - #{$section-tab-height} - 20px);
+  padding: 50px 30px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-left: 2px solid #175e90;
+  border-right: 2px solid #175e90;
+
+  @include is-large-desktop {
+    height: calc(600px - #{$section-tab-height} - 20px);
+  }
+  @include is-desktop {
+    height: calc(720px - #{$section-tab-height} - 20px);
+  }
+  @include is-tablet {
+    height: calc(880px - #{$section-tab-height} - 20px);
+  }
+  @include is-mobile {
+    height: calc(800px - #{$section-tab-height} - 20px);
+    padding: 20px 30px;
+  }
+  @include is-extra-small-mobile {
+    height: calc(1250px - #{$section-tab-height} - 20px);
+    padding: 20px 30px;
+  }
+  &__top-clipped {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 2px;
+    width: calc(100% - #{$section-tab-width} + 4px);
+    background-color: #175e90;
+    @include is-extra-small-mobile {
+      display: none;
+    }
+  }
+}
+.lower-segment {
+  display: flex;
+  height: $section-tab-clip;
+  width: 100%;
+  margin-top: -0.5px;
+
+  &__left {
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: $section-tab-width;
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 100%,
+      100% 0,
+      100% 100%,
+      $section-tab-clip/$section-tab-width * 100% 100%,
+      0 0,
+      0 0
+    );
+
+    border-bottom: 2px solid #175e90;
+  }
+  &__right {
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: $section-tab-width;
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 100%,
+      100% 0,
+      100% 100%,
+      $section-tab-clip/$section-tab-width * 100% 100%,
+      0 0,
+      0 0
+    );
+    transform: rotateY(180deg);
+    border-bottom: 2px solid #175e90;
+  }
+  &__center {
+    height: 100%;
+    width: calc(100% - 2 * #{$section-tab-width});
+    background-color: rgba(0, 0, 0, 0.7);
+    border-bottom: 2px solid #175e90;
+    @include is-extra-small-mobile {
+      display: none;
+    }
+  }
+}
+
+.contact-us-text,
+.contact-us-text > p > span,
+.contact-us-text > span {
+  font-size: 1.2rem;
+  color: #175e90 !important;
+  font-family: "Arial Bold" !important;
+}
+
+.story-text,
+.story-text > p > span,
+.story-text > span {
+  // font-size: 1rem;
+  color: #175e90 !important;
+  font-family: "Arial Bold" !important;
 }

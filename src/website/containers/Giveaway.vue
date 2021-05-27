@@ -51,6 +51,14 @@
         :data="getEnabledOffers"
         :sourceRoute="tree"
       />
+      <Footer
+        v-if="
+          isGiveawaysFetched &&
+            isOffersFetched &&
+            isCoverGiveawaysImageFetched &&
+            getEnabledGiveaways.length !== 0
+        "
+      />
     </div>
     <img
       v-if="
@@ -72,15 +80,11 @@
       :setShowRegisterModal="setShowRegisterModal"
     />
     <Spinner :smallLoader="false" />
-    <Footer
-      v-if="
-        isGiveawaysFetched &&
-          isOffersFetched &&
-          isCoverGiveawaysImageFetched &&
-          getEnabledGiveaways.length !== 0
-      "
+
+    <Popup
+      :data="randomPopupData"
+      v-if="randomPopupData !== null && this.isRandomPopupDataFetched"
     />
-    <Popup :data="randomPopupData" v-if="randomPopupData !== null" />
   </div>
 </template>
 

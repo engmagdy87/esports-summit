@@ -32,7 +32,10 @@
     />
     <Spinner :smallLoader="false" />
     <Footer v-if="isTestimonialsFetched && isCoverTestimonialsImageFetched" />
-    <Popup :data="randomPopupData" v-if="randomPopupData !== null" />
+    <Popup
+      :data="randomPopupData"
+      v-if="randomPopupData !== null && this.isRandomPopupDataFetched"
+    />
   </div>
 </template>
 

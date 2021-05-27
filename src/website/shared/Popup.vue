@@ -29,8 +29,6 @@
 </template>
 
 <script>
-import { truncateText } from "../helpers/StringsHelper";
-
 export default {
   props: ["data"],
   data() {
@@ -47,6 +45,9 @@ export default {
     closePopup() {
       this.showEventPopup = false;
     }
+  },
+  updated() {
+    this.showEventPopup = Object.keys(this.data).length > 0;
   }
 };
 </script>

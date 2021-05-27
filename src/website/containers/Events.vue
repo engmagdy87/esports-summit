@@ -53,6 +53,14 @@
         route="events"
         :data="subEventsData"
       />
+      <Footer
+        v-if="
+          isMainEventsFetched &&
+            isSubEventsFetched &&
+            isCoverHomeEventsImageFetched &&
+            (mainEventsData.length !== 0 || subEventsData.length !== 0)
+        "
+      />
     </div>
     <h2
       style="color:white; text-align: center;margin-top: 10%;"
@@ -74,14 +82,6 @@
       :setShowRegisterModal="setShowRegisterModal"
     />
     <Spinner :smallLoader="false" />
-    <Footer
-      v-if="
-        isMainEventsFetched &&
-          isSubEventsFetched &&
-          isCoverHomeEventsImageFetched &&
-          (mainEventsData.length !== 0 || subEventsData.length !== 0)
-      "
-    />
   </div>
 </template>
 

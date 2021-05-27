@@ -161,6 +161,11 @@ span {
   font-family: "Roboto" !important;
 }
 
+.description-container.story-text {
+  div {
+    color: #175e90 !important;
+  }
+}
 .description-container {
   word-break: break-word;
   overflow: hidden;
