@@ -236,7 +236,7 @@ $section-tab-clip: 20px;
     padding: 20px 30px;
   }
   @include is-extra-small-mobile {
-    height: calc(1250px - #{$section-tab-height} - 20px);
+    height: calc(1100px - #{$section-tab-height} - 20px);
     padding: 20px 30px;
   }
   &__top-clipped {

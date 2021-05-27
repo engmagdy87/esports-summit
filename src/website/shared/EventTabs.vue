@@ -70,6 +70,9 @@
               class="event-tab-wrapper__details__placeholder-img"
               v-else-if="event.images.img_media.length > 0"
               :src="event.images.img_media[0].path"
+              @click="
+                setClickedImageInMedia(event.images.img_media[0].path, 0, i)
+              "
             />
             <EventHistoryGallery
               v-if="event.images.img_media.length > 0"
