@@ -11,6 +11,9 @@
   align-items: center;
   height: $header-height;
   z-index: 100;
+  @include is-extra-small-mobile {
+    height: 50px;
+  }
   &__user-section {
     color: $primary !important;
   }
@@ -62,6 +65,10 @@
       width: fit-content;
       margin-left: 10px;
     }
+    @include is-extra-small-mobile {
+      width: fit-content;
+      margin-left: 10px;
+    }
     img {
       display: block;
       width: 150px;
@@ -70,6 +77,11 @@
       @include is-mobile {
         margin-right: auto;
         width: 90px;
+        padding-bottom: 10px;
+      }
+      @include is-extra-small-mobile {
+        margin-right: auto;
+        width: 56px;
         padding-bottom: 10px;
       }
     }
@@ -123,6 +135,10 @@
   right: 24px;
   @include is-mobile {
     top: calc(#{$header-height-mobile} / 7);
+  }
+  @include is-extra-small-mobile {
+    top: calc(50px / 10);
+    font-size: 20px;
   }
 }
 

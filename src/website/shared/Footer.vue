@@ -22,13 +22,13 @@
               @click="redirectTo('https://discord.gg/PUwd4cZ')"
             />
             <img
-              class="footer-wrapper__social-media-icon"
+              class="footer-wrapper__social-media-icon footer-wrapper__social-media-icon--short"
               src="/website/img/footer/instagram.png"
               alt="instagram"
               @click="redirectTo('https://www.instagram.com/theesportssummit/')"
             />
             <img
-              class="footer-wrapper__social-media-icon"
+              class="footer-wrapper__social-media-icon footer-wrapper__social-media-icon--short"
               src="/website/img/footer/youtube.png"
               alt="youtube"
               @click="
@@ -38,7 +38,7 @@
               "
             />
             <img
-              class="footer-wrapper__social-media-icon"
+              class="footer-wrapper__social-media-icon footer-wrapper__social-media-icon--short"
               src="/website/img/footer/facebook.png"
               alt="facebook"
               @click="redirectTo('https://www.facebook.com/theesportssummit/')"
@@ -74,6 +74,67 @@
           @click="redirectTo('http://gamersloungeme.com/')"
         />
         <div class="footer-wrapper__divider"></div>
+        <img
+          class="footer-wrapper__logo"
+          src="/website/img/footer/worx.png"
+          alt="worx"
+          @click="redirectTo('https://theworx-emc.com/')"
+        />
+      </div>
+    </div>
+
+    <div class="row footer-wrapper--show-small-mob">
+      <div class="row footer-wrapper--show-small-mob--section-1">
+        <div class="container ml-0 footer-wrapper__right-side">
+          <div
+            class="row mb-3 mt-3 mt-md-0 justify-content-center justify-content-md-start footer-wrapper__social-media"
+          >
+            <img
+              class="footer-wrapper__social-media-icon"
+              src="/website/img/footer/discord.png"
+              alt="discord"
+              @click="redirectTo('https://discord.gg/PUwd4cZ')"
+            />
+            <img
+              class="footer-wrapper__social-media-icon footer-wrapper__social-media-icon--short"
+              src="/website/img/footer/instagram.png"
+              alt="instagram"
+              @click="redirectTo('https://www.instagram.com/theesportssummit/')"
+            />
+            <img
+              class="footer-wrapper__social-media-icon footer-wrapper__social-media-icon--short"
+              src="/website/img/footer/youtube.png"
+              alt="youtube"
+              @click="
+                redirectTo(
+                  'https://www.youtube.com/channel/UCeOGq-S3xKR8opZKNXYrd2w'
+                )
+              "
+            />
+            <img
+              class="footer-wrapper__social-media-icon footer-wrapper__social-media-icon--short"
+              src="/website/img/footer/facebook.png"
+              alt="facebook"
+              @click="redirectTo('https://www.facebook.com/theesportssummit/')"
+            />
+          </div>
+          <div class="row d-block ml-0 footer-wrapper__copyrights">
+            <div class="text-center text-md-left">
+              Copyright ©️ ESports Summit {{ new Date().getFullYear() }}
+            </div>
+            <div class="text-center text-md-left">
+              All Rights Reserved
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-wrapper--show-small-mob--section-2">
+        <img
+          class="footer-wrapper__logo"
+          src="/website/img/footer/gamers-lounge.png"
+          alt="gamers lounge"
+          @click="redirectTo('http://gamersloungeme.com/')"
+        />
         <img
           class="footer-wrapper__logo"
           src="/website/img/footer/worx.png"

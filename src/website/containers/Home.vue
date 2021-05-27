@@ -32,13 +32,33 @@
     <div class="home-wrapper__content" id="home">
       <div class="home-wrapper__ready-section">
         <img src="/website/img/home/get_ready.png" alt="get ready" />
-        <div></div>
+        <video
+          controls
+          autoplay
+          muted
+          loop
+          @click="e => toggleFullScreenMode(e)"
+          id="video"
+        >
+          <source src="/website/vid/home-video.mp4" type="video/mp4" />
+          Your browser does not support HTML video.
+        </video>
       </div>
-      <img
-        class="home-wrapper__battles"
-        src="/website/img/home/battles.png"
-        alt="battles"
-      />
+      <div
+        class="home-wrapper__ready-section home-wrapper__ready-section--section-2"
+      >
+        <img
+          class="home-wrapper__battles"
+          src="/website/img/home/20_games-words.png"
+          alt="battles"
+        />
+        <!-- <img
+          class="home-wrapper__battles-logos"
+          src="/website/img/home/20_games-logos.png"
+          alt="battles"
+        /> -->
+      </div>
+
       <!-- <div
         v-if="
           isGamesDataFetched &&
@@ -241,6 +261,24 @@ export default {
           data: { id, title, tree: [{ name: "Home", path: "/" }] }
         }
       });
+    },
+    toggleFullScreenMode(e) {
+      e.preventDefault();
+      let elem = document.getElementById(`video`);
+      elem.addEventListener("fullscreenchange", () => {
+        elem.muted = !document.fullscreenElement;
+      });
+      if (!document.fullscreenElement) {
+        elem.muted = false;
+        elem.requestFullscreen().catch(err => {
+          alert(
+            `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
+          );
+        });
+      } else {
+        elem.muted = true;
+        document.exitFullscreen();
+      }
     }
     // detectScroll(e) {
     // if (e.target.scrollTop <= 120) this.footerCssClass = "hide";

@@ -25,43 +25,160 @@
       height: 108vh !important;
     }
     @include is-extra-small-mobile {
-      height: 30vh !important;
+      height: 45vh !important;
     }
   }
   &__hero {
     min-height: 100vh;
     @include is-extra-small-mobile {
-      min-height: 30vh !important;
+      min-height: 45vh !important;
     }
   }
-  &__battles {
-    width: 100%;
-    margin-top: 250px;
-  }
+
   &__ready-section {
     display: flex;
+    height: 50vh;
+    @include is-extra-small-mobile {
+      height: auto;
+    }
+    &--section-2 {
+      height: max-content;
+      margin-top: 300px;
+      margin-bottom: 100px;
+      @include is-extra-small-mobile {
+        margin-top: 50px;
+        margin-bottom: 30px;
+      }
+    }
     @include is-extra-small-mobile {
       // display: block;
     }
     img {
-      width: 40%;
+      height: auto;
+      object-fit: scale-down;
+      margin-left: 0;
       @include is-extra-large-desktop {
-        width: 40%;
+        width: 30%;
+        margin-right: 2.5%;
       }
       @include is-large-desktop {
-        width: 40%;
+        width: 35%;
+        height: 80%;
       }
       @include is-desktop {
-        width: 40%;
+        width: 30%;
+        height: 70%;
+        object-fit: fill;
       }
       @include is-tablet {
-        width: 40%;
+        height: 60%;
+        width: 30%;
+        object-fit: fill;
       }
       @include is-mobile {
-        width: 40%;
+        height: 60%;
+        width: 30%;
+        object-fit: fill;
       }
       @include is-extra-small-mobile {
-        width: 40%;
+        height: 30%;
+        width: 30%;
+        object-fit: scale-down;
+      }
+    }
+
+    video {
+      object-fit: cover;
+      cursor: pointer;
+      @include is-extra-large-desktop {
+        height: 100%;
+        width: 70%;
+      }
+      @include is-large-desktop {
+        height: 80%;
+        width: 65%;
+      }
+      @include is-desktop {
+        height: 70%;
+        width: 70%;
+      }
+      @include is-tablet {
+        height: 60%;
+        width: 70%;
+      }
+      @include is-mobile {
+        height: 60%;
+        width: 70%;
+      }
+      @include is-extra-small-mobile {
+        height: 30%;
+        width: 70%;
+      }
+    }
+
+    .home-wrapper__battles {
+      width: 100%;
+    }
+    .home-wrapper__battles-word {
+      height: auto;
+      margin-left: 0;
+      @include is-extra-large-desktop {
+        object-fit: scale-down;
+        width: 30%;
+        margin-right: 2%;
+        height: 100%;
+      }
+      @include is-large-desktop {
+        width: 35%;
+        height: 80%;
+      }
+      @include is-desktop {
+        width: 30%;
+        height: 70%;
+        object-fit: fill;
+      }
+      @include is-tablet {
+        height: 60%;
+        width: 30%;
+        object-fit: fill;
+      }
+      @include is-mobile {
+        height: 60%;
+        width: 30%;
+        object-fit: fill;
+      }
+      @include is-extra-small-mobile {
+        height: 30%;
+        width: 30%;
+        object-fit: scale-down;
+      }
+    }
+
+    .home-wrapper__battles-logos {
+      // object-fit: cover;
+      @include is-extra-large-desktop {
+        // height: 80%;
+        width: 70%;
+      }
+      @include is-large-desktop {
+        height: 80%;
+        width: 65%;
+      }
+      @include is-desktop {
+        height: 70%;
+        width: 70%;
+      }
+      @include is-tablet {
+        height: 60%;
+        width: 70%;
+      }
+      @include is-mobile {
+        height: 60%;
+        width: 70%;
+      }
+      @include is-extra-small-mobile {
+        height: 30%;
+        width: 70%;
       }
     }
     div {

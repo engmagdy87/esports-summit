@@ -1,4 +1,6 @@
 @import "./color-palette.scss";
+@import "./color-palette.scss";
+@import "./mixins.scss";
 
 html {
   overflow-x: hidden;
@@ -47,6 +49,9 @@ html {
 
 .slick-dots {
   bottom: 20px !important;
+  @include is-extra-small-mobile {
+    bottom: 0px !important;
+  }
   li {
     width: 50px !important;
     background-color: gray !important;
