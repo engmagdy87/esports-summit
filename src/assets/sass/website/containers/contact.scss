@@ -119,6 +119,7 @@
     background-color: #175e90;
     width: calc(100% + 2px);
     height: 164px;
+    resize: none;
     @include create-hexagone-shape(5px);
   }
 }
