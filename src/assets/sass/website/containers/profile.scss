@@ -59,6 +59,9 @@ $preview-image: 150px;
       // min-height: 82vh;
       padding: 5%;
     }
+    @include is-extra-small-mobile {
+      padding: 5% 5% 40% 5%;
+    }
     &__profile-details {
       padding-left: 50px;
       div {

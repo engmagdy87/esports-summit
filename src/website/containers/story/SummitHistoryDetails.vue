@@ -101,8 +101,13 @@
       :setCurrentImageIndex="setCurrentImageIndex"
     />
     <Spinner :smallLoader="false" />
-    <Footer v-if="showDetailsHero" />
-    <Popup :data="randomPopupData" v-if="randomPopupData !== null" />
+    <div style="position: relative; margin-top: 100px;">
+      <Footer v-if="showDetailsHero" />
+    </div>
+    <Popup
+      :data="randomPopupData"
+      v-if="randomPopupData !== null && this.isRandomPopupDataFetched"
+    />
   </div>
 </template>
 

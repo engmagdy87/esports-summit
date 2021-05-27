@@ -56,7 +56,7 @@
       </div>
     </div>
     <div class="story-wrapper__content" v-if="isStoryFetched">
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-12">
           <h1>{{ storyData.initial_title }}</h1>
         </div>
@@ -80,10 +80,59 @@
           >
           </iframe>
         </div>
+      </div> -->
+
+      <div class="clipped-section">
+        <div class="clipped-section__left-corner"></div>
+        <div class="clipped-section__right-corner"></div>
+        <div class="clipped-section__bottom-left-corner"></div>
+        <div class="clipped-section__bottom-right-corner"></div>
+        <div class="upper-segment">
+          <h1>{{ storyData.initial_title }}</h1>
+        </div>
+        <!-- <div class="body-shadow">
+          <div class="lower-segment-shadow"></div>
+        </div> -->
+        <div class="body">
+          <div class="body__top-clipped"></div>
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <div
+                class="story-paragraph description-container story-text"
+                v-html="storyData.initial_description"
+              ></div>
+            </div>
+            <div
+              class="col-12 col-md-5 offset-md-1"
+              v-if="storyData.videos.vid_initial !== null"
+            >
+              <iframe
+                style="width:100%"
+                :height="getVideoHeight(storyData.videos.vid_initial.path)"
+                :src="
+                  getLiveVideoEmbedFormatter(storyData.videos.vid_initial.path)
+                "
+                frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              >
+              </iframe>
+            </div>
+          </div>
+        </div>
+        <div class="lower-segment">
+          <div class="lower-segment__left"></div>
+          <div class="lower-segment__center"></div>
+          <div class="lower-segment__right"></div>
+        </div>
       </div>
+
       <div v-if="isSummitsHistoryDataFetched">
         <StoryMenuView :data="summitsHistoryData" :tree="tree" />
       </div>
+    </div>
+    <div style="position: relative; margin-top: 100px;">
+      <Footer v-if="isStoryFetched" />
     </div>
     <LoginModal
       :showFlag="showLoginModal"
@@ -94,8 +143,10 @@
       :setShowRegisterModal="setShowRegisterModal"
     />
     <Spinner :smallLoader="false" />
-    <Footer v-if="isStoryFetched" />
-    <Popup :data="randomPopupData" v-if="randomPopupData !== null" />
+    <Popup
+      :data="randomPopupData"
+      v-if="randomPopupData !== null && this.isRandomPopupDataFetched"
+    />
   </div>
 </template>
 
@@ -178,6 +229,82 @@ export default {
       if (!isDeviceSmart() && path.includes("facebook")) return 400;
       if (isDeviceSmart() && !path.includes("facebook")) return 200;
       if (!isDeviceSmart() && !path.includes("facebook")) return 350;
+    },
+    setClipPath() {
+      //   const lowerSegment = document.getElementsByClassName("lower-segment");
+      //   const lowerSegmentShadow = document.getElementsByClassName(
+      //     "lower-segment-shadow"
+      //   );
+      //   const element = lowerSegment[0];
+      //   const elementShadow = lowerSegmentShadow[0];
+
+      //   const clippedPath = `polygon(
+      //   0 0,
+      //   100% 0,
+      //   100% 0,
+      //   100% 0,
+      //   ${100 - (20 / element.clientWidth) * 100}% 100%,
+      //   ${(20 / element.clientWidth) * 100}% 100%,
+      //   0 0,
+      //   0 0
+      // )`;
+
+      // element.style.clipPath = clippedPath;
+      // elementShadow.style.clipPath = clippedPath;
+
+      const mobile = window.matchMedia("(max-width: 600px)");
+      if (mobile.matches) {
+        const upperSegment = document.getElementsByClassName("upper-segment");
+        const bottomLeftSegment = document.getElementsByClassName(
+          "lower-segment__left"
+        );
+        const bottomRightSegment = document.getElementsByClassName(
+          "lower-segment__right"
+        );
+
+        const upperElement = upperSegment[0];
+        const bottomLeftSegmentElement = bottomLeftSegment[0];
+        const bottomRightSegmentElement = bottomRightSegment[0];
+
+        const upperClippedPath = `polygon(
+      ${(20 / upperElement.clientWidth) * 100}% 0,
+      100% 0%,
+      ${100 - (20 / upperElement.clientWidth) * 100}% 0,
+      100% ${(20 / upperElement.clientHeight) * 100}%,
+      100% 0,
+      100% 100%,
+      0 100%,
+      0 100%,
+      0 ${(20 / 67) * 100}%
+    )`;
+
+        const bottomLeftSegmentClippedPath = `polygon(
+      0 0,
+      100% 0%,
+      100% 100%,
+      100% 0,
+      100% 0,
+      100% 100%,
+      0 100%,
+      16% 100%,
+      0 0
+    )`;
+        const bottomRightSegmentClippedPath = `polygon(
+      0 0,
+      100% 0%,
+      100% 100%,
+      100% 0,
+      100% 0,
+      100% 100%,
+      0 100%,
+      16% 100%,
+      0 0
+    )`;
+
+        upperElement.style.clipPath = upperClippedPath;
+        bottomLeftSegmentElement.style.clipPath = bottomLeftSegmentClippedPath;
+        bottomRightSegmentElement.style.clipPath = bottomRightSegmentClippedPath;
+      }
     }
   },
   components: {
@@ -198,6 +325,7 @@ export default {
     redirectToNewTab("description-container");
     if (this.isRandomPopupDataFetched)
       this.randomPopupData = this.randomPopup(POPUPS_PLACES.STORY);
+    this.setClipPath();
   }
 };
 </script>

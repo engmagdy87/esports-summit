@@ -43,6 +43,7 @@
     width: 100%;
     height: max-content;
     padding: 0% 15% 10% 15%;
+    position: relative;
     h2 {
       margin: 80px 0;
       color: white;
@@ -52,6 +53,9 @@
       .col {
         padding: 5px;
       }
+    }
+    @include is-extra-small-mobile {
+      padding: 0% 15% 40% 15%;
     }
   }
   &__content-history {

@@ -129,6 +129,15 @@
           <img class="" src="/website/img/footer/sponsors-main.png" />
         </div>
       </div> -->
+      <Footer
+        v-if="
+          isGamesDataFetched &&
+            isTournamentsDataFetched &&
+            isDashboardRegionsDataFetched &&
+            isFooterSponsorsDataFetched &&
+            isMainEventsFetched
+        "
+      />
     </div>
     <LoginModal
       :showFlag="showLoginModal"
@@ -145,16 +154,11 @@
       :regionsData="regionsData"
     />
     <Spinner :smallLoader="false" />
-    <Footer
-      v-if="
-        isGamesDataFetched &&
-          isTournamentsDataFetched &&
-          isDashboardRegionsDataFetched &&
-          isFooterSponsorsDataFetched &&
-          isMainEventsFetched
-      "
+
+    <Popup
+      :data="randomPopupData"
+      v-if="randomPopupData !== null && this.isRandomPopupDataFetched"
     />
-    <Popup :data="randomPopupData" v-if="randomPopupData !== null" />
   </div>
 </template>
 

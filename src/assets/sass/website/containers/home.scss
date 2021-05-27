@@ -84,6 +84,7 @@
         height: 30%;
         width: 30%;
         object-fit: scale-down;
+        margin-right: 4%;
       }
     }
 
@@ -112,7 +113,7 @@
       }
       @include is-extra-small-mobile {
         height: 30%;
-        width: 70%;
+        width: 66%;
       }
     }
 
@@ -211,11 +212,17 @@
     background-repeat: repeat;
     padding: 6% 15% 5% 15%;
     margin-top: 0 !important;
+    position: relative;
     @include is-tablet {
       padding: 10% 10% 20% 10%;
     }
     @include is-mobile {
       padding: 10% 10% 60% 10%;
+    }
+    @include is-extra-small-mobile {
+      padding: 6% 15% 30% 15%;
+      height: fit-content;
+      min-height: 66vh;
     }
     h2 {
       margin: 0;
