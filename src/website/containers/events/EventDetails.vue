@@ -164,13 +164,13 @@
           </div>
         </div>
       </div>
-      <div class="row event-details-wrapper__content__tournaments mb-5 mb-sm-3">
+      <!-- <div class="row event-details-wrapper__content__tournaments mb-5 mb-sm-3">
         <div
           class="col-12 order-2 order-md-1 col-md-6 event-details-wrapper__content__tournaments__title"
         >
           Event Tournaments
         </div>
-      </div>
+      </div> -->
       <EventsMenuView
         route="event-details"
         :data="eventDetails.tournaments"
