@@ -16,8 +16,8 @@
           aria-selected="true"
           @click="selectClickAction(tab, index)"
           v-if="
-            tab === 'Battles'
-              ? data.tournaments.length > 0 || data.games.length > 0
+            tab === 'Battles' || tab === 'Events'
+              ? !(summitYear == 2018 || summitYear === 2019)
               : true
           "
           >{{ tab }}</a
@@ -95,8 +95,7 @@
       <!-- GAMES AND TOURNAMENTS TAB -->
       <div
         v-show="
-          activeTabIndex === 2 &&
-            (data.tournaments.length > 0 || data.games.length > 0)
+          activeTabIndex === 2 && (summitYear !== 2018 || summitYear !== 2019)
         "
         :class="['tab-pane fade', activeTabIndex === 2 ? 'show active' : '']"
         id="nav-profile"
@@ -173,7 +172,9 @@
       </div>
       <!-- EVENTS TAB -->
       <div
-        v-show="activeTabIndex === 3"
+        v-show="
+          activeTabIndex === 3 && (summitYear !== 2018 || summitYear !== 2019)
+        "
         :class="['tab-pane fade', activeTabIndex === 3 ? 'show active' : '']"
         id="nav-profile"
         role="tabpanel"
@@ -301,7 +302,7 @@ import { liveVideoEmbedFormatter } from "../../dashboard/helpers/LiveVideoEmbedF
 import { truncateText } from "../helpers/StringsHelper";
 
 export default {
-  props: ["data", "setClickedImageInMedia"],
+  props: ["data", "setClickedImageInMedia", "summitYear"],
   data() {
     return {
       activeTabIndex: 0,

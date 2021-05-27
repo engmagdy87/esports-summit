@@ -80,6 +80,7 @@
             <SummitTabs
               :data="summitCompleteData"
               :setClickedImageInMedia="setClickedImageInMedia"
+              :summitYear="summitCompleteData.year"
             />
           </div>
         </div>
