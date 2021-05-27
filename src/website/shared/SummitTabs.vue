@@ -15,6 +15,11 @@
           aria-controls="nav-home"
           aria-selected="true"
           @click="selectClickAction(tab, index)"
+          v-if="
+            tab === 'Battles'
+              ? data.tournaments.length > 0 || data.games.length > 0
+              : true
+          "
           >{{ tab }}</a
         >
       </div>
@@ -89,7 +94,10 @@
       </div>
       <!-- GAMES AND TOURNAMENTS TAB -->
       <div
-        v-show="activeTabIndex === 2"
+        v-show="
+          activeTabIndex === 2 &&
+            (data.tournaments.length > 0 || data.games.length > 0)
+        "
         :class="['tab-pane fade', activeTabIndex === 2 ? 'show active' : '']"
         id="nav-profile"
         role="tabpanel"
