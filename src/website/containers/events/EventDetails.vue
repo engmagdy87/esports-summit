@@ -1,7 +1,7 @@
 <template>
   <div class="event-details-wrapper">
     <Header
-      activeItem="events"
+      :activeItem="isDisplayedInStory ? 'story' : 'events'"
       :isSolidHeader="true"
       :setShowRegisterModal="setShowRegisterModal"
       :setShowLoginModal="setShowLoginModal"
@@ -164,13 +164,13 @@
           </div>
         </div>
       </div>
-      <div class="row event-details-wrapper__content__tournaments mb-5 mb-sm-3">
+      <!-- <div class="row event-details-wrapper__content__tournaments mb-5 mb-sm-3">
         <div
           class="col-12 order-2 order-md-1 col-md-6 event-details-wrapper__content__tournaments__title"
         >
           Event Tournaments
         </div>
-      </div>
+      </div> -->
       <EventsMenuView
         route="event-details"
         :data="eventDetails.tournaments"
@@ -232,8 +232,6 @@ import RegisterModal from "../../components/home/RegisterModal";
 import Spinner from "../../shared/Spinner";
 import redirectToNewTab from "../../helpers/RedirectToNewTab";
 import { setEventCookie, getEventCookie } from "../../helpers/CookieHelper";
-import * as POPUPS_PLACES from "../../constants/PopupsPlaces";
-import giveaway from "../../../store/modules/giveaway";
 
 export default {
   data() {
@@ -243,7 +241,8 @@ export default {
       showMoreText: false,
       setShowMoreTextFlag: false,
       eventShortDetails: {},
-      randomPopupData: {}
+      randomPopupData: {},
+      isDisplayedInStory: false
     };
   },
   computed: {
@@ -374,6 +373,7 @@ export default {
     EventTabs
   },
   mounted() {
+    this.isDisplayedInStory = this.$router.history.current.params.data.isDisplayedInStory;
     const eventCookieData = getEventCookie();
     if (this.$router.history.current.params.data !== undefined) {
       this.eventShortDetails = this.$router.history.current.params.data;
