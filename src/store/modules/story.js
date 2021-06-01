@@ -30,14 +30,12 @@ const mutations = {
 };
 
 const getSummitStory = async ({ commit }) => {
-  commit(types.home.mutations.SET_SPINNER_FLAG, true);
   const response = await getStory()
     .then(response => {
       commit(types.story.mutations.SET_STORY_DATA, response.data.summit);
 
       commit(types.story.mutations.SET_IS_STORY_FETCHED, true);
 
-      commit(types.home.mutations.SET_SPINNER_FLAG, false);
       return true;
     })
     .catch(() => false);
