@@ -48,7 +48,7 @@ import {
   reformatStringToBeInURL
 } from "../../helpers/StringsHelper";
 export default {
-  props: ["card", "sourceRoute"],
+  props: ["card", "sourceRoute", "isDisplayedInStory"],
   methods: {
     redirectTo() {
       if (this.card.is_external) window.open(this.card.external_link, "_blank");
@@ -62,7 +62,8 @@ export default {
             data: {
               id: this.card.id,
               title: this.card.title,
-              tree: [...this.sourceRoute]
+              tree: [...this.sourceRoute],
+              isDisplayedInStory: this.isDisplayedInStory
             }
           }
         });

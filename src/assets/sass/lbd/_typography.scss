@@ -161,6 +161,12 @@ span {
   font-family: "Roboto" !important;
 }
 
+.story-text,
+.story-text > p > span,
+.story-text > span {
+  font-family: "Arial Bold" !important;
+}
+
 // .description-container.story-text {
 //   div {
 //     color: #175e90 !important;
