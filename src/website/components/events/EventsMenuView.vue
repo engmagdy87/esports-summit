@@ -15,6 +15,7 @@
               path: '/events'
             }
           ]"
+          :isDisplayedInStory="isDisplayedInStory"
         />
         <TournamentCard
           :card="card"
@@ -31,7 +32,7 @@ import SubEventCard from "../../components/events/SubEventCard";
 import TournamentCard from "../../shared/TournamentCard";
 
 export default {
-  props: ["data", "route", "tree"],
+  props: ["data", "route", "tree", "isDisplayedInStory"],
   components: {
     SubEventCard,
     TournamentCard

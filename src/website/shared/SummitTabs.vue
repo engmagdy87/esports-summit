@@ -213,6 +213,7 @@
             v-if="subEvents.length !== 0"
             route="events"
             :data="subEvents"
+            :isDisplayedInStory="true"
           />
         </div>
         <h2
@@ -259,6 +260,7 @@
             route="offers"
             :data="offers"
             :sourceRoute="tree"
+            :isDisplayedInStory="true"
           />
         </div>
         <h2

@@ -1,7 +1,7 @@
 <template>
   <div class="event-details-wrapper">
     <Header
-      activeItem="giveaways"
+      :activeItem="isDisplayedInStory ? 'story' : 'giveaways'"
       :isSolidHeader="true"
       :setShowRegisterModal="setShowRegisterModal"
       :setShowLoginModal="setShowLoginModal"
@@ -254,7 +254,8 @@ export default {
       showMoreText: false,
       setShowMoreTextFlag: false,
       giveawayShortDetails: {},
-      randomPopupData: {}
+      randomPopupData: {},
+      isDisplayedInStory: false
     };
   },
   computed: {
@@ -420,6 +421,7 @@ export default {
     Popup
   },
   mounted() {
+    this.isDisplayedInStory = this.$router.history.current.params.data.isDisplayedInStory;
     const giveawayCookieData = getGiveawayCookie();
     if (this.$router.history.current.params.data !== undefined) {
       this.giveawayShortDetails = this.$router.history.current.params.data;

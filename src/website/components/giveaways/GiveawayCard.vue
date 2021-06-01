@@ -80,7 +80,8 @@ export default {
             data: {
               id: this.card.id,
               title: this.card.title,
-              tree: [...this.sourceRoute]
+              tree: [...this.sourceRoute],
+              isDisplayedInStory: this.isDisplayedInStory
             }
           }
         });

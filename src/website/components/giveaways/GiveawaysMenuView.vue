@@ -11,6 +11,7 @@
           :card="card"
           v-if="route === 'offers'"
           :sourceRoute="sourceRoute"
+          :isDisplayedInStory="isDisplayedInStory"
         />
         <TournamentCard
           :card="card"
@@ -27,7 +28,7 @@ import OfferCard from "../../components/giveaways/OfferCard";
 import TournamentCard from "../../shared/TournamentCard";
 
 export default {
-  props: ["data", "route", "tree", "sourceRoute"],
+  props: ["data", "route", "tree", "sourceRoute", "isDisplayedInStory"],
   components: {
     OfferCard,
     TournamentCard
