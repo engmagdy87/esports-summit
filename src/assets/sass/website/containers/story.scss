@@ -207,10 +207,8 @@ $section-tab-clip: 20px;
     padding-top: 25px !important;
     padding-left: 30px !important;
     margin: 0 !important;
-    <<<<<<<HEAD
-    color: #175e90 !important;
-    =======color: white !important;
-    >>>>>>>master @include is-extra-small-mobile {
+    color: white !important;
+    @include is-extra-small-mobile {
       font-size: 20px;
     }
   }
