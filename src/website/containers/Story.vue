@@ -170,10 +170,7 @@
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
 import types from "../../store/types";
-<<<<<<< HEAD
-=======
 import store from "../../store/index";
->>>>>>> master
 import StoryMenuView from "../components/story/StoryMenuView";
 import Header from "../shared/Header";
 import Footer from "../shared/Footer";
@@ -326,8 +323,6 @@ export default {
         bottomLeftSegmentElement.style.clipPath = bottomLeftSegmentClippedPath;
         bottomRightSegmentElement.style.clipPath = bottomRightSegmentClippedPath;
       }
-<<<<<<< HEAD
-=======
     },
     toggleFullScreenMode(e) {
       e.preventDefault();
@@ -346,7 +341,6 @@ export default {
         elem.muted = true;
         document.exitFullscreen();
       }
->>>>>>> master
     }
   },
   components: {
@@ -355,18 +349,11 @@ export default {
     Footer,
     LoginModal,
     RegisterModal,
-<<<<<<< HEAD
-    Spinner,
-    Popup
-  },
-  mounted() {
-=======
     Popup,
     Spinner
   },
   mounted() {
     store.commit(types.home.mutations.SET_SPINNER_FLAG, true);
->>>>>>> master
     this.fetchStory();
     this.fetchSummitsHistory();
     this.fetchRandomPopup();
@@ -375,13 +362,10 @@ export default {
     redirectToNewTab("description-container");
     if (this.isRandomPopupDataFetched)
       this.randomPopupData = this.randomPopup(POPUPS_PLACES.STORY);
-<<<<<<< HEAD
-=======
 
     if (this.isStoryFetched && this.isSummitsHistoryDataFetched)
       store.commit(types.home.mutations.SET_SPINNER_FLAG, false);
 
->>>>>>> master
     this.setClipPath();
   }
 };
