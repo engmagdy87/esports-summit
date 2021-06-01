@@ -16,7 +16,7 @@
           aria-selected="true"
           @click="selectClickAction(tab, index)"
           v-if="
-            tab === 'Battles' || tab === 'Events'
+            tab === 'Battles' || tab === 'Events' || tab === 'Giveaways'
               ? !(summitYear == 2018 || summitYear === 2019)
               : true
           "

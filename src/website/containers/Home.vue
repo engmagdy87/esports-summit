@@ -173,10 +173,6 @@ import Spinner from "../shared/Spinner";
 import LoginModal from "../components/home/LoginModal";
 import RegisterModal from "../components/home/RegisterModal";
 import Filters from "../components/tournaments/Filters";
-import MenuView from "../components/home/MenuView";
-import ListView from "../components/home/ListView";
-import CustomSwitch from "../shared/CustomSwitch";
-import CustomButton from "../shared/CustomButton";
 import { reformatStringToBeInURL } from "../helpers/StringsHelper";
 import Popup from "../shared/Popup";
 import * as POPUPS_PLACES from "../constants/PopupsPlaces";
@@ -302,12 +298,8 @@ export default {
     LoginModal,
     RegisterModal,
     Spinner,
-    CustomSwitch,
-    MenuView,
-    ListView,
     Footer,
     Popup,
-    CustomButton,
     Filters,
     VueSlickCarousel
   },

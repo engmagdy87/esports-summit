@@ -73,7 +73,10 @@
         // position: relative;
         width: 100%;
         height: 100%;
+        <<<<<<<HEAD
         color: #175e90;
+        =======color: white;
+        >>>>>>>master
         background-color: black !important;
         font-size: 1.2rem;
         display: flex;
@@ -132,7 +135,10 @@
   @include create-hexagone-shape(5px);
 }
 .form-control::placeholder {
+  <<<<<<<HEAD
   color: #175e90;
+  =======color: white;
+  >>>>>>>master
   font-family: "Arial Bold" !important;
 }
 input[type="text"] {
@@ -229,8 +235,10 @@ $section-tab-clip: 20px;
     padding-top: 25px !important;
     padding-left: 30px !important;
     margin: 0 !important;
+    <<<<<<<HEAD
     color: #175e90 !important;
-    @include is-extra-small-mobile {
+    =======color: white !important;
+    >>>>>>>master @include is-extra-small-mobile {
       font-size: 20px;
     }
   }
@@ -318,6 +326,6 @@ $section-tab-clip: 20px;
 .contact-us-text > p > span,
 .contact-us-text > span {
   font-size: 1.2rem;
-  color: #175e90 !important;
+  color: white !important;
   font-family: "Arial Bold" !important;
 }
