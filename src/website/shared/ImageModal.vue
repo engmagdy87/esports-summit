@@ -1,5 +1,5 @@
 <template>
-  <div ref="imageModal" class="image-modal">
+  <div ref="imageModal" class="image-modal" @click.self.prevent="closeModal">
     <span class="close" @click="closeModal">&times;</span>
     <img
       class="image-modal__previous"
@@ -40,6 +40,11 @@ export default {
         this.$refs.imageModal.style.display = "flex";
       else this.$refs.imageModal.style.display = "none";
     }
+  },
+  mounted() {
+    document.body.addEventListener("keyup", e => {
+      if (e.keyCode === 27) this.closeModal();
+    });
   }
 };
 </script>
