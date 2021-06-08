@@ -30,7 +30,8 @@
       </VueSlickCarousel>
     </div>
     <div class="home-wrapper__content" id="home">
-      <div class="home-wrapper__ready-section">
+      <!--**************************** COMING SOON SUMMIT ****************************-->
+      <!-- <div class="home-wrapper__ready-section">
         <img src="/website/img/home/get_ready.png" alt="get ready" />
         <video
           controls
@@ -51,15 +52,10 @@
           class="home-wrapper__battles"
           src="/website/img/home/20_games-words.png"
           alt="battles"
-        />
-        <!-- <img
-          class="home-wrapper__battles-logos"
-          src="/website/img/home/20_games-logos.png"
-          alt="battles"
-        /> -->
-      </div>
-
-      <!-- <div
+        />        
+      </div> -->
+      <!-- ************************************************************************** -->
+      <div
         v-if="
           isGamesDataFetched &&
             isTournamentsDataFetched &&
@@ -113,9 +109,9 @@
           :tree="tree"
           v-else
         />
-      </div> -->
+      </div>
 
-      <!-- <div
+      <div
         class="row"
         v-if="
           isGamesDataFetched &&
@@ -128,7 +124,7 @@
         <div class="col pt-5 d-flex justify-content-center align-items-center">
           <img class="" src="/website/img/footer/sponsors-main.png" />
         </div>
-      </div> -->
+      </div>
       <Footer
         v-if="
           isGamesDataFetched &&
@@ -169,6 +165,9 @@ import store from "../../store/index";
 import types from "../../store/types";
 import Header from "../shared/Header";
 import Footer from "../shared/Footer";
+import CustomSwitch from "../shared/CustomSwitch";
+import MenuView from "../components/home/MenuView";
+import ListView from "../components/home/ListView";
 import Spinner from "../shared/Spinner";
 import LoginModal from "../components/home/LoginModal";
 import RegisterModal from "../components/home/RegisterModal";
@@ -301,7 +300,10 @@ export default {
     Footer,
     Popup,
     Filters,
-    VueSlickCarousel
+    VueSlickCarousel,
+    CustomSwitch,
+    MenuView,
+    ListView
   },
   mounted() {
     store.commit(types.home.mutations.SET_SPINNER_FLAG, true);
