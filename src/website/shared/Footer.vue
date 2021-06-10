@@ -4,15 +4,15 @@
       <div
         class="col12 col-md-8 d-flex justify-content-center justify-content-md-start order-2 order-md-1 footer-wrapper__left-side"
       >
-        <img
+        <!-- <img
           class="footer-wrapper__logo"
           src="/website/img/logo_2021.png"
           alt="gamers lounge"
           style="cursor:unset"
-        />
-        <div class="footer-wrapper__divider"></div>
+        /> -->
+        <!-- <div class="footer-wrapper__divider"></div> -->
         <div class="container ml-0 footer-wrapper__right-side">
-          <div
+          <!-- <div
             class="row mb-3 mt-3 mt-md-0 justify-content-center justify-content-md-start footer-wrapper__social-media"
           >
             <img
@@ -43,7 +43,7 @@
               alt="facebook"
               @click="redirectTo('https://www.facebook.com/theesportssummit/')"
             />
-          </div>
+          </div> -->
           <div class="row d-block ml-0 footer-wrapper__copyrights">
             <div class="text-center text-md-left">
               Copyright ©️ ESports Summit {{ new Date().getFullYear() }}
