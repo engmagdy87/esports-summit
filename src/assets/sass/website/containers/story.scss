@@ -28,10 +28,10 @@
     align-items: center;
     padding: 2px;
     &--hexa-shape {
-      @include create-hero-header-shape();
+      // @include create-hero-header-shape();
     }
     &--none {
-      clip-path: inset(0 0 0 0);
+      clip-path: inset(0 0 0 0) !important;
     }
   }
 
@@ -47,10 +47,10 @@
     justify-content: center;
     align-items: center;
     &--hexa-shape {
-      @include create-hero-header-shape();
+      // @include create-hero-header-shape();
     }
     &--none {
-      clip-path: inset(0 0 0 0);
+      clip-path: inset(0 0 0 0) !important;
     }
     img {
       height: 150px;
