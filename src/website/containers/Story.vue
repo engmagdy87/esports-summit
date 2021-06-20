@@ -324,6 +324,53 @@ export default {
         bottomRightSegmentElement.style.clipPath = bottomRightSegmentClippedPath;
       }
     },
+    setHeroClipPath() {
+      const outsideSegment = document.getElementsByClassName(
+        "story-wrapper__outside"
+      );
+      const insideSegment = document.getElementsByClassName(
+        "story-wrapper__inside"
+      );
+
+      const outsideElement = outsideSegment[0];
+      const insideElement = insideSegment[0];
+
+      const mobile = window.matchMedia("(max-width: 600px)");
+      const value = mobile.matches
+        ? 101
+        : 1.4 * (100 + (20 / insideElement.clientWidth) * 100);
+
+      const outsideClippedPath = `polygon(
+    0 0,
+    100% 0,
+    100% 0%,
+    100% ${100 - (40 / outsideElement.clientHeight) * 100}%,
+    ${100 - (20 / outsideElement.clientWidth) * 100}% ${100 -
+        (20 / outsideElement.clientHeight) * 100}%,
+    66% ${100 - (20 / outsideElement.clientHeight) * 100}%,
+    ${50 + (20 / outsideElement.clientHeight) * 100}% ${value}%,
+    ${(40 / outsideElement.clientWidth) * 100}% ${100 +
+        (20 / outsideElement.clientHeight) * 100}%,
+    0 ${100 - (20 / outsideElement.clientHeight) * 100}%
+    )`;
+
+      const insideClippedPath = `polygon(
+    0 0,
+    100% 0,
+    100% 0%,
+    100% ${100 - (40 / insideElement.clientHeight) * 100}%,
+    ${100 - (20 / insideElement.clientWidth) * 100}% ${100 -
+        (20 / insideElement.clientHeight) * 100}%,
+    66% ${100 - (20 / insideElement.clientHeight) * 100}%,
+    ${50 + (20 / insideElement.clientHeight) * 100}% ${value}%,
+    ${(40 / insideElement.clientWidth) * 100}% ${100 +
+        (20 / insideElement.clientHeight) * 100}%,
+    0 ${100 - (20 / insideElement.clientHeight) * 100}%
+    )`;
+
+      outsideElement.style.clipPath = outsideClippedPath;
+      insideElement.style.clipPath = insideClippedPath;
+    },
     toggleFullScreenMode(e) {
       e.preventDefault();
       let elem = document.getElementById(`video`);
@@ -367,6 +414,7 @@ export default {
       store.commit(types.home.mutations.SET_SPINNER_FLAG, false);
 
     this.setClipPath();
+    this.setHeroClipPath();
   }
 };
 </script>
