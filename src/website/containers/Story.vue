@@ -335,10 +335,32 @@ export default {
       const outsideElement = outsideSegment[0];
       const insideElement = insideSegment[0];
 
-      const mobile = window.matchMedia("(max-width: 600px)");
-      const value = mobile.matches
-        ? 101
-        : 1.4 * (100 + (20 / insideElement.clientWidth) * 100);
+      const is_x_extra_small_mobile = window.matchMedia("(max-width: 399px)");
+      const is_extra_small_mobile = window.matchMedia(
+        "(min-width: 400px) and (max-width: 600px)"
+      );
+      const is_mobile = window.matchMedia(
+        "(min-width: 601px) and (max-width: 767px)"
+      );
+      const is_tablet = window.matchMedia(
+        "(min-width: 768px) and (max-width: 991px)"
+      );
+      const is_desktop = window.matchMedia(
+        "(min-width: 992px) and (max-width: 1199px)"
+      );
+      const is_large_desktop = window.matchMedia(
+        "(min-width: 1200px) and (max-width: 1499px)"
+      );
+      const is_extra_large_desktop = window.matchMedia("(min-width: 1500px)");
+      let value;
+      if (is_x_extra_small_mobile.matches) value = 1;
+      if (is_extra_small_mobile.matches) value = 1.05;
+      if (is_extra_small_mobile.matches) value = 1.05;
+      if (is_mobile.matches) value = 1.1;
+      if (is_tablet.matches) value = 1.16;
+      if (is_desktop.matches) value = 1.2;
+      if (is_large_desktop.matches) value = 1.3;
+      if (is_extra_large_desktop.matches) value = 1.4;
 
       const outsideClippedPath = `polygon(
     0 0,
@@ -348,7 +370,8 @@ export default {
     ${100 - (20 / outsideElement.clientWidth) * 100}% ${100 -
         (20 / outsideElement.clientHeight) * 100}%,
     66% ${100 - (20 / outsideElement.clientHeight) * 100}%,
-    ${50 + (20 / outsideElement.clientHeight) * 100}% ${value}%,
+    ${50 + (20 / outsideElement.clientHeight) * 100}% ${value *
+        (100 + (20 / insideElement.clientWidth) * 100)}%,
     ${(40 / outsideElement.clientWidth) * 100}% ${100 +
         (20 / outsideElement.clientHeight) * 100}%,
     0 ${100 - (20 / outsideElement.clientHeight) * 100}%
@@ -362,7 +385,8 @@ export default {
     ${100 - (20 / insideElement.clientWidth) * 100}% ${100 -
         (20 / insideElement.clientHeight) * 100}%,
     66% ${100 - (20 / insideElement.clientHeight) * 100}%,
-    ${50 + (20 / insideElement.clientHeight) * 100}% ${value}%,
+    ${50 + (20 / insideElement.clientHeight) * 100}% ${value *
+        (100 + (20 / insideElement.clientWidth) * 100)}%,
     ${(40 / insideElement.clientWidth) * 100}% ${100 +
         (20 / insideElement.clientHeight) * 100}%,
     0 ${100 - (20 / insideElement.clientHeight) * 100}%
@@ -370,6 +394,9 @@ export default {
 
       outsideElement.style.clipPath = outsideClippedPath;
       insideElement.style.clipPath = insideClippedPath;
+    },
+    onResize() {
+      this.setHeroClipPath();
     },
     toggleFullScreenMode(e) {
       e.preventDefault();
@@ -399,7 +426,12 @@ export default {
     Popup,
     Spinner
   },
+  beforeDestroy() {
+    // Unregister the event listener before destroying this Vue instance
+    window.removeEventListener("resize", this.onResize);
+  },
   mounted() {
+    window.addEventListener("resize", this.onResize);
     store.commit(types.home.mutations.SET_SPINNER_FLAG, true);
     this.fetchStory();
     this.fetchSummitsHistory();
