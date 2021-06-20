@@ -370,7 +370,8 @@ export default {
     ${100 - (20 / outsideElement.clientWidth) * 100}% ${100 -
         (20 / outsideElement.clientHeight) * 100}%,
     66% ${100 - (20 / outsideElement.clientHeight) * 100}%,
-    ${50 + (20 / outsideElement.clientHeight) * 100}% ${value}%,
+    ${50 + (20 / outsideElement.clientHeight) * 100}% ${value *
+        (100 + (20 / insideElement.clientWidth) * 100)}%,
     ${(40 / outsideElement.clientWidth) * 100}% ${100 +
         (20 / outsideElement.clientHeight) * 100}%,
     0 ${100 - (20 / outsideElement.clientHeight) * 100}%
