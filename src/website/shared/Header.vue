@@ -57,28 +57,58 @@
         >
           <a href="/contact">Contact Us</a>
         </li>
+        <div class="float-right header-wrapper__right-section">
+          <div>
+            <img
+              v-if="userCookie === null"
+              class="header-wrapper__user-section-icon"
+              src="../../../public/website/img/user.svg"
+              alt="user"
+            />
+            <li @click="setShowLoginModal(true)" v-if="userCookie === null">
+              <a class="header-wrapper__user-section" href="#">Login</a>
+            </li>
+            <li
+              class="header-wrapper__user-section"
+              @click="setShowRegisterModal(true)"
+              v-if="userCookie === null"
+            >
+              <span class="header-wrapper__user-section">/</span
+              ><a class="header-wrapper__user-section" href="#">Sign Up</a>
+            </li>
+          </div>
+          <div class="header-wrapper__right-section--social">
+            <img
+              class="header-wrapper__social-media-icon"
+              src="/website/img/footer/discord.png"
+              alt="discord"
+              @click="redirectTo('https://discord.gg/PUwd4cZ')"
+            />
+            <img
+              class="header-wrapper__social-media-icon header-wrapper__social-media-icon--short"
+              src="/website/img/footer/instagram.png"
+              alt="instagram"
+              @click="redirectTo('https://www.instagram.com/theesportssummit/')"
+            />
+            <img
+              class="header-wrapper__social-media-icon header-wrapper__social-media-icon--short"
+              src="/website/img/footer/youtube.png"
+              alt="youtube"
+              @click="
+                redirectTo(
+                  'https://www.youtube.com/channel/UCeOGq-S3xKR8opZKNXYrd2w'
+                )
+              "
+            />
+            <img
+              class="header-wrapper__social-media-icon header-wrapper__social-media-icon--short"
+              src="/website/img/footer/facebook.png"
+              alt="facebook"
+              @click="redirectTo('https://www.facebook.com/theesportssummit/')"
+            />
+          </div>
+        </div>
 
-        <li
-          class="float-right header-wrapper__user-section"
-          @click="setShowRegisterModal(true)"
-          v-if="userCookie === null"
-        >
-          <span class="header-wrapper__user-section">/</span
-          ><a class="header-wrapper__user-section" href="#">Create Account</a>
-        </li>
-        <li
-          class="float-right"
-          @click="setShowLoginModal(true)"
-          v-if="userCookie === null"
-        >
-          <a class="header-wrapper__user-section" href="#">Login</a>
-        </li>
-        <img
-          v-if="userCookie === null"
-          class="float-right float-right header-wrapper__user-section-icon"
-          src="../../../public/website/img/user.svg"
-          alt="user"
-        />
         <li class="float-right" v-if="userCookie !== null">
           <Avatar :logoutUser="logoutUser" :userCookie="userCookie" />
         </li>
@@ -151,7 +181,7 @@
             <a href="/contact" @click="closeNav">Contact Us</a>
           </li>
           <li @click="setShowRegisterModal(true)" v-if="userCookie === null">
-            <a href="#" @click="closeNav">Register</a>
+            <a href="#" @click="closeNav">Sign Up</a>
           </li>
           <li @click="setShowLoginModal(true)" v-if="userCookie === null">
             <a href="#" @click="closeNav">Login</a>
@@ -211,6 +241,10 @@ export default {
       removeCookie();
       store.commit(types.user.mutations.SET_USER_PERSONA, {});
       this.closeNav();
+    },
+    redirectTo(url) {
+      if (url.includes("http")) window.open(url, "_blank");
+      else window.open(`http://${url}`, "_blank");
     }
   },
   computed: {
