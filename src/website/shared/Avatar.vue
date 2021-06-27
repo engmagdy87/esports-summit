@@ -3,7 +3,7 @@
     <div
       role="button"
       tabIndex="0"
-      class="avatar-wrapper mr-3"
+      class="avatar-wrapper mr-2"
       @click="handleMenuVisibility"
     >
       <div>
