@@ -245,10 +245,10 @@ export default {
       postMessage: types.contact.actions.SEND_MESSAGE,
       fetchCoverContactUsImage:
         types.summits.actions.FETCH_COVER_CONTACT_US_IMAGE,
-      fetchRandomPopup: types.popS
+      fetchRandomPopup: types.popups.actions.FETCH_RANDOM_POPUPS
     }),
     setShowLoginModal(value = false) {
-      this.showLoginMo;
+      this.showLoginModal = value;
     },
     setShowRegisterModal(value = false) {
       this.showRegisterModal = value;
@@ -278,27 +278,6 @@ export default {
       });
     },
     setClipPath() {
-      //   const lowerSegment = document.getElementsByClassName("lower-segment");
-      //   const lowerSegmentShadow = document.getElementsByClassName(
-      //     "lower-segment-shadow"
-      //   );
-      //   const element = lowerSegment[0];
-      //   const elementShadow = lowerSegmentShadow[0];
-
-      //   const clippedPath = `polygon(
-      //   0 0,
-      //   100% 0,
-      //   100% 0,
-      //   100% 0,
-      //   ${100 - (20 / element.clientWidth) * 100}% 100%,
-      //   ${(20 / element.clientWidth) * 100}% 100%,
-      //   0 0,
-      //   0 0
-      // )`;
-
-      // element.style.clipPath = clippedPath;
-      // elementShadow.style.clipPath = clippedPath;
-
       const mobile = window.matchMedia("(max-width: 600px)");
       if (mobile.matches) {
         const upperSegment = document.getElementsByClassName("upper-segment");
@@ -352,80 +331,6 @@ export default {
         bottomLeftSegmentElement.style.clipPath = bottomLeftSegmentClippedPath;
         bottomRightSegmentElement.style.clipPath = bottomRightSegmentClippedPath;
       }
-    },
-    setHeroClipPath() {
-      const outsideSegment = document.getElementsByClassName(
-        "contact-wrapper__outside"
-      );
-      const insideSegment = document.getElementsByClassName(
-        "contact-wrapper__inside"
-      );
-
-      const outsideElement = outsideSegment[0];
-      const insideElement = insideSegment[0];
-
-      const is_x_extra_small_mobile = window.matchMedia("(max-width: 399px)");
-      const is_extra_small_mobile = window.matchMedia(
-        "(min-width: 400px) and (max-width: 600px)"
-      );
-      const is_mobile = window.matchMedia(
-        "(min-width: 601px) and (max-width: 767px)"
-      );
-      const is_tablet = window.matchMedia(
-        "(min-width: 768px) and (max-width: 991px)"
-      );
-      const is_desktop = window.matchMedia(
-        "(min-width: 992px) and (max-width: 1199px)"
-      );
-      const is_large_desktop = window.matchMedia(
-        "(min-width: 1200px) and (max-width: 1499px)"
-      );
-      const is_extra_large_desktop = window.matchMedia("(min-width: 1500px)");
-      let value;
-      if (is_x_extra_small_mobile.matches) value = 1;
-      if (is_extra_small_mobile.matches) value = 1.05;
-      if (is_extra_small_mobile.matches) value = 1.05;
-      if (is_mobile.matches) value = 1.1;
-      if (is_tablet.matches) value = 1.16;
-      if (is_desktop.matches) value = 1.2;
-      if (is_large_desktop.matches) value = 1.3;
-      if (is_extra_large_desktop.matches) value = 1.4;
-
-      const outsideClippedPath = `polygon(
-    0 0,
-    100% 0,
-    100% 0%,
-    100% ${100 - (40 / outsideElement.clientHeight) * 100}%,
-    ${100 - (20 / outsideElement.clientWidth) * 100}% ${100 -
-        (20 / outsideElement.clientHeight) * 100}%,
-    66% ${100 - (20 / outsideElement.clientHeight) * 100}%,
-    ${50 + (20 / outsideElement.clientHeight) * 100}% ${value *
-        (100 + (20 / insideElement.clientWidth) * 100)}%,
-    ${(40 / outsideElement.clientWidth) * 100}% ${100 +
-        (20 / outsideElement.clientHeight) * 100}%,
-    0 ${100 - (20 / outsideElement.clientHeight) * 100}%
-    )`;
-
-      const insideClippedPath = `polygon(
-    0 0,
-    100% 0,
-    100% 0%,
-    100% ${100 - (40 / insideElement.clientHeight) * 100}%,
-    ${100 - (20 / insideElement.clientWidth) * 100}% ${100 -
-        (20 / insideElement.clientHeight) * 100}%,
-    66% ${100 - (20 / insideElement.clientHeight) * 100}%,
-    ${50 + (20 / insideElement.clientHeight) * 100}% ${value *
-        (100 + (20 / insideElement.clientWidth) * 100)}%,
-    ${(40 / insideElement.clientWidth) * 100}% ${100 +
-        (20 / insideElement.clientHeight) * 100}%,
-    0 ${100 - (20 / insideElement.clientHeight) * 100}%
-    )`;
-
-      outsideElement.style.clipPath = outsideClippedPath;
-      insideElement.style.clipPath = insideClippedPath;
-    },
-    onResize() {
-      this.setHeroClipPath();
     }
   },
   components: {
@@ -453,7 +358,6 @@ export default {
       this.randomPopupData = this.randomPopup(POPUPS_PLACES.CONTACT);
 
     this.setClipPath();
-    this.setHeroClipPath();
   }
 };
 </script>

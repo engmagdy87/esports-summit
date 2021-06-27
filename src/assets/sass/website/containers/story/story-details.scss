@@ -19,15 +19,23 @@
   }
   &__outside {
     position: relative;
-    width: calc(100% - 2px);
+    width: 100%;
     height: $half-page-hero-image-height;
     background: $placeholder-background;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2px;
     &--hexa-shape {
-      @include create-half-page-hero-shape();
+      clip-path: polygon(
+        0 0,
+        100% 0,
+        100% calc(100% - #{$clipping-value * 2}),
+        calc(100% - #{$clipping-value}) calc(100% - #{$clipping-value}),
+        65% calc(100% - #{$clipping-value}),
+        calc(65% - #{$clipping-value}) 100%,
+        $clipping-value 100%,
+        0 calc(100% - #{$clipping-value})
+      );
     }
     &--none {
       clip-path: inset(0 0 0 0);
@@ -36,8 +44,8 @@
 
   &__inside {
     position: relative;
-    width: calc(100% - 2px);
-    height: calc(#{$half-page-hero-image-height} - 4px);
+    width: 100%;
+    height: 100%;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -60,7 +68,22 @@
       }
     }
     &--hexa-shape {
-      @include create-half-page-hero-shape();
+      clip-path: polygon(
+        $clipped-area-border-value $clipped-area-border-value,
+        calc(100% - #{$clipped-area-border-value}) $clipped-area-border-value,
+        calc(100% - #{$clipped-area-border-value})
+          calc(100% - (#{$clipping-value}* 2 + #{$clipped-area-border-value})),
+        calc(100% - (#{$clipping-value} + #{$clipped-area-border-value}))
+          calc(100% - (#{$clipping-value} + #{$clipped-area-border-value})),
+        calc(65% - #{$clipped-area-border-value})
+          calc(100% - (#{$clipping-value} + #{$clipped-area-border-value})),
+        calc(65% - (#{$clipping-value} + #{$clipped-area-border-value}))
+          calc(100% - #{$clipped-area-border-value}),
+        $clipping-value + $clipped-area-border-value
+          calc(100% - #{$clipped-area-border-value}),
+        $clipped-area-border-value
+          calc(100% - (#{$clipping-value} + #{$clipped-area-border-value}))
+      );
     }
     &--none {
       clip-path: inset(0 0 0 0);
