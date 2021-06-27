@@ -14,6 +14,39 @@
   @include is-extra-small-mobile {
     height: 50px;
   }
+  &__social-media-icon {
+    height: 20px;
+    width: auto;
+    margin-left: 10px;
+    cursor: pointer;
+    &--short {
+      height: 18.5px !important;
+    }
+    @include is-extra-small-mobile {
+      width: auto;
+      height: auto;
+      max-width: 20px;
+      max-height: 20px;
+    }
+    @include is-mobile {
+      width: auto;
+      height: auto;
+      max-width: 20px;
+      max-height: 20px;
+    }
+  }
+  &__right-section {
+    display: block;
+    margin-top: -15px;
+    text-align: right;
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    &--social {
+      margin-right: 10px;
+      margin-top: 5px;
+    }
+  }
   &__user-section {
     color: $primary !important;
   }
@@ -35,11 +68,9 @@
     width: 100%;
     @include is-large-desktop {
       display: block;
-      margin-right: 20px;
     }
     @include is-extra-large-desktop {
       display: block;
-      margin-right: 20px;
     }
   }
   &--mobile {
@@ -61,6 +92,9 @@
     margin-right: auto;
     margin-left: 40px;
     width: 300px;
+    position: absolute;
+    top: 10px;
+    left: 0;
     @include is-mobile {
       width: fit-content;
       margin-left: 10px;
@@ -96,8 +130,9 @@
   &__navLinks {
     list-style: none;
     margin-bottom: 0;
-    margin-left: -10%;
+    margin-top: -15px;
     text-align: center;
+    width: 100%;
     li {
       display: inline-block;
       cursor: pointer;
@@ -131,7 +166,7 @@
   cursor: pointer;
   color: white !important;
   position: absolute;
-  top: calc(#{$header-height} / 2.5);
+  top: calc(#{$header-height} / 4);
   right: 24px;
   @include is-mobile {
     top: calc(#{$header-height-mobile} / 7);
