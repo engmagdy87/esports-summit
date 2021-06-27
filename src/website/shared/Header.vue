@@ -76,6 +76,18 @@
               <span class="header-wrapper__user-section">/</span
               ><a class="header-wrapper__user-section" href="#">Sign Up</a>
             </li>
+            <li class="float-right" v-if="userCookie !== null">
+              <Avatar :logoutUser="logoutUser" :userCookie="userCookie" />
+            </li>
+            <li v-if="userCookie !== null && isUserAdmin" class="float-right">
+              <a href="/dashboard">
+                <img
+                  class="header-wrapper__dashboard-img"
+                  src="/website/img/dashboard.svg"
+                  alt="dashboard"
+                />
+              </a>
+            </li>
           </div>
           <div class="header-wrapper__right-section--social">
             <img
@@ -108,19 +120,6 @@
             />
           </div>
         </div>
-
-        <li class="float-right" v-if="userCookie !== null">
-          <Avatar :logoutUser="logoutUser" :userCookie="userCookie" />
-        </li>
-        <a href="/dashboard">
-          <li v-if="userCookie !== null && isUserAdmin" class="float-right">
-            <img
-              class="header-wrapper__dashboard-img"
-              src="/website/img/dashboard.svg"
-              alt="dashboard"
-            />
-          </li>
-        </a>
       </ul>
     </nav>
 
