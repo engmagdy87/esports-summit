@@ -157,7 +157,7 @@ $preview-image: 160px;
   position: relative;
   cursor: pointer;
   @include is-extra-small-mobile {
-    outline: 1px dashed $mobile-primary; /* the dash box */
+    outline: 1px dashed rgba($mobile-primary, 0.75); /* the dash box */
   }
 }
 
@@ -182,7 +182,7 @@ $preview-image: 160px;
     font-size: 16px;
     text-align: left;
     font-weight: 400;
-    color: $mobile-primary;
+    color: rgba($mobile-primary, 0.75);
   }
 }
 
@@ -237,10 +237,11 @@ $preview-image: 160px;
   padding: 0 !important;
   width: 150px !important;
   @include is-extra-small-mobile {
-    width: 100px !important;
-    height: 42px !important;
+    width: 99px !important;
+    height: 43px !important;
     select {
       height: 100% !important;
+      border: none !important;
     }
   }
 }
@@ -294,7 +295,7 @@ $bg: rgba(0, 0, 0, 0.75);
       position: absolute;
       height: $clipped-area-border-value-mob * 2;
       width: $corner-width;
-      background-color: $mobile-primary;
+      background-color: rgba($mobile-primary, 0.75);
       top: 8px;
       left: $clipped-area-border-value-mob * -1.5;
       transform: rotate(-45deg);
@@ -309,7 +310,7 @@ $bg: rgba(0, 0, 0, 0.75);
       position: absolute;
       height: $clipped-area-border-value-mob;
       width: $corner-width;
-      background-color: $mobile-primary;
+      background-color: rgba($mobile-primary, 0.75);
       top: 0;
       right: 0;
       transform: rotate(45deg);
@@ -321,7 +322,7 @@ $bg: rgba(0, 0, 0, 0.75);
     position: absolute;
     height: $clipped-area-border-value-mob;
     width: $corner-width;
-    background-color: $mobile-primary;
+    background-color: rgba($mobile-primary, 0.75);
     bottom: 42px;
     left: 16px;
     transform: rotate(45deg);
@@ -332,7 +333,7 @@ $bg: rgba(0, 0, 0, 0.75);
     position: absolute;
     height: $clipped-area-border-value-mob;
     width: $corner-width;
-    background-color: $mobile-primary;
+    background-color: rgba($mobile-primary, 0.75);
     bottom: 42px;
     right: 16px;
     transform: rotate(-45deg);
@@ -364,9 +365,9 @@ $bg: rgba(0, 0, 0, 0.75);
   );
 }
 .upper-segment-tabs.active {
-  border-right: $border-thickness solid $mobile-primary;
-  border-left: $border-thickness solid $mobile-primary;
-  border-top: $border-thickness solid $mobile-primary;
+  border-right: $border-thickness solid rgba($mobile-primary, 0.75);
+  border-left: $border-thickness solid rgba($mobile-primary, 0.75);
+  border-top: $border-thickness solid rgba($mobile-primary, 0.75);
   height: 50px;
   z-index: 10;
   font-size: 24px;
@@ -377,8 +378,8 @@ $bg: rgba(0, 0, 0, 0.75);
   height: calc(#{$section-height} - #{$section-tab-height} - 20px);
   padding: 50px 30px;
   background-color: rgba(0, 0, 0, 0.7);
-  border-left: $clipped-area-border-value-mob solid $mobile-primary;
-  border-right: $clipped-area-border-value-mob solid $mobile-primary;
+  border-left: $clipped-area-border-value-mob solid rgba($mobile-primary, 0.75);
+  border-right: $clipped-area-border-value-mob solid rgba($mobile-primary, 0.75);
   margin-top: $clipping-value;
   @include is-extra-small-mobile {
     height: fit-content;
@@ -395,7 +396,7 @@ $bg: rgba(0, 0, 0, 0.75);
   background-color: $bg;
 }
 .lower-segment-tabs {
-  border-bottom: $border-thickness solid $mobile-primary;
+  border-bottom: $border-thickness solid rgba($mobile-primary, 0.75);
   clip-path: polygon(
     $clipping-value $clipping-value,
     0 0,
@@ -411,8 +412,8 @@ $bg: rgba(0, 0, 0, 0.75);
   position: absolute;
   left: -1px;
   top: -1 * $clipping-value;
-  border-left: $clipped-area-border-value-mob solid $mobile-primary;
-  border-top: $clipped-area-border-value-mob solid $mobile-primary;
+  border-left: $clipped-area-border-value-mob solid rgba($mobile-primary, 0.75);
+  border-top: $clipped-area-border-value-mob solid rgba($mobile-primary, 0.75);
   clip-path: polygon(
     0 0,
     calc(100% - #{$clipping-value}) 0,
@@ -448,34 +449,31 @@ $bg: rgba(0, 0, 0, 0.75);
 
 .form-group-mobile {
   position: relative;
-  margin-bottom: 10px !important;
+  margin-bottom: 16px !important;
   div {
     position: absolute;
-    top: -0.5px;
-    left: -0.5px;
-    width: calc(100% + 1px);
-    height: 43px;
+    top: -1px;
+    left: -1px;
+    width: calc(100% + 2px);
+    height: 44px;
     // padding: 8px 12px;
     @include create-hexagone-shape(5px);
-    background-color: $mobile-primary;
+    background-color: rgba($mobile-primary, 0.75);
   }
   div.mask {
     height: 93px;
-    width: calc(100% + 1px);
+    width: calc(100% + 2px);
     @include create-hexagone-shape(5px);
-    background-color: $mobile-primary;
+    background-color: rgba($mobile-primary, 0.75);
   }
 
   div.preview,
   div.dropbox {
     height: 91px !important;
-    width: calc(100% - 1px);
+    width: 100%;
     background-color: black;
-    top: 0.5px;
-    left: 0.5px;
-    input[type="file"] {
-      height: 91px !important;
-    }
+    top: 0px;
+    left: 0px;
   }
 }
 
@@ -485,10 +483,20 @@ div.avatars {
 
 div.date-of-birth {
   height: 43px !important;
+  div {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 100%;
+    height: 100%;
+    @include create-hexagone-shape(5px);
+    background-color: rgba($mobile-primary, 0.75);
+  }
   .form-group {
     height: 43px !important;
-    top: 0;
-    left: 0;
+    width: calc(100% - 2px);
+    top: 0px;
+    left: 0px;
   }
 }
 div.phones {
@@ -496,14 +504,26 @@ div.phones {
   #phone-number {
     width: calc(100% - 100px);
     margin-left: auto;
+    height: 43px !important;
+    font-size: 0.85rem !important;
+    @include create-hexagone-shape-half-reverse(5px);
+    &::placeholder {
+      font-size: 0.85rem !important;
+    }
   }
-  // .form-group {
-  //   height: 43px !important;
-  //   top: 0;
-  //   left: 0;
-  // }
+  #phone-code {
+    @include create-hexagone-shape-half(5px);
+    top: 0px !important;
+    left: 0px !important;
+  }
 }
 
+select.form-control {
+  @include is-extra-small-mobile {
+    clip-path: none !important;
+    font-size: 0.8rem !important;
+  }
+}
 .form-control {
   @include is-extra-small-mobile {
     background-color: rgba(0, 0, 0, 1);
@@ -515,7 +535,7 @@ div.phones {
 .form-control::placeholder {
   @include is-extra-small-mobile {
     font-family: "Arial" !important;
-    color: $mobile-primary;
+    color: rgba($mobile-primary, 0.75);
     font-size: 16px;
   }
 }
@@ -523,6 +543,7 @@ input[type="text"],
 input[type="password"] {
   @include is-extra-small-mobile {
     height: 42px !important;
+    border: none !important;
   }
 }
 

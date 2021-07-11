@@ -55,7 +55,10 @@
         :data="getEnabledOffers"
         :sourceRoute="tree"
       />
-      <div style="position: relative; margin-top: 100px;">
+      <div
+        style="position: relative; margin-top: 140px;"
+        v-if="isThisDeviceSmart"
+      >
         <Footer
           v-if="
             isGiveawaysFetched &&
@@ -65,6 +68,15 @@
           "
         />
       </div>
+      <Footer
+        v-if="
+          !isThisDeviceSmart &&
+            isGiveawaysFetched &&
+            isOffersFetched &&
+            isCoverGiveawaysImageFetched &&
+            getEnabledGiveaways.length !== 0
+        "
+      />
     </div>
     <img
       v-if="

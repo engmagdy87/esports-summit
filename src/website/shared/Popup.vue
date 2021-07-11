@@ -2,7 +2,8 @@
   <div
     :class="[
       'popup-container',
-      showEventPopup ? 'popup-container--show' : 'popup-container--hide'
+      showEventPopup ? 'popup-container--show' : 'popup-container--hide',
+      isGiveawayPopupVisible ? 'popup-container--shifted' : ''
     ]"
     data-toggle="tooltip"
     data-placement="top"
@@ -30,7 +31,7 @@
 
 <script>
 export default {
-  props: ["data"],
+  props: ["data", "isGiveawayPopupVisible"],
   data() {
     return {
       showEventPopup: true

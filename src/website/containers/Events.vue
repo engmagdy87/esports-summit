@@ -57,7 +57,10 @@
         route="events"
         :data="subEventsData"
       />
-      <div style="position: relative; margin-top: 100px;">
+      <div
+        style="position: relative; margin-top: 140px;"
+        v-if="isThisDeviceSmart"
+      >
         <Footer
           v-if="
             isMainEventsFetched &&
@@ -67,6 +70,15 @@
           "
         />
       </div>
+      <Footer
+        v-if="
+          !isThisDeviceSmart &&
+            isMainEventsFetched &&
+            isSubEventsFetched &&
+            isCoverHomeEventsImageFetched &&
+            (mainEventsData.length !== 0 || subEventsData.length !== 0)
+        "
+      />
     </div>
     <h2
       style="color:white; text-align: center;margin-top: 10%;"

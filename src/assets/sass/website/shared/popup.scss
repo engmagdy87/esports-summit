@@ -25,13 +25,19 @@
   @include is-extra-small-mobile {
     width: 350px;
     height: 194.44px;
-    top: calc(350px + 12vh);
+    top: $event-popup-top-offset-extra-mobile;
     &--hide {
       transform: translateX(350px);
     }
     &--show {
       transform: translateX(0);
       z-index: 100;
+    }
+    &--shifted {
+      top: calc(
+        #{$event-popup-top-offset-extra-mobile} + #{$event-popup-top-height-extra-mobile} +
+          100px
+      );
     }
   }
 }

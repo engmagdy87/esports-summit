@@ -50,7 +50,9 @@ html {
 input[type="date"].form-control.registeration-style {
   @include is-extra-small-mobile {
     height: 42px !important;
-    width: calc(100% - 1px);
+    width: calc(100% - 0px);
+    border: none !important;
+    @include create-hexagone-shape(5px);
   }
 }
 

@@ -112,7 +112,7 @@
         margin-bottom: 5px;
       }
       @include is-extra-small-mobile {
-        font-size: 24px;
+        font-size: 1.2rem;
         margin-top: 30px;
         margin-right: 48px;
       }
@@ -120,6 +120,11 @@
     p {
       font-size: 0.9rem;
       font-family: "Roboto Light";
+    }
+    span {
+      @include is-extra-small-mobile {
+        font-size: 0.9rem;
+      }
     }
   }
 }

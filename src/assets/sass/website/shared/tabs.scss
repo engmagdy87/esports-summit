@@ -443,8 +443,8 @@
 
 $section-height: 500px;
 
-$section-tab-height: 30px;
-$section-tab-height-active: 40px;
+$section-tab-height: 35px;
+$section-tab-height-active: 45px;
 $section-tab-width: 75px;
 
 $bg: rgba(0, 0, 0, 0.75);
@@ -452,6 +452,9 @@ $bg: rgba(0, 0, 0, 0.75);
 .clipped-section-tabs {
   position: relative;
   margin-bottom: 100px;
+  @include is-extra-small-mobile {
+    margin-bottom: 20px;
+  }
   &__top-right-corner {
     display: none;
     @include is-extra-small-mobile {
@@ -512,8 +515,8 @@ $bg: rgba(0, 0, 0, 0.75);
   width: fit-content;
   background-color: rgba(0, 0, 0, 0.75);
   border-bottom: $border-thickness solid rgba(0, 0, 0, 0.9);
-  font-size: 11px;
-  padding: 5px;
+  font-size: 12px;
+  padding: 8px;
   color: white;
   margin-top: auto;
 

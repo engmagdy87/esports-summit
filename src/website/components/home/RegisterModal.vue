@@ -368,7 +368,7 @@
               <div class="form-group-mobile phones">
                 <div></div>
                 <div class="input-group-prepend">
-                  <div class="input-group-text">
+                  <div class="input-group-text" id="phone-code">
                     <select
                       class="form-control"
                       v-model="phone.country_code"

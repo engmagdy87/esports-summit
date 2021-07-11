@@ -168,6 +168,9 @@
 .form-group {
   position: relative;
   margin-bottom: 10px !important;
+  @include is-extra-small-mobile {
+    margin-bottom: 16px !important;
+  }
   div {
     position: absolute;
     top: -1px;

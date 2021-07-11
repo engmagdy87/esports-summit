@@ -118,16 +118,19 @@
                 </p>
               </div>
               <div class="actions">
-                <a href="/forgot" style="color: #2af3f3">
+                <a href="/forgot">
                   Forgot Password?
                 </a>
-                <button
-                  type="button"
-                  class="btn btn-primary float-right"
-                  @click="getUserPersona"
-                >
-                  Login
-                </button>
+                <div class="custom-button-wrapper float-right">
+                  <div class="custom-button-wrapper__mask"></div>
+                  <div
+                    class="custom-button-wrapper__outside"
+                    role="button"
+                    @click="getUserPersona"
+                  >
+                    Login
+                  </div>
+                </div>
               </div>
             </form>
           </div>

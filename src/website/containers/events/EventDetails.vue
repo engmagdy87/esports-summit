@@ -298,8 +298,14 @@
       />
     </div>
     <Popup
-      :data="randomPopupData"
       v-if="randomPopupData !== null && this.isRandomPopupDataFetched"
+      :data="randomPopupData"
+      :isGiveawayPopupVisible="
+        isEventGiveawaysFetched &&
+          isEventOffersFetched &&
+          giveawaysAndOffersData.length > 0 &&
+          isGiveawaysEnabled
+      "
     />
     <EventPopUp
       v-if="

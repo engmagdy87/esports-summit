@@ -157,6 +157,32 @@
   );
 }
 
+@mixin create-hexagone-shape-half($notchSize) {
+  clip-path: polygon(
+    0% 0,
+    0 0%,
+    100% 0%,
+    100% 0,
+    100% 100%,
+    0 100%,
+    $notchSize 100%,
+    0% calc(100% - #{$notchSize})
+  );
+}
+
+@mixin create-hexagone-shape-half-reverse($notchSize) {
+  clip-path: polygon(
+    0% 0,
+    0 0%,
+    100% 0%,
+    100% 0,
+    100% calc(100% - #{$notchSize}),
+    calc(100% - #{$notchSize}) 100%,
+    0 100%,
+    0% 0
+  );
+}
+
 @mixin create-half-hexagone-shape($notchSize) {
   clip-path: polygon(
     0% $notchSize,
