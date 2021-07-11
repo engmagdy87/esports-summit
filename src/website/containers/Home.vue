@@ -1,10 +1,11 @@
 <template>
   <!-- <div class="home-wrapper" @scroll="detectScroll"> -->
-  <div class="home-wrapper">
+  <div class="home-wrapper" @scroll="updateScroll" id="scroll-wrapper">
     <Header
       activeItem="home"
       :setShowRegisterModal="setShowRegisterModal"
       :setShowLoginModal="setShowLoginModal"
+      :isColorChanged="scrollPosition > 100"
     />
     <div class="home-wrapper__hero">
       <VueSlickCarousel
@@ -64,8 +65,8 @@
         "
       >
         <h2>Join The Battle</h2>
-        <div class="row">
-          <div class="col">
+        <div class="row home-wrapper__row">
+          <div class="col home-wrapper__col">
             <ul class="home-wrapper__navLinks">
               <li
                 :class="[isGamesActive ? 'home-wrapper__navLinks--active' : '']"
@@ -83,14 +84,16 @@
               </li>
             </ul>
           </div>
-          <div class="col d-flex justify-content-end align-items-center">
+          <div
+            class="col d-flex justify-content-end align-items-center switcher"
+          >
             <CustomSwitch
               :isMenuActive="isMenuActive"
               :setIsMenuActive="setIsMenuActive"
             />
           </div>
         </div>
-        <div class="row" v-if="!isGamesActive">
+        <div class="row filter" v-if="!isGamesActive">
           <div class="col">
             <CustomButton :setShowFiltersModal="setShowFiltersModal" />
           </div>
@@ -111,7 +114,7 @@
         />
       </div>
 
-      <div
+      <!-- <div
         class="row"
         v-if="
           isGamesDataFetched &&
@@ -124,7 +127,7 @@
         <div class="col pt-5 d-flex justify-content-center align-items-center">
           <img class="" src="/website/img/footer/sponsors-main.png" />
         </div>
-      </div>
+      </div> -->
       <Footer
         v-if="
           isGamesDataFetched &&
@@ -186,7 +189,8 @@ export default {
       showFiltersModal: false,
       // footerCssClass: "hide",
       tree: [{ name: "Home", path: "/" }],
-      randomPopupData: {}
+      randomPopupData: {},
+      scrollPosition: null
     };
   },
   computed: {
@@ -278,7 +282,7 @@ export default {
         elem.muted = true;
         document.exitFullscreen();
       }
-    }
+    },
     // detectScroll(e) {
     // if (e.target.scrollTop <= 120) this.footerCssClass = "hide";
     // else if (
@@ -291,6 +295,9 @@ export default {
     //   this.footerCssClass = "show-small";
     // else this.footerCssClass = "hide";
     // }
+    updateScroll() {
+      this.scrollPosition = document.getElementById("scroll-wrapper").scrollTop;
+    }
   },
   components: {
     Header,
@@ -337,4 +344,15 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../assets/sass/website/containers/home.scss";
+@import "../../assets/sass/website/mixins.scss";
+.switcher {
+  @include is-extra-small-mobile {
+    display: none !important;
+  }
+}
+.filter {
+  @include is-extra-small-mobile {
+    display: none !important;
+  }
+}
 </style>

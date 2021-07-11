@@ -36,6 +36,11 @@
         $clipping-value 100%,
         0 calc(100% - #{$clipping-value})
       );
+      @include is-extra-small-mobile {
+        background: $mobile-primary;
+        margin-top: -1 * $header-height-extra-mobile;
+        height: $half-page-hero-image-height-mob;
+      }
     }
     &--none {
       clip-path: inset(0 0 0 0);
@@ -66,6 +71,9 @@
         width: 70%;
         height: auto;
       }
+      @include is-extra-small-mobile {
+        height: 70%;
+      }
     }
     &--hexa-shape {
       clip-path: polygon(
@@ -84,6 +92,32 @@
         $clipped-area-border-value
           calc(100% - (#{$clipping-value} + #{$clipped-area-border-value}))
       );
+      @include is-extra-small-mobile {
+        clip-path: polygon(
+          0 0,
+          100% 0,
+          100%
+            calc(
+              100% - (#{$clipping-value}* 2 + #{$clipped-area-border-value-mob})
+            ),
+          calc(100% - (#{$clipping-value} + #{$clipped-area-border-value-mob}))
+            calc(
+              100% - (#{$clipping-value} + #{$clipped-area-border-value-mob})
+            ),
+          calc(65% - #{$clipped-area-border-value-mob})
+            calc(
+              100% - (#{$clipping-value} + #{$clipped-area-border-value-mob})
+            ),
+          calc(65% - (#{$clipping-value} + #{$clipped-area-border-value-mob}))
+            calc(100% - #{$clipped-area-border-value-mob}),
+          $clipping-value + $clipped-area-border-value-mob
+            calc(100% - #{$clipped-area-border-value-mob}),
+          0
+            calc(
+              100% - (#{$clipping-value} + #{$clipped-area-border-value-mob})
+            )
+        );
+      }
     }
     &--none {
       clip-path: inset(0 0 0 0);
@@ -99,8 +133,17 @@
       min-height: 82vh;
       padding: 5%;
     }
+    @include is-extra-small-mobile {
+      padding: 0 16px 16px 16px;
+    }
     &__breadcrumb {
       font-size: 1.8rem;
+      @include is-extra-small-mobile {
+        margin-bottom: 16px;
+        padding-left: 0;
+        margin-left: -15px;
+        font-size: 16px;
+      }
       @include is-mobile {
         font-size: 1.3rem;
         margin-bottom: 20px;
@@ -173,6 +216,11 @@
           max-width: 120px;
           max-height: 70px;
         }
+        @include is-extra-small-mobile {
+          max-width: 70px;
+          max-height: 32px;
+          margin: 5px;
+        }
       }
       &--sub {
         max-width: 120px;
@@ -181,6 +229,11 @@
           max-width: 90px;
           max-height: 40px;
         }
+        @include is-extra-small-mobile {
+          max-width: 55px;
+          max-height: 32px;
+          margin: 5px;
+        }
       }
       &--extra_sub {
         max-width: 75px;
@@ -188,6 +241,11 @@
         @include is-mobile {
           max-width: 40px;
           max-height: 30px;
+        }
+        @include is-extra-small-mobile {
+          max-width: 45px;
+          max-height: 32px;
+          margin: 5px;
         }
       }
     }
@@ -198,6 +256,58 @@
       height: 80px;
       margin: auto 12px;
       background-color: white !important;
+      @include is-extra-small-mobile {
+        height: 30px;
+        margin: 0 5px;
+        width: 1px;
+        max-width: 1px;
+        min-width: 1px;
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.is-view {
+  &--mobile {
+    display: none;
+    @include is-extra-small-mobile {
+      display: block;
+      margin: 32px 16px;
+    }
+  }
+  &--desktop {
+    display: block;
+    @include is-extra-small-mobile {
+      display: none;
+    }
+  }
+}
+
+.body-override {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.mobile-view {
+  &__container {
+    @include is-extra-small-mobile {
+      width: 100%;
+      padding: 0;
+    }
+  }
+  &__row {
+    @include is-extra-small-mobile {
+      width: 100% !important;
+      margin: 0 !important;
+    }
+  }
+  &__col {
+    @include is-extra-small-mobile {
+      padding: 0 !important;
+      margin: 0 0 10px 0;
     }
   }
 }

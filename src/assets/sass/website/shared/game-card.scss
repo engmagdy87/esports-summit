@@ -8,12 +8,20 @@
   margin: 5px;
   filter: drop-shadow(0 0 4px #175e90);
   cursor: pointer;
+  @include is-extra-small-mobile {
+    height: 142px;
+    margin: 8px 0;
+    filter: drop-shadow(0 0 2px $mobile-primary);
+  }
   &__outside {
     position: relative;
     width: 100%;
     height: 100%;
     background: #175e90;
     @include create-hexagone-shape(12px);
+    @include is-extra-small-mobile {
+      background: $mobile-primary;
+    }
   }
 
   &__inside {
@@ -69,6 +77,10 @@
       font-size: 1.4rem;
       margin-top: 20px;
       word-break: break-word;
+      @include is-extra-small-mobile {
+        font-size: 20px;
+        margin-top: 25%;
+      }
     }
     p {
       font-size: 0.9rem;

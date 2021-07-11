@@ -15,11 +15,24 @@
   }
   &--show {
     transform: translateX(0);
+    z-index: 100;
   }
   @include is-mobile {
     width: $popup-width-mobile;
     height: $popup-height-mobile;
     top: $popup-top-offset-mobile;
+  }
+  @include is-extra-small-mobile {
+    width: 350px;
+    height: 194.44px;
+    top: calc(350px + 12vh);
+    &--hide {
+      transform: translateX(350px);
+    }
+    &--show {
+      transform: translateX(0);
+      z-index: 100;
+    }
   }
 }
 .popup-wrapper {

@@ -15,13 +15,22 @@ $card-title-height: 50px;
   z-index: 200;
   &--hide {
     transform: translateX(280px);
+    @include is-extra-small-mobile {
+      transform: translateX(170px);
+    }
   }
   &--show {
     transform: translateX(0);
+    z-index: 100;
   }
   @include is-mobile {
     height: $event-popup-top-height-mobile;
     top: $event-popup-top-offset-mobile;
+  }
+  @include is-extra-small-mobile {
+    height: $event-popup-top-height-extra-mobile;
+    width: 200px;
+    top: $event-popup-top-offset-extra-mobile;
   }
 }
 .side-popup-wrapper {
@@ -48,11 +57,39 @@ $card-title-height: 50px;
     18% 0%,
     100% 0%
   );
+  @include is-extra-small-mobile {
+    background-color: rgba($color: #000000, $alpha: 0.75);
+    color: white;
+    padding-left: 25px;
+    padding-right: 16px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    clip-path: polygon(
+      100% 100%,
+      0% 100%,
+      16% 100%,
+      8% 95%,
+      8% 65%,
+      0% 60%,
+      0% 40%,
+      8% 35%,
+      8% 30%,
+      8% 5%,
+      15% 0%,
+      100% 0%
+    );
+  }
   h2 {
     font-size: 1.4rem;
     padding: 10px;
     margin: 0 0 5px 0;
     height: $card-title-height;
+    @include is-extra-small-mobile {
+      font-size: 14px;
+      height: fit-content;
+      padding: 8px;
+      margin: 0;
+    }
   }
   &__arrow-container {
     cursor: pointer;
@@ -67,6 +104,9 @@ $card-title-height: 50px;
     @include is-mobile {
       top: 35%;
     }
+    @include is-extra-small-mobile {
+      top: 30%;
+    }
   }
   &__arrow {
     transition: all 0.3s ease;
@@ -76,17 +116,28 @@ $card-title-height: 50px;
     &--normal {
       transform: rotate(0);
     }
+    @include is-extra-small-mobile {
+      width: 14px;
+    }
   }
   &__card {
     height: calc(#{$event-popup-top-height} - #{$card-title-height});
     @include is-mobile {
       height: calc(#{$event-popup-top-height-mobile} - #{$card-title-height});
     }
+    @include is-extra-small-mobile {
+      height: calc(
+        #{$event-popup-top-height-extra-mobile} - #{$card-title-height}
+      );
+    }
     h3 {
       margin: 10px 0 5px 0;
       font-size: 1.3rem;
       @include is-mobile {
         font-size: 1rem;
+      }
+      @include is-extra-small-mobile {
+        font-size: 12px;
       }
     }
     img {
@@ -100,6 +151,9 @@ $card-title-height: 50px;
     &__text {
       @include is-mobile {
         font-size: 0.9rem;
+      }
+      @include is-extra-small-mobile {
+        font-size: 10px;
       }
     }
   }

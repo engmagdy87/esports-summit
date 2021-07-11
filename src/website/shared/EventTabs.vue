@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav>
+    <nav class="is-view--desktop">
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <a
           v-for="(tab, index) in tabs"
@@ -19,7 +19,7 @@
         >
       </div>
     </nav>
-    <div class="tab-content" id="nav-tabContent">
+    <div class="tab-content is-view--desktop" id="nav-tabContent">
       <div class="upper-segment"></div>
       <div
         v-for="(event, i) in data"
@@ -88,6 +88,107 @@
         <div class="lower-segment--left"></div>
       </div>
     </div>
+    <!-- ************************** -->
+    <div class="clipped-section-tabs is-view--mobile">
+      <nav style="overflow-y: scroll; margin-bottom:-1px">
+        <div class="nav" id="nav-tab" role="tablist" style="flex-wrap: nowrap;">
+          <a
+            v-for="(tab, index) in tabs"
+            :key="index"
+            :class="[
+              'upper-segment-tabs',
+              activeTabIndex === index ? 'active' : ''
+            ]"
+            id="nav-home-tab"
+            data-toggle="tab"
+            role="tab"
+            aria-controls="nav-home"
+            aria-selected="true"
+            @click="selectClickAction(tab, index)"
+          >
+            <div
+              class="clipped-section-tabs__top-right-corner"
+              v-if="activeTabIndex === index"
+            />
+            {{ tab }}</a
+          >
+        </div>
+      </nav>
+      <div class="body-tabs">
+        <div class="segment upper-segment-tabs-main" />
+        <div class="clipped-section-tabs__top-right-corner-main" />
+        <div
+          v-for="(event, i) in data"
+          :key="i"
+          :class="['tab-pane fade', activeTabIndex === i ? 'show active' : '']"
+          v-if="activeTabIndex === i"
+          id="nav-home"
+          role="tabpanel"
+          aria-labelledby="nav-home-tab"
+        >
+          <div class="row p-3">
+            <div class="col-12 col-md-5">
+              <div class="row event-tab-wrapper__details">
+                <img
+                  v-if="event.images.img_logo !== null"
+                  :src="event.images.img_logo.path"
+                  :alt="event.initial_title + 'background'"
+                  class="event-tab-wrapper__details__img"
+                />
+                <div class="event-tab-wrapper__details__info">
+                  <p class="event-tab-wrapper__details__title">
+                    Location: <span>{{ event.summit.location }}</span>
+                  </p>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div
+                  class="event-tab-wrapper__details__description"
+                  v-html="event.final_description"
+                ></div>
+              </div>
+            </div>
+            <div
+              class="col-12 col-md-7"
+              style="padding: 0"
+              v-if="event.videos.vid_final !== null"
+            >
+              <iframe
+                width="100%"
+                :height="getVideoHeight(event.videos.vid_final.path)"
+                :src="getLiveVideoEmbedFormatter(event.videos.vid_final.path)"
+                frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                v-if="
+                  event.videos.vid_final !== null &&
+                    event.videos.vid_final.path !== ''
+                "
+              >
+              </iframe>
+              <img
+                class="event-tab-wrapper__details__placeholder-img"
+                v-else-if="event.images.img_media.length > 0"
+                :src="event.images.img_media[0].path"
+                @click="
+                  setClickedImageInMedia(event.images.img_media[0].path, 0, i)
+                "
+              />
+              <EventHistoryGallery
+                v-if="event.images.img_media.length > 0"
+                :images="event.images.img_media"
+                :setClickedImageInMedia="setClickedImageInMedia"
+                :currentEventIndex="i"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="segment lower-segment-tabs" />
+      <div class="clipped-section-tabs__bottom-left-corner" />
+      <div class="clipped-section-tabs__bottom-right-corner" />
+    </div>
+    <!-- ************************** -->
     <ImageModal
       :showImageModalModal="showImageModalModal"
       :setShowImageModalModal="setShowImageModalModal"

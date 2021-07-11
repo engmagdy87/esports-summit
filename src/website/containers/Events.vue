@@ -1,10 +1,11 @@
 <template>
-  <div class="events-wrapper">
+  <div class="events-wrapper" @scroll="updateScroll" id="scroll-wrapper">
     <Header
       activeItem="events"
       :isSolidHeader="true"
       :setShowRegisterModal="setShowRegisterModal"
       :setShowLoginModal="setShowLoginModal"
+      :isColorChanged="scrollPosition > 100"
     />
     <div
       class="events-wrapper__outside"
@@ -37,6 +38,9 @@
         :slidesToScroll="1"
         autoplay
         infinite
+        :centerMode="isThisDeviceSmart"
+        :variableWidth="isThisDeviceSmart"
+        :adaptiveHeight="isThisDeviceSmart"
       >
         <MainEventCard
           v-for="(card, index) in mainEventsData"
@@ -53,14 +57,16 @@
         route="events"
         :data="subEventsData"
       />
-      <Footer
-        v-if="
-          isMainEventsFetched &&
-            isSubEventsFetched &&
-            isCoverHomeEventsImageFetched &&
-            (mainEventsData.length !== 0 || subEventsData.length !== 0)
-        "
-      />
+      <div style="position: relative; margin-top: 100px;">
+        <Footer
+          v-if="
+            isMainEventsFetched &&
+              isSubEventsFetched &&
+              isCoverHomeEventsImageFetched &&
+              (mainEventsData.length !== 0 || subEventsData.length !== 0)
+          "
+        />
+      </div>
     </div>
     <h2
       style="color:white; text-align: center;margin-top: 10%;"
@@ -108,7 +114,8 @@ export default {
     return {
       showLoginModal: false,
       showRegisterModal: false,
-      tree: [{ name: "Events", path: "/events" }]
+      tree: [{ name: "Events", path: "/events" }],
+      scrollPosition: null
     };
   },
   computed: {
@@ -154,6 +161,9 @@ export default {
     },
     setShowRegisterModal(value = false) {
       this.showRegisterModal = value;
+    },
+    updateScroll() {
+      this.scrollPosition = document.getElementById("scroll-wrapper").scrollTop;
     }
   },
   components: {
@@ -193,4 +203,10 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../assets/sass/website/containers/events.scss";
+
+.slick-slide {
+  @include is-extra-small-mobile {
+    width: 230px !important;
+  }
+}
 </style>

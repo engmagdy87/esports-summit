@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row" v-if="isGamesActive">
+    <div class="row menu-view__row" v-if="isGamesActive">
       <div
         class="col-12 col-lg-4 p-0"
         v-for="(card, index) in data"
@@ -14,7 +14,7 @@
         />
       </div>
     </div>
-    <div class="row" v-if="!isGamesActive">
+    <div class="row menu-view__row" v-if="!isGamesActive">
       <div
         class="col-12 col-lg-4 p-0"
         v-for="(card, index) in data"
@@ -39,3 +39,15 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+@import "../../../assets/sass/website/mixins.scss";
+.menu-view {
+  &__row {
+    @include is-extra-small-mobile {
+      width: 100%;
+      margin: 0;
+    }
+  }
+}
+</style>

@@ -1,10 +1,11 @@
 <template>
-  <div class="event-details-wrapper">
+  <div class="event-details-wrapper" @scroll="updateScroll" id="scroll-wrapper">
     <Header
       :activeItem="isDisplayedInStory ? 'story' : 'events'"
       :isSolidHeader="true"
       :setShowRegisterModal="setShowRegisterModal"
       :setShowLoginModal="setShowLoginModal"
+      :isColorChanged="scrollPosition > 100"
     />
     <div
       :class="[
@@ -56,7 +57,7 @@
       </div>
     </div>
     <div
-      class="event-details-wrapper__content__custom-btn-outside"
+      class="event-details-wrapper__content__custom-btn-outside is-view--desktop"
       v-if="showSponsors"
     >
       <a
@@ -119,8 +120,84 @@
         />
       </a>
     </div>
+    <div class="is-view--mobile">
+      <div class="col-12 d-flex align-items-center" style="padding:0">
+        <div class="event-details-wrapper__content__breadcrumb">
+          <a
+            v-for="(route, i) in eventShortDetails.tree"
+            :href="route.path"
+            :key="i"
+            >{{ route.name }} >
+          </a>
+          <span>{{ eventDetails.initial_title }}</span>
+        </div>
+      </div>
+      <ClippedBox v-if="showSponsors">
+        <div class="body-override">
+          <a
+            v-for="(sponsor, i) in eventDetails.sponsors.main"
+            :key="`main${i}`"
+            @click="goToSponor(sponsor.link)"
+          >
+            <img
+              :class="[
+                `event-details-wrapper__content__sponsor ${getCssClassForSponsor(
+                  'main'
+                )}`
+              ]"
+              :src="sponsor.images.img_logo.path"
+              :alt="sponsor.name"
+            />
+          </a>
+          <span
+            class="event-details-wrapper__content__divider"
+            v-if="
+              eventDetails.sponsors.main.length !== 0 &&
+                eventDetails.sponsors.sub.length !== 0
+            "
+          ></span>
+          <a
+            v-for="(sponsor, i) in eventDetails.sponsors.sub"
+            :key="`sub${i}`"
+            @click="goToSponor(sponsor.link)"
+          >
+            <img
+              :class="[
+                `event-details-wrapper__content__sponsor ${getCssClassForSponsor(
+                  'sub'
+                )}`
+              ]"
+              :src="sponsor.images.img_logo.path"
+              :alt="sponsor.name"
+            />
+          </a>
+          <span
+            class="event-details-wrapper__content__divider"
+            v-if="
+              eventDetails.sponsors.sub.length !== 0 &&
+                eventDetails.sponsors.extra_sub.length !== 0
+            "
+          ></span>
+          <a
+            v-for="(sponsor, i) in eventDetails.sponsors.extra_sub"
+            :key="`extra_sub${i}`"
+            @click="goToSponor(sponsor.link)"
+          >
+            <img
+              :class="[
+                `event-details-wrapper__content__sponsor ${getCssClassForSponsor(
+                  'extra_sub'
+                )}`
+              ]"
+              :src="sponsor.images.img_logo.path"
+              :alt="sponsor.name"
+            />
+          </a>
+        </div>
+      </ClippedBox>
+    </div>
     <div class="event-details-wrapper__content" v-if="showDetailsHero">
-      <div class="row">
+      <div class="row is-view--desktop">
         <div class="col-12 d-flex align-items-center">
           <div class="event-details-wrapper__content__breadcrumb">
             <a
@@ -134,7 +211,7 @@
         </div>
       </div>
 
-      <div class="container">
+      <div class="container is-view--desktop">
         <div class="row">
           <div class="col-12 col-md-3 event-details-wrapper__content__logo">
             <img
@@ -164,6 +241,26 @@
           </div>
         </div>
       </div>
+      <!-- ************************* -->
+      <div
+        class="is-view--mobile"
+        style="margin-top:-16px;margin-bottom:-16px;"
+      >
+        <ClippedBox>
+          <div class="event-details-wrapper__content__logo">
+            <img
+              v-if="eventDetails.images.img_logo !== null"
+              :src="eventDetails.images.img_logo.path"
+              :alt="eventDetails.title"
+            />
+            <div
+              class="col description-container event-details-wrapper__content__description"
+              v-html="eventDetails.initial_description"
+            ></div>
+          </div>
+        </ClippedBox>
+      </div>
+      <!-- ************************* -->
       <!-- <div class="row event-details-wrapper__content__tournaments mb-5 mb-sm-3">
         <div
           class="col-12 order-2 order-md-1 col-md-6 event-details-wrapper__content__tournaments__title"
@@ -229,6 +326,7 @@ import EventsMenuView from "../../components/events/EventsMenuView";
 import EventPopUp from "../../components/giveaways/EventPopUp";
 import LoginModal from "../../components/home/LoginModal";
 import RegisterModal from "../../components/home/RegisterModal";
+import ClippedBox from "../../shared/ClippedBox";
 import Spinner from "../../shared/Spinner";
 import redirectToNewTab from "../../helpers/RedirectToNewTab";
 import { setEventCookie, getEventCookie } from "../../helpers/CookieHelper";
@@ -242,7 +340,8 @@ export default {
       setShowMoreTextFlag: false,
       eventShortDetails: {},
       randomPopupData: {},
-      isDisplayedInStory: false
+      isDisplayedInStory: false,
+      scrollPosition: null
     };
   },
   computed: {
@@ -359,6 +458,9 @@ export default {
     goToSponor(url) {
       if (url.includes("http")) window.open(url, "_blank");
       else window.open(`http://${url}`, "_blank");
+    },
+    updateScroll() {
+      this.scrollPosition = document.getElementById("scroll-wrapper").scrollTop;
     }
   },
   components: {
@@ -370,7 +472,8 @@ export default {
     EventsMenuView,
     EventPopUp,
     Popup,
-    EventTabs
+    EventTabs,
+    ClippedBox
   },
   mounted() {
     this.isDisplayedInStory = this.$router.history.current.params.data.isDisplayedInStory;

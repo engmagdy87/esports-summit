@@ -1,15 +1,20 @@
 $header-height: 120px;
 $header-height-mobile: 75px;
+$header-height-extra-mobile: 50px;
 $footer-height: 80px;
 $footer-height-mobile: 80px;
 $border-thickness: 1px;
 $hero-image-height: 248px;
 $half-page-hero-image-height: 60vh;
+$half-page-hero-image-height-mob: 245px;
 $event-popup-top-height: 400px;
 $event-popup-top-offset: 15vh;
 
 $event-popup-top-height-mobile: 300px;
 $event-popup-top-offset-mobile: 5vh;
+
+$event-popup-top-height-extra-mobile: 150px;
+$event-popup-top-offset-extra-mobile: 48px;
 
 $popup-top-offset: calc(
   #{$event-popup-top-height} + #{$event-popup-top-offset} + 5vh
@@ -23,5 +28,14 @@ $popup-width-mobile: 300px;
 $popup-height-mobile: 167px;
 $popup-title-height: 50px;
 
-$clipping-value: 20px;
+$clipping-value: 10px;
+$corner-width: 14.14214px; //this value from sqrt($clipping-value^2 + $clipping-value^2)
 $clipped-area-border-value: 2px;
+
+$clipped-area-border-value-mob: 1px;
+
+$tab1-width: 58.81px;
+$tab2-width: 83.63px;
+$tab3-width: 71.2px;
+$tab4-width: 77.77px;
+$tab5-width: 70.14px;

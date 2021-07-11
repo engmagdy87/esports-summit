@@ -1,5 +1,5 @@
 <template>
-  <div class="row mt-5">
+  <div class="row story-menu-wrapper">
     <div
       class="col-12 col-md-4 col-lg-3 col-xl-2"
       v-for="(card, index) in data"
@@ -20,3 +20,15 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+@import "../../../assets/sass/website/mixins.scss";
+
+.story-menu-wrapper {
+  margin-top: 3rem !important;
+  @include is-extra-small-mobile {
+    margin-top: 32px !important;
+    padding: 0 16px;
+  }
+}
+</style>

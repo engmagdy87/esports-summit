@@ -1,6 +1,6 @@
 <template>
   <div class="events-menu-view-wrapper">
-    <div class="row">
+    <div class="row menu-view__row">
       <div
         class="col-12 col-lg-4 p-0"
         v-for="(card, index) in data"
@@ -41,7 +41,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../../assets/sass/website/mixins.scss";
 .events-menu-view-wrapper {
   margin-bottom: 50px;
+  @include is-extra-small-mobile {
+    margin-bottom: 30px;
+  }
+}
+.menu-view {
+  &__row {
+    @include is-extra-small-mobile {
+      width: 100%;
+      margin: 0;
+      padding: 0 14px;
+    }
+  }
 }
 </style>

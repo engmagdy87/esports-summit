@@ -2,11 +2,11 @@
   <div
     class="register-modal"
     :style="showFlag ? 'display:block' : 'display:none'"
-    @click="closeModal"
+    @click.self.prevent="closeModal"
   >
     <!-- Modal content -->
     <div
-      class="register-modal-content"
+      class="register-modal-content is-view--desktop"
       @click="
         e => {
           e.stopPropagation();
@@ -226,6 +226,245 @@
         </form>
       </div>
     </div>
+    <div class="is-view--mobile">
+      <span class="close" @click="closeModal">&times;</span>
+      <div class="is-view--mobile__content">
+        <ClippedBox>
+          <div class="register-modal-header">
+            <h2>Create Account</h2>
+          </div>
+          <div class="register-modal-body">
+            <form>
+              <div class="form-group-mobile avatars">
+                <div class="mask"></div>
+                <div class="preview" v-if="imgProfileUrl">
+                  <div
+                    class="preview__close"
+                    role="button"
+                    @click="resetPreview"
+                  >
+                    &times;
+                  </div>
+                  <img v-if="imgProfileUrl" :src="imgProfileUrl" />
+                </div>
+                <div class="dropbox" v-if="!imgProfileUrl">
+                  <input
+                    type="file"
+                    multiple
+                    name="img_profile"
+                    @change="
+                      profileAvatarChange(
+                        $event.target.name,
+                        $event.target.files
+                      )
+                    "
+                    accept="image/png, image/jpeg"
+                    class="input-file"
+                    ref="img_profile"
+                  />
+                  <p v-if="!imgProfileUrl">
+                    Select Your Profile Picture
+                  </p>
+                </div>
+              </div>
+              <div class="form-group-mobile avatars">
+                <div class="mask"></div>
+                <div class="preview" v-if="imgCoverUrl">
+                  <div
+                    class="preview__close"
+                    role="button"
+                    @click="resetCoverPreview"
+                  >
+                    &times;
+                  </div>
+                  <img v-if="imgCoverUrl" :src="imgCoverUrl" />
+                </div>
+                <div class="dropbox" v-if="!imgCoverUrl">
+                  <input
+                    type="file"
+                    multiple
+                    name="img_profile"
+                    @change="
+                      profileCoverChange(
+                        $event.target.name,
+                        $event.target.files
+                      )
+                    "
+                    accept="image/png, image/jpeg"
+                    class="input-file"
+                    ref="img_profile"
+                  />
+                  <p v-if="!imgCoverUrl">
+                    Select Your Cover Picture
+                  </p>
+                </div>
+              </div>
+              <div class="form-group-mobile">
+                <div></div>
+                <input
+                  type="text"
+                  id="first_name"
+                  aria-describedby="first_nameHelp"
+                  placeholder="Enter First Name"
+                  v-model="first_name"
+                  :class="[
+                    'form-control',
+                    errors.first_name !== undefined ? 'is-invalid' : '',
+                    errors.first_name === undefined ? 'registeration-style' : ''
+                  ]"
+                />
+                <p class="error-message" v-if="errors.first_name !== undefined">
+                  {{ errors.first_name }}
+                </p>
+              </div>
+              <div class="form-group-mobile">
+                <div></div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="last_name"
+                  aria-describedby="last_nameHelp"
+                  placeholder="Enter Last Name"
+                  v-model="last_name"
+                  :class="[
+                    'form-control',
+                    errors.last_name !== undefined ? 'is-invalid' : '',
+                    errors.last_name === undefined ? 'registeration-style' : ''
+                  ]"
+                />
+                <p class="error-message" v-if="errors.last_name !== undefined">
+                  {{ errors.last_name }}
+                </p>
+              </div>
+              <div class="form-group-mobile">
+                <div></div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="reigter-username"
+                  aria-describedby="usernameHelp"
+                  placeholder="Enter Username"
+                  v-model="username"
+                  :class="[
+                    'form-control',
+                    errors.username !== undefined ? 'is-invalid' : '',
+                    errors.username === undefined ? 'registeration-style' : ''
+                  ]"
+                />
+                <p class="error-message" v-if="errors.username !== undefined">
+                  {{ errors.username }}
+                </p>
+              </div>
+              <div class="form-group-mobile date-of-birth">
+                <div></div>
+                <base-input
+                  type="date"
+                  placeholder="Enter Date of birth"
+                  v-model="birthday_date"
+                  :isRegisterationForm="true"
+                >
+                </base-input>
+              </div>
+              <div class="form-group-mobile phones">
+                <div></div>
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <select
+                      class="form-control"
+                      v-model="phone.country_code"
+                      :class="
+                        errors['phone.number'] !== undefined
+                          ? 'pell-content--is-invalid'
+                          : ''
+                      "
+                    >
+                      <option
+                        v-for="(countryCode, index) in countryCodesData"
+                        :selected="phone.country_code === countryCode.dial_code"
+                        :key="index"
+                        :value="countryCode.dial_code"
+                        >{{ countryCode.code }}
+                        {{ countryCode.dial_code }}</option
+                      >
+                    </select>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="phone-number"
+                    aria-describedby="phoneNumber"
+                    placeholder="Enter Phone Number"
+                    v-model="phone.number"
+                  />
+                </div>
+                <p
+                  class="error-message"
+                  v-if="errors['phone.number'] !== undefined"
+                >
+                  {{ errors["phone.number"] }}
+                </p>
+              </div>
+              <div class="form-group-mobile">
+                <div></div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="email"
+                  aria-describedby="emailHelp"
+                  placeholder="Enter Email"
+                  v-model="email"
+                  :class="[
+                    'form-control',
+                    errors.email !== undefined ? 'is-invalid' : '',
+                    errors.email === undefined ? 'registeration-style' : ''
+                  ]"
+                />
+                <p class="error-message" v-if="errors.email !== undefined">
+                  {{ errors.email }}
+                </p>
+              </div>
+              <div class="form-group-mobile">
+                <div></div>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="reigter-password"
+                  placeholder="Enter Password"
+                  v-model="password"
+                  :class="[
+                    'form-control',
+                    errors.password !== undefined ? 'is-invalid' : '',
+                    errors.password === undefined ? 'registeration-style' : ''
+                  ]"
+                />
+                <p class="error-message" v-if="errors.password !== undefined">
+                  {{ errors.password }}
+                </p>
+              </div>
+              <div class="form-group-mobile">
+                <div></div>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="reigter-confirm-password"
+                  placeholder="Enter Password again"
+                  v-model="password_confirmation"
+                />
+              </div>
+              <div style="height: 40px;margin-top:16px">
+                <button
+                  type="button"
+                  class="btn btn-primary float-right"
+                  @click="registerUserPersona"
+                >
+                  Create
+                </button>
+              </div>
+            </form>
+          </div>
+        </ClippedBox>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -235,6 +474,7 @@ import store from "../../../store/index";
 import types from "../../../store/types";
 import countryCodes from "../../../assets/json/CountryCodes.json";
 import isEmailValid from "../../helpers/EmailValidation";
+import ClippedBox from "../../shared/ClippedBox";
 
 export default {
   data() {
@@ -351,6 +591,9 @@ export default {
         type: color
       });
     }
+  },
+  components: {
+    ClippedBox
   }
 };
 </script>

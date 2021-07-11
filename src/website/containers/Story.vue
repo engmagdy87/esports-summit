@@ -1,11 +1,12 @@
 <template>
-  <div class="story-wrapper">
+  <div class="story-wrapper" @scroll="updateScroll" id="scroll-wrapper">
     <div v-if="isStoryFetched && isSummitsHistoryDataFetched">
       <Header
         activeItem="story"
         :isSolidHeader="true"
         :setShowRegisterModal="setShowRegisterModal"
         :setShowLoginModal="setShowLoginModal"
+        :isColorChanged="scrollPosition > 100"
       />
       <div
         :class="[
@@ -84,7 +85,7 @@
         </div>
       </div> -->
 
-        <div class="clipped-section">
+        <div class="clipped-section is-view--desktop">
           <div class="clipped-section__left-corner"></div>
           <div class="clipped-section__right-corner"></div>
           <div class="clipped-section__bottom-left-corner"></div>
@@ -145,6 +146,85 @@
           </div>
         </div>
 
+        <!-- ************************** -->
+        <div class="clipped-section-tabs is-view--mobile">
+          <nav style="margin-bottom:-1px">
+            <div
+              class="nav"
+              id="nav-tab"
+              role="tablist"
+              style="flex-wrap: nowrap;"
+            >
+              <a
+                class="upper-segment-tabs active"
+                id="nav-home-tab"
+                data-toggle="tab"
+                role="tab"
+                aria-controls="nav-home"
+                aria-selected="true"
+              >
+                <div class="clipped-section-tabs__top-right-corner" />
+                {{ storyData.initial_title }}</a
+              >
+            </div>
+          </nav>
+          <div class="body-tabs">
+            <div class="segment upper-segment-tabs-main" />
+            <div class="clipped-section-tabs__top-right-corner-main" />
+            <div
+              class="tab-pane fade show active"
+              id="nav-home"
+              role="tabpanel"
+              aria-labelledby="nav-home-tab"
+            >
+              <div class="row">
+                <div class="col-12 col-lg-6">
+                  <div
+                    class="story-paragraph description-container story-text"
+                    style="display:flex"
+                    v-html="storyData.initial_description"
+                  ></div>
+                </div>
+                <div
+                  class="col-12 col-lg-6 story-video"
+                  v-if="storyData.videos.vid_initial !== null"
+                >
+                  <video
+                    controls
+                    autoplay
+                    muted
+                    loop
+                    @click="e => toggleFullScreenMode(e)"
+                    id="video"
+                  >
+                    <source
+                      src="https://www.esportssummit-me.com/b2b_for_site.mp4"
+                      type="video/mp4"
+                    />
+                    Your browser does not support HTML video.
+                  </video>
+                  <!-- <iframe
+                  style="width:100%"
+                  :height="getVideoHeight(storyData.videos.vid_initial.path)"
+                  :src="
+                    getLiveVideoEmbedFormatter(
+                      storyData.videos.vid_initial.path
+                    )
+                  "
+                  frameborder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                >
+                </iframe> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="segment lower-segment-tabs" />
+          <div class="clipped-section-tabs__bottom-left-corner" />
+          <div class="clipped-section-tabs__bottom-right-corner" />
+        </div>
+        <!-- ************************** -->
         <StoryMenuView :data="summitsHistoryData" :tree="tree" />
       </div>
       <div style="position: relative; margin-top: 100px;">
@@ -182,6 +262,7 @@ import isDeviceSmart from "../helpers/DetectIsDeviceSmart";
 import Popup from "../shared/Popup";
 import * as POPUPS_PLACES from "../constants/PopupsPlaces";
 import { liveVideoEmbedFormatter } from "../../dashboard/helpers/LiveVideoEmbedFormater";
+import setClipPath from "../helpers/ClipPath";
 
 export default {
   data() {
@@ -194,7 +275,8 @@ export default {
           path: "/story"
         }
       ],
-      randomPopupData: {}
+      randomPopupData: {},
+      scrollPosition: null
     };
   },
   computed: {
@@ -248,61 +330,6 @@ export default {
       if (isDeviceSmart() && !path.includes("facebook")) return 200;
       if (!isDeviceSmart() && !path.includes("facebook")) return 350;
     },
-    setClipPath() {
-      const mobile = window.matchMedia("(max-width: 600px)");
-      if (mobile.matches) {
-        const upperSegment = document.getElementsByClassName("upper-segment");
-        const bottomLeftSegment = document.getElementsByClassName(
-          "lower-segment__left"
-        );
-        const bottomRightSegment = document.getElementsByClassName(
-          "lower-segment__right"
-        );
-
-        const upperElement = upperSegment[0];
-        const bottomLeftSegmentElement = bottomLeftSegment[0];
-        const bottomRightSegmentElement = bottomRightSegment[0];
-
-        const upperClippedPath = `polygon(
-      ${(20 / upperElement.clientWidth) * 100}% 0,
-      100% 0%,
-      ${100 - (20 / upperElement.clientWidth) * 100}% 0,
-      100% ${(20 / upperElement.clientHeight) * 100}%,
-      100% 0,
-      100% 100%,
-      0 100%,
-      0 100%,
-      0 ${(20 / 67) * 100}%
-    )`;
-
-        const bottomLeftSegmentClippedPath = `polygon(
-      0 0,
-      100% 0%,
-      100% 100%,
-      100% 0,
-      100% 0,
-      100% 100%,
-      0 100%,
-      16% 100%,
-      0 0
-    )`;
-        const bottomRightSegmentClippedPath = `polygon(
-      0 0,
-      100% 0%,
-      100% 100%,
-      100% 0,
-      100% 0,
-      100% 100%,
-      0 100%,
-      16% 100%,
-      0 0
-    )`;
-
-        upperElement.style.clipPath = upperClippedPath;
-        bottomLeftSegmentElement.style.clipPath = bottomLeftSegmentClippedPath;
-        bottomRightSegmentElement.style.clipPath = bottomRightSegmentClippedPath;
-      }
-    },
     toggleFullScreenMode(e) {
       e.preventDefault();
       let elem = document.getElementById(`video`);
@@ -320,6 +347,9 @@ export default {
         elem.muted = true;
         document.exitFullscreen();
       }
+    },
+    updateScroll() {
+      this.scrollPosition = document.getElementById("scroll-wrapper").scrollTop;
     }
   },
   components: {
@@ -350,7 +380,7 @@ export default {
     if (this.isStoryFetched && this.isSummitsHistoryDataFetched)
       store.commit(types.home.mutations.SET_SPINNER_FLAG, false);
 
-    this.setClipPath();
+    if (!isDeviceSmart()) setClipPath();
   }
 };
 </script>

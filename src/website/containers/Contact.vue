@@ -1,10 +1,11 @@
 <template>
-  <div class="contact-wrapper">
+  <div class="contact-wrapper" @scroll="updateScroll" id="scroll-wrapper">
     <Header
       activeItem="contact"
       :isSolidHeader="true"
       :setShowRegisterModal="setShowRegisterModal"
       :setShowLoginModal="setShowLoginModal"
+      :isColorChanged="scrollPosition > 100"
     />
     <div class="contact-wrapper__outside" v-if="isCoverContactUsImageFetched">
       <div
@@ -13,7 +14,10 @@
         :style="`backgroundImage: url(${coverContactUsImage.path})`"
       ></div>
     </div>
-    <div class="contact-wrapper__content" v-if="isCoverContactUsImageFetched">
+    <div
+      class="contact-wrapper__content is-view--desktop"
+      v-if="isCoverContactUsImageFetched"
+    >
       <!-- <div class="row">
         <div class="col-12">
           <h1>Contact Us</h1>
@@ -178,6 +182,116 @@
       </div>
       <!-- <img src="website/img/contact_us-02.svg" alt="email icon" /> -->
     </div>
+    <!-- ************************** -->
+    <div class="clipped-section-tabs is-view--mobile">
+      <nav style="margin-bottom:-1px">
+        <div class="nav" id="nav-tab" role="tablist" style="flex-wrap: nowrap;">
+          <a
+            class="upper-segment-tabs active"
+            id="nav-home-tab"
+            data-toggle="tab"
+            role="tab"
+            aria-controls="nav-home"
+            aria-selected="true"
+          >
+            <div class="clipped-section-tabs__top-right-corner" />
+            CONTACT US</a
+          >
+        </div>
+      </nav>
+      <div class="body-tabs">
+        <div class="segment upper-segment-tabs-main" />
+        <div class="clipped-section-tabs__top-right-corner-main" />
+        <div
+          class="tab-pane fade show active"
+          id="nav-home"
+          role="tabpanel"
+          aria-labelledby="nav-home-tab"
+        >
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <p class="contact-us-text">
+                We are taking our community seriously, if you need our help or
+                having any question about anything please don't hesitate to
+                contact us or send us on our mail<br />
+                <!-- <span class="contact-wrapper__content__icon">
+                  <img src="website/img/email.svg" alt="email icon" />
+                </span> -->
+                <span>Info@esportssummit-me.com</span><br />
+              </p>
+
+              <p class="contact-us-text">
+                For buisness inquiries in contact us on
+                <br />
+                <!-- <span class="contact-wrapper__content__icon">
+                  <img src="website/img/email.svg" alt="email icon" />
+                </span> -->
+                <span>business@esportssummit-me.com</span>
+              </p>
+
+              <!-- <div class="mb-3 mb-md-0">
+            <span class="contact-wrapper__content__icon">
+              <img src="website/img/phone.svg" alt="phone icon" />
+            </span>
+            <span>+20 123456789</span>
+          </div> -->
+            </div>
+            <div class="col-12 col-md-5 offset-md-1">
+              <form>
+                <div class="form-group">
+                  <div></div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    placeholder="Enter E-mail"
+                    v-model="email"
+                  />
+                </div>
+                <div class="form-group">
+                  <div></div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="subject"
+                    placeholder="Enter Subject"
+                    v-model="subject"
+                  />
+                </div>
+                <div class="form-group" style="margin-bottom:10px">
+                  <div class="text-area"></div>
+                  <textarea
+                    rows="6"
+                    class="form-control border-input"
+                    placeholder="Enter Message"
+                    v-model="message"
+                  >
+                  </textarea>
+                </div>
+                <div
+                  class="contact-wrapper__content__custom-button-wrapper float-right"
+                >
+                  <div
+                    class="contact-wrapper__content__custom-button-wrapper__mask"
+                  ></div>
+                  <div
+                    class="contact-wrapper__content__custom-button-wrapper__outside"
+                    role="button"
+                    @click="sendMessage"
+                  >
+                    Send
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="segment lower-segment-tabs" />
+      <div class="clipped-section-tabs__bottom-left-corner" />
+      <div class="clipped-section-tabs__bottom-right-corner" />
+    </div>
+    <!-- ************************** -->
     <LoginModal
       :showFlag="showLoginModal"
       :setShowLoginModal="setShowLoginModal"
@@ -207,6 +321,8 @@ import LoginModal from "../components/home/LoginModal";
 import RegisterModal from "../components/home/RegisterModal";
 import Spinner from "../shared/Spinner";
 import Popup from "../shared/Popup";
+import setClipPath from "../helpers/ClipPath";
+import isDeviceSmart from "../helpers/DetectIsDeviceSmart";
 import * as POPUPS_PLACES from "../constants/PopupsPlaces";
 
 export default {
@@ -217,7 +333,8 @@ export default {
       email: "",
       subject: "",
       message: "",
-      randomPopupData: {}
+      randomPopupData: {},
+      scrollPosition: null
     };
   },
   computed: {
@@ -277,60 +394,8 @@ export default {
         type: color
       });
     },
-    setClipPath() {
-      const mobile = window.matchMedia("(max-width: 600px)");
-      if (mobile.matches) {
-        const upperSegment = document.getElementsByClassName("upper-segment");
-        const bottomLeftSegment = document.getElementsByClassName(
-          "lower-segment__left"
-        );
-        const bottomRightSegment = document.getElementsByClassName(
-          "lower-segment__right"
-        );
-
-        const upperElement = upperSegment[0];
-        const bottomLeftSegmentElement = bottomLeftSegment[0];
-        const bottomRightSegmentElement = bottomRightSegment[0];
-
-        const upperClippedPath = `polygon(
-      ${(20 / upperElement.clientWidth) * 100}% 0,
-      100% 0%,
-      ${100 - (20 / upperElement.clientWidth) * 100}% 0,
-      100% ${(20 / upperElement.clientHeight) * 100}%,
-      100% 0,
-      100% 100%,
-      0 100%,
-      0 100%,
-      0 ${(20 / 67) * 100}%
-    )`;
-
-        const bottomLeftSegmentClippedPath = `polygon(
-      0 0,
-      100% 0%,
-      100% 100%,
-      100% 0,
-      100% 0,
-      100% 100%,
-      0 100%,
-      16% 100%,
-      0 0
-    )`;
-        const bottomRightSegmentClippedPath = `polygon(
-      0 0,
-      100% 0%,
-      100% 100%,
-      100% 0,
-      100% 0,
-      100% 100%,
-      0 100%,
-      16% 100%,
-      0 0
-    )`;
-
-        upperElement.style.clipPath = upperClippedPath;
-        bottomLeftSegmentElement.style.clipPath = bottomLeftSegmentClippedPath;
-        bottomRightSegmentElement.style.clipPath = bottomRightSegmentClippedPath;
-      }
+    updateScroll() {
+      this.scrollPosition = document.getElementById("scroll-wrapper").scrollTop;
     }
   },
   components: {
@@ -357,7 +422,7 @@ export default {
     if (this.isRandomPopupDataFetched)
       this.randomPopupData = this.randomPopup(POPUPS_PLACES.CONTACT);
 
-    this.setClipPath();
+    if (!isDeviceSmart()) setClipPath();
   }
 };
 </script>

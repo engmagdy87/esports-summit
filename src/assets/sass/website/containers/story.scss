@@ -38,6 +38,11 @@
         0 calc(100% - #{$clipping-value})
       );
     }
+    @include is-extra-small-mobile {
+      background: $mobile-primary;
+      margin-top: -1 * $header-height-extra-mobile;
+      height: $half-page-hero-image-height-mob;
+    }
     &--none {
       clip-path: inset(0 0 0 0) !important;
     }
@@ -71,6 +76,32 @@
         $clipped-area-border-value
           calc(100% - (#{$clipping-value} + #{$clipped-area-border-value}))
       );
+      @include is-extra-small-mobile {
+        clip-path: polygon(
+          0 0,
+          100% 0,
+          100%
+            calc(
+              100% - (#{$clipping-value}* 2 + #{$clipped-area-border-value-mob})
+            ),
+          calc(100% - (#{$clipping-value} + #{$clipped-area-border-value-mob}))
+            calc(
+              100% - (#{$clipping-value} + #{$clipped-area-border-value-mob})
+            ),
+          calc(65% - #{$clipped-area-border-value-mob})
+            calc(
+              100% - (#{$clipping-value} + #{$clipped-area-border-value-mob})
+            ),
+          calc(65% - (#{$clipping-value} + #{$clipped-area-border-value-mob}))
+            calc(100% - #{$clipped-area-border-value-mob}),
+          $clipping-value + $clipped-area-border-value-mob
+            calc(100% - #{$clipped-area-border-value-mob}),
+          0
+            calc(
+              100% - (#{$clipping-value} + #{$clipped-area-border-value-mob})
+            )
+        );
+      }
     }
     &--none {
       clip-path: inset(0 0 0 0) !important;
@@ -83,6 +114,9 @@
       @include is-mobile {
         width: 70%;
         height: auto;
+      }
+      @include is-extra-small-mobile {
+        height: 40%;
       }
     }
     video {
@@ -98,6 +132,9 @@
     @include is-mobile {
       min-height: 82vh;
       padding: 5%;
+    }
+    @include is-extra-small-mobile {
+      padding: 30px 0;
     }
     h1,
     p {
@@ -339,6 +376,9 @@ $section-tab-clip: 20px;
   // font-size: 1rem;
   color: #175e90 !important;
   font-family: "Arial Bold" !important;
+  @include is-extra-small-mobile {
+    color: white !important;
+  }
 }
 
 .story-video {
@@ -347,5 +387,193 @@ $section-tab-clip: 20px;
     cursor: pointer;
     width: 100%;
     height: calc(100% - 50px);
+    @include is-extra-small-mobile {
+      height: auto;
+    }
+  }
+}
+
+.is-view {
+  &--mobile {
+    display: none;
+    @include is-extra-small-mobile {
+      display: block;
+    }
+  }
+  &--desktop {
+    display: block;
+    @include is-extra-small-mobile {
+      display: none;
+    }
+  }
+}
+
+$section-height: 500px;
+
+$section-tab-height: 45px;
+$section-tab-height-active: 55px;
+$section-tab-width: 75px;
+
+$bg: rgba(0, 0, 0, 0.75);
+
+.clipped-section-tabs {
+  position: relative;
+  margin-bottom: 0;
+  padding: 0 16px;
+  &__top-right-corner {
+    display: none;
+    @include is-extra-small-mobile {
+      display: block;
+      position: absolute;
+      height: $clipped-area-border-value-mob * 2;
+      width: $corner-width;
+      background-color: $mobile-primary;
+      top: 8px;
+      left: $clipped-area-border-value-mob * -1.5;
+      transform: rotate(-45deg);
+      transform-origin: top left;
+      z-index: 10;
+    }
+  }
+  &__top-right-corner-main {
+    display: none;
+    @include is-extra-small-mobile {
+      display: block;
+      position: absolute;
+      height: $clipped-area-border-value-mob;
+      width: $corner-width;
+      background-color: $mobile-primary;
+      top: 0;
+      right: 0;
+      transform: rotate(45deg);
+      transform-origin: top right;
+      z-index: 10;
+    }
+  }
+  &__bottom-left-corner {
+    position: absolute;
+    height: $clipped-area-border-value-mob;
+    width: $corner-width;
+    background-color: $mobile-primary;
+    bottom: 10px;
+    left: 16px;
+    transform: rotate(45deg);
+    transform-origin: bottom left;
+    z-index: 10;
+  }
+  &__bottom-right-corner {
+    position: absolute;
+    height: $clipped-area-border-value-mob;
+    width: $corner-width;
+    background-color: $mobile-primary;
+    bottom: 10px;
+    right: 16px;
+    transform: rotate(-45deg);
+    transform-origin: bottom right;
+    z-index: 10;
+  }
+}
+
+.upper-segment-tabs {
+  position: relative;
+  height: $section-tab-height;
+  width: fit-content;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-bottom: $border-thickness solid rgba(0, 0, 0, 0.9);
+  font-size: 24px;
+  padding: 5px 7px;
+  color: white;
+  margin-top: auto;
+
+  clip-path: polygon(
+    $clipping-value 0,
+    100% 0,
+    100% 0,
+    100% 0,
+    100% 100%,
+    0 100%,
+    0 100%,
+    0 $clipping-value
+  );
+}
+.upper-segment-tabs.active {
+  border-right: $border-thickness solid $mobile-primary;
+  border-left: $border-thickness solid $mobile-primary;
+  border-top: $border-thickness solid $mobile-primary;
+  height: 50px;
+  z-index: 10;
+}
+.body-tabs {
+  position: relative;
+  width: 100%;
+  height: calc(#{$section-height} - #{$section-tab-height} - 20px);
+  padding: 50px 30px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-left: $clipped-area-border-value-mob solid $mobile-primary;
+  border-right: $clipped-area-border-value-mob solid $mobile-primary;
+  margin-top: $clipping-value;
+  @include is-extra-small-mobile {
+    height: fit-content;
+    padding: 14px 18px;
+  }
+  @include is-mobile {
+    height: calc(666px - #{$section-tab-height} - 20px);
+    padding: 20px 30px;
+  }
+}
+.segment {
+  height: $clipping-value;
+  width: 100%;
+  background-color: $bg;
+}
+.lower-segment-tabs {
+  border-bottom: $border-thickness solid $mobile-primary;
+  clip-path: polygon(
+    $clipping-value $clipping-value,
+    0 0,
+    100% 0,
+    calc(100% - #{$clipping-value}) 100%,
+    0 100%,
+    100% 100%,
+    0 $clipping-value,
+    0 $clipping-value
+  );
+}
+.upper-segment-tabs-main {
+  position: absolute;
+  left: -1px;
+  top: -1 * $clipping-value;
+  border-left: $clipped-area-border-value-mob solid $mobile-primary;
+  border-top: $clipped-area-border-value-mob solid $mobile-primary;
+  clip-path: polygon(
+    0 0,
+    calc(100% - #{$clipping-value}) 0,
+    100% $clipping-value,
+    100% 0,
+    100% 100%,
+    0 100%,
+    0 100%,
+    0 0
+  );
+}
+
+.grid-view {
+  &__container {
+    @include is-extra-small-mobile {
+      width: 100%;
+      padding: 0;
+    }
+  }
+  &__row {
+    @include is-extra-small-mobile {
+      width: 100%;
+      margin: 0;
+    }
+  }
+  &__col {
+    @include is-extra-small-mobile {
+      padding: 0 !important;
+      margin: 0 0 10px 0;
+    }
   }
 }

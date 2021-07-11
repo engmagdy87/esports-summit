@@ -47,6 +47,13 @@ html {
   }
 }
 
+input[type="date"].form-control.registeration-style {
+  @include is-extra-small-mobile {
+    height: 42px !important;
+    width: calc(100% - 1px);
+  }
+}
+
 .slick-dots {
   bottom: 20px !important;
   @include is-extra-small-mobile {
@@ -83,13 +90,23 @@ html {
 
 .side-popup-wrapper div.slick-slider.slick-initialized ul.slick-dots {
   bottom: -8px !important;
+  @include is-extra-small-mobile {
+    bottom: -15px !important;
+  }
   li {
     width: 4px !important;
     height: 4px !important;
     background-color: gray !important;
     border-radius: 50%;
+    @include is-extra-small-mobile {
+      width: 5px !important;
+      height: 5px !important;
+    }
     button {
       width: 4px !important;
+      @include is-extra-small-mobile {
+        width: 5px !important;
+      }
     }
   }
   li.slick-active {

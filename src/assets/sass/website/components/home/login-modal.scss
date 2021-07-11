@@ -12,6 +12,9 @@
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  @include is-extra-small-mobile {
+    background-color: #131c2b;
+  }
 }
 
 /* Modal Content */
@@ -66,6 +69,12 @@
   border: 1px solid $primary;
   width: 20px;
   text-align: center;
+  @include is-extra-small-mobile {
+    margin-top: 0;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
 }
 
 .close:hover,
@@ -80,11 +89,21 @@
   color: white;
   h2 {
     margin: 15px 0;
+    @include is-extra-small-mobile {
+      font-size: 32px;
+      font-weight: 700;
+    }
   }
 }
 
 .login-modal-body {
   padding: 16px;
+  @include is-extra-small-mobile {
+    padding: 0 16px 10px 16px;
+    label {
+      color: $mobile-primary;
+    }
+  }
   form {
     height: 240px;
     button {
@@ -115,5 +134,248 @@
       color: $primary !important;
       opacity: 0.7;
     }
+  }
+}
+
+.is-view {
+  &--mobile {
+    display: none;
+    @include is-extra-small-mobile {
+      display: inline-block;
+      padding-right: 16px;
+      padding-left: 16px;
+      margin-top: 15%;
+      width: 100%;
+      &__content {
+        margin-top: 40px;
+      }
+    }
+  }
+  &--desktop {
+    display: block;
+    @include is-extra-small-mobile {
+      display: none;
+    }
+  }
+}
+
+$section-height: 500px;
+
+$section-tab-height: 45px;
+$section-tab-height-active: 55px;
+$section-tab-width: 75px;
+
+$bg: rgba(0, 0, 0, 0.75);
+
+.clipped-section-tabs {
+  position: relative;
+  margin-bottom: 0;
+  padding: 32px 16px;
+  &__top-right-corner {
+    display: none;
+    @include is-extra-small-mobile {
+      display: block;
+      position: absolute;
+      height: $clipped-area-border-value-mob * 2;
+      width: $corner-width;
+      background-color: $mobile-primary;
+      top: 8px;
+      left: $clipped-area-border-value-mob * -1.5;
+      transform: rotate(-45deg);
+      transform-origin: top left;
+      z-index: 10;
+    }
+  }
+  &__top-right-corner-main {
+    display: none;
+    @include is-extra-small-mobile {
+      display: block;
+      position: absolute;
+      height: $clipped-area-border-value-mob;
+      width: $corner-width;
+      background-color: $mobile-primary;
+      top: 0;
+      right: 0;
+      transform: rotate(45deg);
+      transform-origin: top right;
+      z-index: 10;
+    }
+  }
+  &__bottom-left-corner {
+    position: absolute;
+    height: $clipped-area-border-value-mob;
+    width: $corner-width;
+    background-color: $mobile-primary;
+    bottom: 42px;
+    left: 16px;
+    transform: rotate(45deg);
+    transform-origin: bottom left;
+    z-index: 10;
+  }
+  &__bottom-right-corner {
+    position: absolute;
+    height: $clipped-area-border-value-mob;
+    width: $corner-width;
+    background-color: $mobile-primary;
+    bottom: 42px;
+    right: 16px;
+    transform: rotate(-45deg);
+    transform-origin: bottom right;
+    z-index: 10;
+  }
+}
+
+.upper-segment-tabs {
+  position: relative;
+  height: $section-tab-height;
+  width: fit-content;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-bottom: $border-thickness solid rgba(0, 0, 0, 0.9);
+  font-size: 24px;
+  padding: 5px 7px;
+  color: white;
+  margin-top: auto;
+
+  clip-path: polygon(
+    $clipping-value 0,
+    100% 0,
+    100% 0,
+    100% 0,
+    100% 100%,
+    0 100%,
+    0 100%,
+    0 $clipping-value
+  );
+}
+.upper-segment-tabs.active {
+  border-right: $border-thickness solid $mobile-primary;
+  border-left: $border-thickness solid $mobile-primary;
+  border-top: $border-thickness solid $mobile-primary;
+  height: 50px;
+  z-index: 10;
+  font-size: 24px;
+}
+.body-tabs {
+  position: relative;
+  width: 100%;
+  height: calc(#{$section-height} - #{$section-tab-height} - 20px);
+  padding: 50px 30px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-left: $clipped-area-border-value-mob solid $mobile-primary;
+  border-right: $clipped-area-border-value-mob solid $mobile-primary;
+  margin-top: $clipping-value;
+  @include is-extra-small-mobile {
+    height: fit-content;
+    padding: 14px 18px;
+  }
+  @include is-mobile {
+    height: calc(666px - #{$section-tab-height} - 20px);
+    padding: 20px 30px;
+  }
+}
+.segment {
+  height: $clipping-value;
+  width: 100%;
+  background-color: $bg;
+}
+.lower-segment-tabs {
+  border-bottom: $border-thickness solid $mobile-primary;
+  clip-path: polygon(
+    $clipping-value $clipping-value,
+    0 0,
+    100% 0,
+    calc(100% - #{$clipping-value}) 100%,
+    0 100%,
+    100% 100%,
+    0 $clipping-value,
+    0 $clipping-value
+  );
+}
+.upper-segment-tabs-main {
+  position: absolute;
+  left: -1px;
+  top: -1 * $clipping-value;
+  border-left: $clipped-area-border-value-mob solid $mobile-primary;
+  border-top: $clipped-area-border-value-mob solid $mobile-primary;
+  clip-path: polygon(
+    0 0,
+    calc(100% - #{$clipping-value}) 0,
+    100% $clipping-value,
+    100% 0,
+    100% 100%,
+    0 100%,
+    0 100%,
+    0 0
+  );
+}
+
+.grid-view {
+  &__container {
+    @include is-extra-small-mobile {
+      width: 100%;
+      padding: 0;
+    }
+  }
+  &__row {
+    @include is-extra-small-mobile {
+      width: 100%;
+      margin: 0;
+    }
+  }
+  &__col {
+    @include is-extra-small-mobile {
+      padding: 0 !important;
+      margin: 0 0 10px 0;
+    }
+  }
+}
+
+.form-group-mobile {
+  position: relative;
+  margin-bottom: 10px !important;
+  div {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    background-color: #175e90;
+    width: calc(100% + 2px);
+    height: 44px;
+    // padding: 8px 12px;
+    @include create-hexagone-shape(5px);
+    @include is-extra-small-mobile {
+      background-color: $mobile-primary;
+    }
+  }
+}
+
+.form-control {
+  @include is-extra-small-mobile {
+    background-color: rgba(0, 0, 0, 1);
+    border: 1px solid rgba(0, 0, 0, 1);
+    color: white;
+    @include create-hexagone-shape(5px);
+  }
+}
+.form-control::placeholder {
+  @include is-extra-small-mobile {
+    font-family: "Arial" !important;
+    color: $mobile-primary;
+    font-size: 16px;
+  }
+}
+input[type="text"],
+input[type="password"] {
+  @include is-extra-small-mobile {
+    height: 42px !important;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  button {
+    margin-bottom: 0;
+    margin-left: auto;
   }
 }

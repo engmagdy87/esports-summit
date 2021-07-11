@@ -124,6 +124,11 @@ $preview-image: 150px;
       }
     }
   }
+  h1 {
+    @include is-extra-small-mobile {
+      font-size: 2rem;
+    }
+  }
 }
 
 .dropbox {

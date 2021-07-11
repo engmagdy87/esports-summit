@@ -165,6 +165,16 @@ span {
 .story-text > p > span,
 .story-text > span {
   font-family: "Arial Bold" !important;
+  @media (max-width: 600px) {
+    font-family: "Arial" !important;
+  }
+}
+.story-text > h5 {
+  font-family: "Arial Bold" !important;
+  @media (max-width: 600px) {
+    font-family: "Arial" !important;
+    padding-left: 0 !important;
+  }
 }
 
 // .description-container.story-text {
@@ -243,6 +253,14 @@ span {
   }
   &--limit {
     height: 200px;
+  }
+}
+
+div.col.description-container.game-details-wrapper__content__description {
+  * {
+    @media (max-width: 600px) {
+      font-size: 16px !important;
+    }
   }
 }
 

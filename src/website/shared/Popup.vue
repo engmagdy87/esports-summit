@@ -46,8 +46,10 @@ export default {
       this.showEventPopup = false;
     }
   },
-  updated() {
-    this.showEventPopup = Object.keys(this.data).length > 0;
+  watch: {
+    data() {
+      this.showEventPopup = Object.keys(this.data).length > 0;
+    }
   }
 };
 </script>

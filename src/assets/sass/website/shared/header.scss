@@ -12,7 +12,7 @@
   height: $header-height;
   z-index: 100;
   @include is-extra-small-mobile {
-    height: 50px;
+    height: $header-height-extra-mobile;
   }
   &__social-media-icon {
     height: 20px;
@@ -55,6 +55,9 @@
   }
   &--solid {
     background: $solid-header;
+    @include is-extra-small-mobile {
+      background: transparent;
+    }
   }
   &--gradient {
     background: linear-gradient(
@@ -247,5 +250,18 @@
     font-size: 40px;
     top: 15px;
     right: 35px;
+  }
+}
+
+.header-mask {
+  background-color: $accent;
+  position: absolute;
+  top: -1px;
+  left: 0;
+  display: none;
+  @include is-extra-small-mobile {
+    display: block;
+    height: $header-height-extra-mobile;
+    width: 101%;
   }
 }

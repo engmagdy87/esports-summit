@@ -25,16 +25,28 @@
       height: 108vh !important;
     }
     @include is-extra-small-mobile {
-      height: 45vh !important;
+      height: 400px !important;
     }
   }
   &__hero {
     min-height: 100vh;
     @include is-extra-small-mobile {
-      min-height: 45vh !important;
+      min-height: 400px !important;
     }
   }
 
+  &__row {
+    @include is-extra-small-mobile {
+      width: 100%;
+      margin: 0;
+    }
+  }
+  &__col {
+    @include is-extra-small-mobile {
+      padding: 0 !important;
+      margin: 24px 0 10px 0;
+    }
+  }
   &__ready-section {
     display: flex;
     height: 50vh;
@@ -220,7 +232,7 @@
       padding: 10% 10% 60% 10%;
     }
     @include is-extra-small-mobile {
-      padding: 6% 15% 30% 15%;
+      padding: 6% 4% 30% 4%;
       height: fit-content;
       min-height: 66vh;
     }
@@ -228,6 +240,9 @@
       margin: 0;
       color: white;
       font-size: 2rem;
+      @include is-extra-small-mobile {
+        font-size: 24px;
+      }
     }
     .row {
       .col {
@@ -240,6 +255,10 @@
     color: white;
     padding: 20px;
     margin-bottom: 0;
+    @include is-extra-small-mobile {
+      display: flex;
+      padding: 0;
+    }
     li {
       display: inline-block;
       cursor: pointer;
@@ -248,11 +267,17 @@
       color: $inactive-header-link;
       font-size: 1.5rem;
       font-weight: lighter;
+      @include is-extra-small-mobile {
+        font-size: 20px;
+      }
     }
     &--active {
       color: $primary !important;
       text-decoration: underline;
       font-family: "Roboto Bold";
+      @include is-extra-small-mobile {
+        font-family: "Roboto";
+      }
     }
   }
 }

@@ -5,6 +5,9 @@
       isSolidHeader ? 'header-wrapper--solid' : 'header-wrapper--gradient'
     ]"
   >
+    <transition appear name="fade">
+      <div class="header-mask" v-if="isColorChanged"></div>
+    </transition>
     <div class="header-wrapper__logo">
       <a href="/" alt="esports summit" style="width: 100%;">
         <img src="/website/img/ess-logo.png" alt="ess logo" />
@@ -227,7 +230,8 @@ export default {
     "activeItem",
     "setShowRegisterModal",
     "setShowLoginModal",
-    "isSolidHeader"
+    "isSolidHeader",
+    "isColorChanged"
   ],
   methods: {
     openNav() {
@@ -275,4 +279,10 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../assets/sass/website/shared/header.scss";
+.fade-enter-active {
+  transition: all 0.5s;
+}
+.fade-leave-active {
+  transition: all 0.5s;
+}
 </style>

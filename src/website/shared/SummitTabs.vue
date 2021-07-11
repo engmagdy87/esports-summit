@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav>
+    <nav class="is-view--desktop">
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <a
           v-for="(tab, index) in tabs"
@@ -24,7 +24,7 @@
         >
       </div>
     </nav>
-    <div class="tab-content" id="nav-tabContent">
+    <div class="tab-content is-view--desktop" id="nav-tabContent">
       <div class="upper-segment"></div>
       <!-- DETAILS TAB -->
       <div
@@ -275,6 +275,304 @@
         <div class="lower-segment--left"></div>
       </div>
     </div>
+    <!-- ************************** -->
+    <div class="clipped-section-tabs is-view--mobile">
+      <nav style="overflow-y: scroll; margin-bottom:-1px">
+        <div class="nav" id="nav-tab" role="tablist" style="flex-wrap: nowrap;">
+          <a
+            v-for="(tab, index) in tabs"
+            :key="index"
+            :class="[
+              'upper-segment-tabs',
+              activeTabIndex === index ? 'active' : ''
+            ]"
+            id="nav-home-tab"
+            data-toggle="tab"
+            role="tab"
+            aria-controls="nav-home"
+            aria-selected="true"
+            @click="selectClickAction(tab, index)"
+          >
+            <div
+              class="clipped-section-tabs__top-right-corner"
+              v-if="activeTabIndex === index"
+            />
+            {{ tab }}</a
+          >
+          <!-- <div
+            class="col-lg-4 d-flex align-items-center justify-content-end tab-pane__custom-button-wrapper"
+            role="button"
+          >
+            <div
+              class="tab-pane__custom-button-wrapper__outside"
+              @click="redirectTo"
+            >
+              REGISTER
+            </div>
+          </div> -->
+        </div>
+      </nav>
+      <div class="body-tabs">
+        <div class="segment upper-segment-tabs-main" />
+        <div class="clipped-section-tabs__top-right-corner-main" />
+        <div
+          :class="
+            `body-tabs__top-clipped--right body-tabs__top-clipped--right--tab${activeTabIndex +
+              1}`
+          "
+        ></div>
+        <div
+          :class="
+            `body-tabs__top-clipped--left body-tabs__top-clipped--left--tab${activeTabIndex +
+              1}`
+          "
+        ></div>
+        <div
+          v-if="activeTabIndex === 0"
+          :class="['tab-pane fade', activeTabIndex === 0 ? 'show active' : '']"
+          id="nav-home"
+          role="tabpanel"
+          aria-labelledby="nav-home-tab"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div class="row d-flex align-items-center">
+                  <img
+                    v-if="data.images.img_logo !== null"
+                    :src="data.images.img_logo.path"
+                    :alt="data.initial_title + 'background'"
+                    class="summit-tab-wrapper__details__img"
+                  />
+                  <div class="summit-tab-wrapper__details__info">
+                    <p class="summit-tab-wrapper__details__title">
+                      Location: <span>{{ data.location }}</span>
+                    </p>
+                    <p class="summit-tab-wrapper__details__title">
+                      Attendess: <span>{{ data.attendess }}</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div
+                    class="summit-tab-wrapper__details__description"
+                    v-html="data.final_description"
+                  ></div>
+                </div>
+              </div>
+              <div
+                class="col-12 col-md-6"
+                v-if="data.videos.vid_final !== null"
+              >
+                <iframe
+                  width="100%"
+                  :height="getVideoHeight()"
+                  :src="getLiveVideoEmbedFormatter(data.videos.vid_final.path)"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                >
+                </iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          v-if="activeTabIndex === 1"
+          :class="['tab-pane fade', activeTabIndex === 1 ? 'show active' : '']"
+          id="nav-profile"
+          role="tabpanel"
+          aria-labelledby="nav-profile-tab"
+        >
+          <div
+            class="summit-tab-wrapper__media-image"
+            v-for="(image, i) in data.images.img_media"
+            :key="i"
+            role="button"
+            @click="() => setClickedImageInMedia(image.path, i)"
+          >
+            <img :src="image.path" :alt="image.path" />
+          </div>
+        </div>
+        <div
+          v-if="activeTabIndex === 2"
+          :class="['tab-pane fade', activeTabIndex === 2 ? 'show active' : '']"
+          id="nav-contact"
+          role="tabpanel"
+          aria-labelledby="nav-contact-tab"
+        >
+          <div class="row">
+            <div class="col">
+              <ul
+                class="home-wrapper__navLinks"
+                style="margin-bottom:8px"
+                v-if="data.tournaments.length > 0 || data.games.length > 0"
+              >
+                <li
+                  v-if="data.games.length > 0"
+                  :class="[
+                    isGamesActive ? 'home-wrapper__navLinks--active' : ''
+                  ]"
+                  @click="setIsGamesActive(true)"
+                >
+                  Games
+                </li>
+                <li
+                  v-if="data.tournaments.length > 0"
+                  :class="[
+                    !isGamesActive ? 'home-wrapper__navLinks--active' : ''
+                  ]"
+                  @click="setIsGamesActive(false)"
+                >
+                  Tournaments
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- <div class="row" v-if="!isGamesActive">
+          <div class="col">
+            <CustomButton :setShowFiltersModal="setShowFiltersModal" />
+          </div>
+        </div> -->
+          <MenuView
+            :data="getCorrespondingData"
+            :isGamesActive="isGamesActive"
+            v-if="
+              isMenuActive &&
+                data.tournaments.length > 0 &&
+                data.games.length > 0
+            "
+            :tree="tree"
+            :isShownInHistory="true"
+            :summitId="summitId"
+          />
+          <ListView
+            :data="getCorrespondingData"
+            :isGamesActive="
+              isGamesActive &&
+                data.tournaments.length > 0 &&
+                data.games.length > 0
+            "
+            :tree="tree"
+            :isShownInHistory="true"
+            :summitId="summitId"
+            v-else
+          />
+          <h2
+            style="color:white; text-align: center;"
+            v-if="data.games.length === 0 && data.tournaments.length === 0"
+          >
+            There are no battles now
+          </h2>
+        </div>
+        <div
+          v-if="activeTabIndex === 3"
+          :class="['tab-pane fade', activeTabIndex === 3 ? 'show active' : '']"
+          id="nav-contact"
+          role="tabpanel"
+          aria-labelledby="nav-contact-tab"
+        >
+          <div
+            class="events-wrapper__content-history battle-tab"
+            v-if="mainEvents.length !== 0"
+            id="main-events"
+          >
+            <h2 v-if="mainEvents.length !== 0">Main Events</h2>
+            <VueSlickCarousel
+              v-if="mainEvents.length !== 0"
+              :arrows="false"
+              :slidesToShow="isThisDeviceSmart ? 1 : 4"
+              :slidesToScroll="1"
+              autoplay
+              infinite
+              :centerMode="isThisDeviceSmart"
+              :variableWidth="isThisDeviceSmart"
+              :adaptiveHeight="isThisDeviceSmart"
+            >
+              <MainEventCard
+                v-for="(card, index) in mainEvents"
+                :key="index"
+                :card="card"
+                :sourceRoute="tree"
+                :isDisplayedInStory="true"
+              />
+            </VueSlickCarousel>
+
+            <h2
+              v-if="subEvents.length !== 0"
+              style="margin-top: -20px !important;"
+            >
+              Sub Events
+            </h2>
+            <EventsMenuView
+              v-if="subEvents.length !== 0"
+              route="events"
+              :data="subEvents"
+              :isDisplayedInStory="true"
+            />
+          </div>
+          <h2
+            style="color:white; text-align: center;"
+            v-if="data.events.length === 0"
+          >
+            There are no events now
+          </h2>
+        </div>
+        <div
+          v-if="activeTabIndex === 4"
+          :class="['tab-pane fade', activeTabIndex === 4 ? 'show active' : '']"
+          id="nav-contact"
+          role="tabpanel"
+          aria-labelledby="nav-contact-tab"
+        >
+          <div
+            class="events-wrapper__content-history battle-tab"
+            v-if="giveaways.length !== 0"
+            id="main-giveaway"
+          >
+            <h2 v-if="giveaways.length !== 0">Giveaways</h2>
+            <VueSlickCarousel
+              v-if="giveaways.length !== 0"
+              :arrows="false"
+              :slidesToShow="isThisDeviceSmart ? 1 : 4"
+              :slidesToScroll="1"
+              autoplay
+              infinite
+              :centerMode="isThisDeviceSmart"
+              :variableWidth="isThisDeviceSmart"
+              :adaptiveHeight="isThisDeviceSmart"
+            >
+              <GiveawayCard
+                v-for="(card, index) in giveaways"
+                :key="index"
+                :card="card"
+                :sourceRoute="tree"
+                :isDisplayedInStory="true"
+              />
+            </VueSlickCarousel>
+
+            <h2 v-if="offers.length !== 0">Offers</h2>
+            <GiveawaysMenuView
+              v-if="offers.length !== 0"
+              route="offers"
+              :data="offers"
+              :sourceRoute="tree"
+              :isDisplayedInStory="true"
+            />
+          </div>
+          <h2
+            style="color:white; text-align: center;"
+            v-if="data.events.length === 0"
+          >
+            There are no giveaways or offers now
+          </h2>
+        </div>
+      </div>
+      <div class="segment lower-segment-tabs" />
+      <div class="clipped-section-tabs__bottom-left-corner" />
+      <div class="clipped-section-tabs__bottom-right-corner" />
+    </div>
+    <!-- ************************** -->
     <!-- <Filters
       :showFlag="showFiltersModal"
       :setShowFiltersModal="setShowFiltersModal"
@@ -409,11 +707,16 @@ export default {
 @import "../../assets/sass/website/shared/summit-tabs.scss";
 @import "../../assets/sass/website/containers/events.scss";
 @import "../../assets/sass/website/containers/home.scss";
+@import "../../assets/sass/website/mixins.scss";
 .battle-tab {
   .slick-slider.slick-initialized {
     padding-bottom: 50px;
     width: 94%;
     margin: auto;
+    @include is-extra-small-mobile {
+      width: calc(100% + 32px);
+      margin-left: -16px;
+    }
   }
   h2 {
     color: #e7e7e7 !important;

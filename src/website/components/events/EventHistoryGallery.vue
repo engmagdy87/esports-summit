@@ -28,9 +28,12 @@ export default {
   overflow-y: hidden;
   display: flex;
   &::-webkit-scrollbar {
-    height: 8px !important;
     background-color: $accent !important;
+    height: 8px !important;
     border-radius: 10px !important;
+    @include is-extra-small-mobile {
+      height: 3px !important;
+    }
   }
   &::-webkit-scrollbar-thumb {
     background-color: $primary !important;

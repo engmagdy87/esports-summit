@@ -35,6 +35,11 @@
       $clipping-value 100%,
       0 calc(100% - #{$clipping-value})
     );
+    @include is-extra-small-mobile {
+      background: $mobile-primary;
+      margin-top: -1 * $header-height-extra-mobile;
+      height: $half-page-hero-image-height-mob;
+    }
   }
 
   &__inside {
@@ -60,6 +65,25 @@
       $clipped-area-border-value
         calc(100% - (#{$clipping-value} + #{$clipped-area-border-value}))
     );
+    @include is-extra-small-mobile {
+      clip-path: polygon(
+        0 0,
+        100% 0,
+        100%
+          calc(
+            100% - (#{$clipping-value}* 2 + #{$clipped-area-border-value-mob})
+          ),
+        calc(100% - (#{$clipping-value} + #{$clipped-area-border-value-mob}))
+          calc(100% - (#{$clipping-value} + #{$clipped-area-border-value-mob})),
+        calc(65% - #{$clipped-area-border-value-mob})
+          calc(100% - (#{$clipping-value} + #{$clipped-area-border-value-mob})),
+        calc(65% - (#{$clipping-value} + #{$clipped-area-border-value-mob}))
+          calc(100% - #{$clipped-area-border-value-mob}),
+        $clipping-value + $clipped-area-border-value-mob
+          calc(100% - #{$clipped-area-border-value-mob}),
+        0 calc(100% - (#{$clipping-value} + #{$clipped-area-border-value-mob}))
+      );
+    }
     video {
       object-fit: cover;
       height: 100%;
@@ -75,10 +99,18 @@
       min-height: 82vh;
       padding: 5%;
     }
+    @include is-extra-small-mobile {
+      padding: 16px;
+    }
     &__breadcrumb {
       font-size: 1.8rem;
       margin-bottom: 50px;
       padding-left: 15px;
+      @include is-extra-small-mobile {
+        margin-bottom: 16px;
+        padding-left: 0;
+        font-size: 16px;
+      }
       @include is-mobile {
         margin-bottom: 30px;
       }
@@ -93,6 +125,9 @@
     &__logo {
       img {
         height: 200px;
+        @include is-extra-small-mobile {
+          height: 100px;
+        }
       }
       @include is-mobile {
         margin-bottom: 15px;
@@ -100,12 +135,24 @@
     }
     &__description {
       padding-top: 60px;
+      @include is-extra-small-mobile {
+        padding: 20px 0 0 0;
+      }
     }
     &__tournaments {
       margin-top: 50px;
+      margin-bottom: 3rem;
+      @include is-extra-small-mobile {
+        margin-top: 0;
+        margin-bottom: 16px;
+      }
       div:nth-child(1) {
         font-size: 2rem;
         color: $primary;
+        @include is-extra-small-mobile {
+          font-size: 24px;
+          color: white;
+        }
       }
     }
     &__custom-btn-outside {
@@ -137,6 +184,42 @@
     &__sub-sponsor {
       width: 40px;
       margin: 15px;
+    }
+  }
+}
+
+.is-view {
+  &--mobile {
+    display: none;
+    @include is-extra-small-mobile {
+      display: block;
+    }
+  }
+  &--desktop {
+    display: block;
+    @include is-extra-small-mobile {
+      display: none;
+    }
+  }
+}
+
+.menu-view {
+  &__container {
+    @include is-extra-small-mobile {
+      width: 100%;
+      padding: 0;
+    }
+  }
+  &__row {
+    @include is-extra-small-mobile {
+      width: 100%;
+      margin: 0;
+    }
+  }
+  &__col {
+    @include is-extra-small-mobile {
+      padding: 0 !important;
+      margin: 0 0 10px 0;
     }
   }
 }

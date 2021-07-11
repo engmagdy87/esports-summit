@@ -1,10 +1,16 @@
 <template>
-  <div class="story-details-wrapper" v-if="isSummitCompleteDataFetched">
+  <div
+    class="story-details-wrapper"
+    v-if="isSummitCompleteDataFetched"
+    @scroll="updateScroll"
+    id="scroll-wrapper"
+  >
     <Header
       activeItem="story"
       :isSolidHeader="true"
       :setShowRegisterModal="setShowRegisterModal"
       :setShowLoginModal="setShowLoginModal"
+      :isColorChanged="scrollPosition > 100"
     />
     <div
       :class="[
@@ -62,8 +68,8 @@
 
     <div class="story-details-wrapper__content" v-if="showDetailsHero">
       <div class="container">
-        <div class="row mb-4 mb-md-0">
-          <div class="col-12 d-flex align-items-center">
+        <div class="row mb-4 mb-md-0 mobile-view__row">
+          <div class="col-12 d-flex align-items-center mobile-view__col">
             <div class="story-details-wrapper__content__breadcrumb">
               <a
                 v-for="(route, i) in summitShortDetails.tree"
@@ -136,7 +142,8 @@ export default {
       summitShortDetails: {},
       randomPopupData: {},
       clickedImageInMedia: "",
-      currentImageIndex: -1
+      currentImageIndex: -1,
+      scrollPosition: null
     };
   },
   computed: {
@@ -212,6 +219,9 @@ export default {
         verticalAlign: "top",
         type: color
       });
+    },
+    updateScroll() {
+      this.scrollPosition = document.getElementById("scroll-wrapper").scrollTop;
     }
   },
   components: {

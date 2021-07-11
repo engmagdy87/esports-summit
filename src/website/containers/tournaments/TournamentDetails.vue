@@ -1,10 +1,15 @@
 <template>
-  <div class="tournament-details-wrapper">
+  <div
+    class="tournament-details-wrapper"
+    @scroll="updateScroll"
+    id="scroll-wrapper"
+  >
     <Header
       activeItem="tournaments"
       :isSolidHeader="true"
       :setShowRegisterModal="setShowRegisterModal"
       :setShowLoginModal="setShowLoginModal"
+      :isColorChanged="scrollPosition > 100"
     />
     <div
       :class="[
@@ -60,7 +65,7 @@
       </div>
     </div>
     <div
-      class="tournament-details-wrapper__custom-btn-outside"
+      class="tournament-details-wrapper__custom-btn-outside is-view--desktop"
       v-if="showSponsors"
     >
       <a
@@ -123,9 +128,74 @@
         />
       </a>
     </div>
+    <div class="is-view--mobile" v-if="showSponsors">
+      <ClippedBox>
+        <div class="body-override">
+          <a
+            v-for="(sponsor, i) in tournamentDetails.sponsors.main"
+            :key="`main${i}`"
+            @click="goToSponor(sponsor.link)"
+          >
+            <img
+              :class="[
+                `tournament-details-wrapper__custom-btn-outside__sponsor ${getCssClassForSponsor(
+                  'main'
+                )}`
+              ]"
+              :src="sponsor.images.img_logo.path"
+              :alt="sponsor.name"
+            />
+          </a>
+          <div
+            class="tournament-details-wrapper__custom-btn-outside__divider"
+            v-if="
+              tournamentDetails.sponsors.main.length !== 0 &&
+                tournamentDetails.sponsors.sub.length !== 0
+            "
+          ></div>
+          <a
+            v-for="(sponsor, i) in tournamentDetails.sponsors.sub"
+            :key="`sub${i}`"
+            @click="goToSponor(sponsor.link)"
+          >
+            <img
+              :class="[
+                `tournament-details-wrapper__custom-btn-outside__sponsor ${getCssClassForSponsor(
+                  'sub'
+                )}`
+              ]"
+              :src="sponsor.images.img_logo.path"
+              :alt="sponsor.name"
+            />
+          </a>
+          <div
+            class="tournament-details-wrapper__custom-btn-outside__divider"
+            v-if="
+              tournamentDetails.sponsors.sub.length !== 0 &&
+                tournamentDetails.sponsors.extra_sub.length !== 0
+            "
+          ></div>
+          <a
+            v-for="(sponsor, i) in tournamentDetails.sponsors.extra_sub"
+            :key="`extra_sub${i}`"
+            @click="goToSponor(sponsor.link)"
+          >
+            <img
+              :class="[
+                `tournament-details-wrapper__custom-btn-outside__sponsor ${getCssClassForSponsor(
+                  'extra_sub'
+                )}`
+              ]"
+              :src="sponsor.images.img_logo.path"
+              :alt="sponsor.name"
+            />
+          </a>
+        </div>
+      </ClippedBox>
+    </div>
     <div class="tournament-details-wrapper__content" v-if="showDetailsHero">
-      <div class="container">
-        <div class="row mb-4 mb-md-0">
+      <div class="container mobile-view__container">
+        <div class="row mb-4 mb-md-0 mobile-view__row">
           <div class="col-12 d-flex align-items-center">
             <div class="tournament-details-wrapper__content__breadcrumb">
               <a
@@ -194,6 +264,7 @@ import {
   getTournamentCookie
 } from "../../helpers/CookieHelper";
 import Popup from "../../shared/Popup";
+import ClippedBox from "../../shared/ClippedBox";
 import * as POPUPS_PLACES from "../../constants/PopupsPlaces";
 
 export default {
@@ -203,7 +274,8 @@ export default {
       showRegisterModal: false,
       registerLink: "",
       tournamentShortDetails: {},
-      randomPopupData: {}
+      randomPopupData: {},
+      scrollPosition: null
     };
   },
   computed: {
@@ -229,7 +301,6 @@ export default {
       );
     },
     formatSponsorsTypes() {
-      let data = [];
       let nextData = [];
       const sponsorsData = this.tournamentDetails.sponsors;
       const types = Object.keys(sponsorsData);
@@ -310,6 +381,9 @@ export default {
         return "tournament-details-wrapper__custom-btn-outside__sponsor--sub";
       if (sponsorType === "extra_sub")
         return "tournament-details-wrapper__custom-btn-outside__sponsor--extra_sub";
+    },
+    updateScroll() {
+      this.scrollPosition = document.getElementById("scroll-wrapper").scrollTop;
     }
   },
   components: {
@@ -319,7 +393,8 @@ export default {
     RegisterModal,
     Spinner,
     TournamentTabs,
-    Popup
+    Popup,
+    ClippedBox
   },
   mounted() {
     const tournamentCookieData = getTournamentCookie();

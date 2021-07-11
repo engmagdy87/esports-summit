@@ -1,10 +1,11 @@
 <template>
-  <div class="game-details-wrapper">
+  <div class="game-details-wrapper" @scroll="updateScroll" id="scroll-wrapper">
     <Header
       activeItem="games"
       :isSolidHeader="true"
       :setShowRegisterModal="setShowRegisterModal"
       :setShowLoginModal="setShowLoginModal"
+      :isColorChanged="scrollPosition > 100"
     />
     <div class="game-details-wrapper__outside" v-if="showDetailsHero">
       <div
@@ -28,7 +29,7 @@
         </a>
         <span>{{ gameDetails.title }}</span>
       </div>
-      <div class="container">
+      <div class="container is-view--desktop">
         <div class="row">
           <div class="col-12 col-lg-3 game-details-wrapper__content__logo">
             <img
@@ -47,9 +48,28 @@
           </div>
         </div>
       </div>
-      <div class="container">
-        <div class="row game-details-wrapper__content__tournaments mb-5">
-          <div class="col">
+      <!-- ************************* -->
+      <div class="is-view--mobile">
+        <ClippedBox>
+          <div class="game-details-wrapper__content__logo">
+            <img
+              v-if="gameDetails.images.img_logo !== null"
+              :src="gameDetails.images.img_logo.path"
+              :alt="gameDetails.title"
+            />
+            <div
+              class="col description-container game-details-wrapper__content__description"
+              v-html="gameDetails.description"
+            ></div>
+          </div>
+        </ClippedBox>
+      </div>
+      <!-- ************************* -->
+      <div class="container menu-view__container">
+        <div
+          class="row menu-view__row game-details-wrapper__content__tournaments"
+        >
+          <div class="col menu-view__col">
             Tournaments
           </div>
         </div>
@@ -90,6 +110,7 @@ import MenuView from "../../components/home/MenuView";
 import LoginModal from "../../components/home/LoginModal";
 import RegisterModal from "../../components/home/RegisterModal";
 import Spinner from "../../shared/Spinner";
+import ClippedBox from "../../shared/ClippedBox";
 import redirectToNewTab from "../../helpers/RedirectToNewTab";
 import { setGameCookie, getGameCookie } from "../../helpers/CookieHelper";
 import * as POPUPS_PLACES from "../../constants/PopupsPlaces";
@@ -100,7 +121,8 @@ export default {
       showLoginModal: false,
       showRegisterModal: false,
       gameShortDetails: {},
-      randomPopupData: {}
+      randomPopupData: {},
+      scrollPosition: null
     };
   },
   computed: {
@@ -144,6 +166,9 @@ export default {
     },
     setShowRegisterModal(value = false) {
       this.showRegisterModal = value;
+    },
+    updateScroll() {
+      this.scrollPosition = document.getElementById("scroll-wrapper").scrollTop;
     }
   },
   components: {
@@ -153,7 +178,8 @@ export default {
     RegisterModal,
     Popup,
     Spinner,
-    MenuView
+    MenuView,
+    ClippedBox
   },
   mounted() {
     const gameCookieData = getGameCookie();

@@ -1,10 +1,11 @@
 <template>
-  <div class="event-details-wrapper">
+  <div class="event-details-wrapper" @scroll="updateScroll" id="scroll-wrapper">
     <Header
       :activeItem="isDisplayedInStory ? 'story' : 'giveaways'"
       :isSolidHeader="true"
       :setShowRegisterModal="setShowRegisterModal"
       :setShowLoginModal="setShowLoginModal"
+      :isColorChanged="scrollPosition > 100"
     />
     <div
       :class="[
@@ -56,7 +57,7 @@
       </div>
     </div>
     <div
-      class="event-details-wrapper__content__custom-btn-outside"
+      class="event-details-wrapper__content__custom-btn-outside is-view--desktop"
       v-if="showSponsors"
     >
       <a
@@ -119,8 +120,84 @@
         />
       </a>
     </div>
+    <div class="is-view--mobile">
+      <div class="col-12 d-flex align-items-center" style="padding:0">
+        <div class="event-details-wrapper__content__breadcrumb">
+          <a
+            v-for="(route, i) in giveawayShortDetails.tree"
+            :href="route.path"
+            :key="i"
+            >{{ route.name }} >
+          </a>
+          <span>{{ giveawayDetails.title }}</span>
+        </div>
+      </div>
+      <ClippedBox v-if="showSponsors">
+        <div class="body-override">
+          <a
+            v-for="(sponsor, i) in giveawayDetails.sponsors.main"
+            :key="`main${i}`"
+            @click="goToSponor(sponsor.link)"
+          >
+            <img
+              :class="[
+                `event-details-wrapper__content__sponsor ${getCssClassForSponsor(
+                  'main'
+                )}`
+              ]"
+              :src="sponsor.images.img_logo.path"
+              :alt="sponsor.name"
+            />
+          </a>
+          <span
+            class="event-details-wrapper__content__divider"
+            v-if="
+              giveawayDetails.sponsors.main.length !== 0 &&
+                giveawayDetails.sponsors.sub.length !== 0
+            "
+          ></span>
+          <a
+            v-for="(sponsor, i) in giveawayDetails.sponsors.sub"
+            :key="`sub${i}`"
+            @click="goToSponor(sponsor.link)"
+          >
+            <img
+              :class="[
+                `event-details-wrapper__content__sponsor ${getCssClassForSponsor(
+                  'sub'
+                )}`
+              ]"
+              :src="sponsor.images.img_logo.path"
+              :alt="sponsor.name"
+            />
+          </a>
+          <span
+            class="event-details-wrapper__content__divider"
+            v-if="
+              giveawayDetails.sponsors.sub.length !== 0 &&
+                giveawayDetails.sponsors.extra_sub.length !== 0
+            "
+          ></span>
+          <a
+            v-for="(sponsor, i) in giveawayDetails.sponsors.extra_sub"
+            :key="`extra_sub${i}`"
+            @click="goToSponor(sponsor.link)"
+          >
+            <img
+              :class="[
+                `event-details-wrapper__content__sponsor ${getCssClassForSponsor(
+                  'extra_sub'
+                )}`
+              ]"
+              :src="sponsor.images.img_logo.path"
+              :alt="sponsor.name"
+            />
+          </a>
+        </div>
+      </ClippedBox>
+    </div>
     <div class="event-details-wrapper__content" v-if="showDetailsHero">
-      <div class="row">
+      <div class="row is-view--desktop">
         <div
           class="col-12 order-2 order-md-1 col-md-8 d-flex align-items-center"
         >
@@ -151,7 +228,7 @@
         </div>
       </div>
 
-      <div class="container">
+      <div class="container is-view--desktop">
         <div class="row">
           <div class="col-12 col-md-3 event-details-wrapper__content__logo">
             <img
@@ -181,6 +258,36 @@
           </div>
         </div>
       </div>
+      <!-- ************************* -->
+      <div
+        class="is-view--mobile"
+        style="margin-top:-16px;margin-bottom:-16px;"
+      >
+        <ClippedBox>
+          <div class="event-details-wrapper__content__logo">
+            <img
+              v-if="giveawayDetails.images.img_logo !== null"
+              :src="giveawayDetails.images.img_logo.path"
+              :alt="giveawayDetails.title"
+            />
+            <div
+              class="col description-container event-details-wrapper__content__description"
+              v-html="giveawayDetails.description"
+            ></div>
+            <div class="register__custom-button-wrapper">
+              <div class="register__custom-button-wrapper__mask"></div>
+              <div
+                class="register__custom-button-wrapper__outside"
+                role="button"
+                @click="registerAction"
+              >
+                REGISTER
+              </div>
+            </div>
+          </div>
+        </ClippedBox>
+      </div>
+      <!-- ************************* -->
       <!-- <div class="container">
         <div
           class="row event-details-wrapper__content__tournaments mb-5 mb-sm-3"
@@ -214,9 +321,9 @@
       :giveawayId="giveawayDetails.id"
     />
     <Spinner :smallLoader="false" />
-    <div style="position: relative; margin-top: 100px;">
-      <Footer v-if="showDetailsHero" />
-    </div>
+
+    <Footer v-if="showDetailsHero" />
+
     <Popup
       :data="randomPopupData"
       v-if="randomPopupData !== null && this.isRandomPopupDataFetched"
@@ -233,6 +340,7 @@ import Footer from "../../shared/Footer";
 import GiveawaysMenuView from "../../components/giveaways/GiveawaysMenuView";
 import LoginModal from "../../components/home/LoginModal";
 import RegisterModal from "../../components/home/RegisterModal";
+import ClippedBox from "../../shared/ClippedBox";
 import RegisterGiveawayModal from "../../components/giveaways/RegisterGiveawayModal";
 import Spinner from "../../shared/Spinner";
 import redirectToNewTab from "../../helpers/RedirectToNewTab";
@@ -255,7 +363,8 @@ export default {
       setShowMoreTextFlag: false,
       giveawayShortDetails: {},
       randomPopupData: {},
-      isDisplayedInStory: false
+      isDisplayedInStory: false,
+      scrollPosition: null
     };
   },
   computed: {
@@ -408,6 +517,9 @@ export default {
         verticalAlign: "top",
         type: color
       });
+    },
+    updateScroll() {
+      this.scrollPosition = document.getElementById("scroll-wrapper").scrollTop;
     }
   },
   components: {
@@ -418,7 +530,8 @@ export default {
     RegisterGiveawayModal,
     Spinner,
     GiveawaysMenuView,
-    Popup
+    Popup,
+    ClippedBox
   },
   mounted() {
     this.isDisplayedInStory = this.$router.history.current.params.data.isDisplayedInStory;

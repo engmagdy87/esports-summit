@@ -1,10 +1,11 @@
 <template>
-  <div class="events-wrapper">
+  <div class="events-wrapper" @scroll="updateScroll" id="scroll-wrapper">
     <Header
       activeItem="giveaways"
       :isSolidHeader="true"
       :setShowRegisterModal="setShowRegisterModal"
       :setShowLoginModal="setShowLoginModal"
+      :isColorChanged="scrollPosition > 100"
     />
     <div
       class="events-wrapper__outside"
@@ -34,6 +35,9 @@
         :slidesToScroll="1"
         autoplay
         infinite
+        :centerMode="isThisDeviceSmart"
+        :variableWidth="isThisDeviceSmart"
+        :adaptiveHeight="isThisDeviceSmart"
       >
         <GiveawayCard
           v-for="(card, index) in getEnabledGiveaways"
@@ -51,14 +55,16 @@
         :data="getEnabledOffers"
         :sourceRoute="tree"
       />
-      <Footer
-        v-if="
-          isGiveawaysFetched &&
-            isOffersFetched &&
-            isCoverGiveawaysImageFetched &&
-            getEnabledGiveaways.length !== 0
-        "
-      />
+      <div style="position: relative; margin-top: 100px;">
+        <Footer
+          v-if="
+            isGiveawaysFetched &&
+              isOffersFetched &&
+              isCoverGiveawaysImageFetched &&
+              getEnabledGiveaways.length !== 0
+          "
+        />
+      </div>
     </div>
     <img
       v-if="
@@ -115,7 +121,8 @@ export default {
       showLoginModal: false,
       showRegisterModal: false,
       randomPopupData: {},
-      tree: [{ name: "Giveaways", path: "/giveaways" }]
+      tree: [{ name: "Giveaways", path: "/giveaways" }],
+      scrollPosition: null
     };
   },
   computed: {
@@ -164,6 +171,9 @@ export default {
     },
     setShowRegisterModal(value = false) {
       this.showRegisterModal = value;
+    },
+    updateScroll() {
+      this.scrollPosition = document.getElementById("scroll-wrapper").scrollTop;
     }
   },
   components: {
@@ -205,4 +215,10 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../assets/sass/website/containers/events.scss";
+
+.slick-slide {
+  @include is-extra-small-mobile {
+    width: 230px !important;
+  }
+}
 </style>
