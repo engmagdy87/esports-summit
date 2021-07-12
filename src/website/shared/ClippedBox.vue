@@ -112,7 +112,7 @@ $bg: rgba(0, 0, 0, 0.75);
   position: relative;
   width: 100%;
   height: fit-content;
-  padding: 0 16px;
+  padding: 0 16px 6px;
   background-color: $bg;
   border-left: $border-thickness solid $mobile-primary;
   border-right: $border-thickness solid $mobile-primary;

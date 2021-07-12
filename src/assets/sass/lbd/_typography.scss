@@ -254,6 +254,23 @@ span {
   &--limit {
     height: 200px;
   }
+
+  @media (max-width: 600px) {
+    div,
+    span,
+    span > *,
+    h1 > a,
+    h2 > a,
+    h3 > a,
+    h4 > a,
+    h5 > a,
+    h6 > a,
+    p > a,
+    span > a,
+    p {
+      font-size: 16px !important;
+    }
+  }
 }
 
 div.col.description-container.game-details-wrapper__content__description {

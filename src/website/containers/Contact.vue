@@ -184,7 +184,7 @@
     </div>
     <!-- ************************** -->
     <div class="clipped-section-tabs is-view--mobile">
-      <nav style="margin-bottom:-1px">
+      <nav>
         <div class="nav" id="nav-tab" role="tablist" style="flex-wrap: nowrap;">
           <a
             class="upper-segment-tabs active"
@@ -197,6 +197,7 @@
             <div class="clipped-section-tabs__top-right-corner" />
             CONTACT US</a
           >
+          <div class="upper-segment-tabs__mask"></div>
         </div>
       </nav>
       <div class="body-tabs">
