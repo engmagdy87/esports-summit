@@ -321,9 +321,9 @@
       :giveawayId="giveawayDetails.id"
     />
     <Spinner :smallLoader="false" />
-
-    <Footer v-if="showDetailsHero" />
-
+    <div style="position: relative; margin-top: 140px;">
+      <Footer v-if="showDetailsHero" />
+    </div>
     <Popup
       :data="randomPopupData"
       v-if="randomPopupData !== null && this.isRandomPopupDataFetched"
@@ -344,6 +344,7 @@ import ClippedBox from "../../shared/ClippedBox";
 import RegisterGiveawayModal from "../../components/giveaways/RegisterGiveawayModal";
 import Spinner from "../../shared/Spinner";
 import redirectToNewTab from "../../helpers/RedirectToNewTab";
+import isDeviceSmart from "../../helpers/DetectIsDeviceSmart";
 import { registerInGiveaway } from "../../helpers/APIsHelper";
 import {
   setGiveawayCookie,
@@ -399,7 +400,6 @@ export default {
       );
     },
     formatSponsorsTypes() {
-      let data = [];
       let nextData = [];
       const sponsorsData = this.giveawayDetails.sponsors;
       const types = Object.keys(sponsorsData);
@@ -426,6 +426,9 @@ export default {
         }
       ];
       return tree;
+    },
+    isThisDeviceSmart() {
+      return isDeviceSmart();
     }
   },
   watch: {
@@ -534,7 +537,9 @@ export default {
     ClippedBox
   },
   mounted() {
-    this.isDisplayedInStory = this.$router.history.current.params.data.isDisplayedInStory;
+    this.isDisplayedInStory =
+      this.$router.history.current.params.data &&
+      this.$router.history.current.params.data.isDisplayedInStory;
     const giveawayCookieData = getGiveawayCookie();
     if (this.$router.history.current.params.data !== undefined) {
       this.giveawayShortDetails = this.$router.history.current.params.data;

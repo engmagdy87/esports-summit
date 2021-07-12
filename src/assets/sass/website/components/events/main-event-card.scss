@@ -6,17 +6,23 @@
   position: relative;
   height: 550px;
   max-width: 310px;
-  padding-right: 10px;
+  padding: 0 5px;
   margin: 5px;
-  filter: drop-shadow(0 0 2px $mobile-primary);
+  filter: drop-shadow(0 0 4px #175e90);
   cursor: pointer;
   transition: all 0.3s ease;
+  @include is-extra-small-mobile {
+    filter: drop-shadow(0 0 2px $mobile-primary);
+  }
   &--story {
     height: 400px;
     max-width: 240px;
   }
   &:hover {
-    filter: drop-shadow(0 0 8px $mobile-primary);
+    filter: drop-shadow(0 0 8px #175e90);
+    @include is-extra-small-mobile {
+      filter: drop-shadow(0 0 8px $mobile-primary);
+    }
   }
   @include is-extra-small-mobile {
     height: 400px;
@@ -27,8 +33,11 @@
     position: relative;
     width: 100%;
     height: 100%;
-    background: $mobile-primary;
+    background: #175e90;
     @include create-hexagone-shape(12px);
+    @include is-extra-small-mobile {
+      background: $mobile-primary;
+    }
   }
 
   &__inside {

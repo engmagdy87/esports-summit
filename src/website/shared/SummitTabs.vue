@@ -277,7 +277,7 @@
     </div>
     <!-- ************************** -->
     <div class="clipped-section-tabs is-view--mobile">
-      <nav style="overflow-y: scroll; margin-bottom:-1px">
+      <nav>
         <div class="nav" id="nav-tab" role="tablist" style="flex-wrap: nowrap;">
           <a
             v-for="(tab, index) in tabs"
@@ -310,6 +310,7 @@
               REGISTER
             </div>
           </div> -->
+          <div class="upper-segment-tabs__mask"></div>
         </div>
       </nav>
       <div class="body-tabs">
@@ -353,26 +354,30 @@
                     </p>
                   </div>
                 </div>
+
                 <div class="row mt-3">
+                  <div
+                    class="col-12 col-md-6"
+                    style="padding: 0"
+                    v-if="data.videos.vid_final !== null"
+                  >
+                    <iframe
+                      width="100%"
+                      :height="getVideoHeight()"
+                      :src="
+                        getLiveVideoEmbedFormatter(data.videos.vid_final.path)
+                      "
+                      frameborder="0"
+                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    >
+                    </iframe>
+                  </div>
                   <div
                     class="summit-tab-wrapper__details__description"
                     v-html="data.final_description"
                   ></div>
                 </div>
-              </div>
-              <div
-                class="col-12 col-md-6"
-                v-if="data.videos.vid_final !== null"
-              >
-                <iframe
-                  width="100%"
-                  :height="getVideoHeight()"
-                  :src="getLiveVideoEmbedFormatter(data.videos.vid_final.path)"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                >
-                </iframe>
               </div>
             </div>
           </div>

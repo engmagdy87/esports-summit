@@ -90,7 +90,7 @@
     </div>
     <!-- ************************** -->
     <div class="clipped-section-tabs is-view--mobile">
-      <nav style="overflow-y: scroll; margin-bottom:-1px">
+      <nav>
         <div class="nav" id="nav-tab" role="tablist" style="flex-wrap: nowrap;">
           <a
             v-for="(tab, index) in tabs"
@@ -110,8 +110,9 @@
               class="clipped-section-tabs__top-right-corner"
               v-if="activeTabIndex === index"
             />
-            {{ tab }}</a
+            {{ trimText(tab, 15) }}</a
           >
+          <div class="upper-segment-tabs__mask"></div>
         </div>
       </nav>
       <div class="body-tabs">
@@ -204,7 +205,7 @@ import EventHistoryGallery from "../components/events/EventHistoryGallery";
 import ImageModal from "../shared/ImageModal";
 import redirectToNewTab from "../helpers/RedirectToNewTab";
 import isDeviceSmart from "../helpers/DetectIsDeviceSmart";
-import { changeTextDirection } from "../helpers/StringsHelper";
+import { truncateText } from "../helpers/StringsHelper";
 import { liveVideoEmbedFormatter } from "../../dashboard/helpers/LiveVideoEmbedFormater";
 
 export default {
@@ -257,6 +258,9 @@ export default {
       if (!isDeviceSmart() && path.includes("facebook")) return 450;
       if (isDeviceSmart() && !path.includes("facebook")) return 200;
       if (!isDeviceSmart() && !path.includes("facebook")) return 350;
+    },
+    trimText(text, length) {
+      return truncateText(text, length);
     }
   },
   mounted() {

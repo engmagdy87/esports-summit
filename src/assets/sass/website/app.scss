@@ -115,3 +115,10 @@ input[type="date"].form-control.registeration-style {
     background-color: $primary !important;
   }
 }
+
+.slick-slide {
+  text-align: center;
+  @include is-extra-small-mobile {
+    text-align: unset;
+  }
+}

@@ -482,7 +482,9 @@ export default {
     ClippedBox
   },
   mounted() {
-    this.isDisplayedInStory = this.$router.history.current.params.data.isDisplayedInStory;
+    this.isDisplayedInStory =
+      this.$router.history.current.params.data &&
+      this.$router.history.current.params.data.isDisplayedInStory;
     const eventCookieData = getEventCookie();
     if (this.$router.history.current.params.data !== undefined) {
       this.eventShortDetails = this.$router.history.current.params.data;

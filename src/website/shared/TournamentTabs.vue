@@ -212,7 +212,7 @@
     </div>
     <!-- ************************** -->
     <div class="clipped-section-tabs is-view--mobile">
-      <nav style="overflow-y: scroll; margin-bottom:-1px">
+      <nav>
         <div class="nav" id="nav-tab" role="tablist" style="flex-wrap: nowrap;">
           <a
             v-for="(tab, index) in tabs"
@@ -245,6 +245,7 @@
               REGISTER
             </div>
           </div> -->
+          <div class="upper-segment-tabs__mask"></div>
         </div>
       </nav>
       <div class="body-tabs">
