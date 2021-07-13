@@ -105,7 +105,8 @@ $card-title-height: 50px;
       top: 35%;
     }
     @include is-extra-small-mobile {
-      top: 30%;
+      top: 46.5%;
+      height: fit-content;
     }
   }
   &__arrow {
