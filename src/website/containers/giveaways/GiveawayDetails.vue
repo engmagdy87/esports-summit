@@ -197,7 +197,7 @@
       </ClippedBox>
     </div>
     <div class="event-details-wrapper__content" v-if="showDetailsHero">
-      <div class="row is-view--desktop">
+      <div class="row is-view--flex-desktop">
         <div
           class="col-12 order-2 order-md-1 col-md-8 d-flex align-items-center"
         >

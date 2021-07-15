@@ -328,6 +328,12 @@
       display: none;
     }
   }
+  &--flex-desktop {
+    display: flex;
+    @include is-extra-small-mobile {
+      display: none;
+    }
+  }
 }
 
 .body-override {
