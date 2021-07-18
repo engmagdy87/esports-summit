@@ -36,7 +36,7 @@
         :arrows="true"
         :slidesToShow="isThisDeviceSmart ? 1 : 4"
         :slidesToScroll="1"
-        :autoplay="false"
+        autoplay
         infinite
         :centerMode="isThisDeviceSmart"
         :variableWidth="isThisDeviceSmart"

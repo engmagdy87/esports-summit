@@ -32,7 +32,7 @@
     </div>
     <div class="home-wrapper__content" id="home">
       <!--**************************** COMING SOON SUMMIT ****************************-->
-      <!-- <div class="home-wrapper__ready-section">
+      <div class="home-wrapper__ready-section">
         <img src="/website/img/home/get_ready.png" alt="get ready" />
         <video
           controls
@@ -53,10 +53,10 @@
           class="home-wrapper__battles"
           src="/website/img/home/20_games-words.png"
           alt="battles"
-        />        
-      </div> -->
+        />
+      </div>
       <!-- ************************************************************************** -->
-      <div
+      <!-- <div
         v-if="
           isGamesDataFetched &&
             isTournamentsDataFetched &&
@@ -112,7 +112,7 @@
           :tree="tree"
           v-else
         />
-      </div>
+      </div> -->
 
       <!-- <div
         class="row"
